@@ -1,0 +1,541 @@
+::selection
+{
+	background-color: #967ADC;
+	color: #FFF;
+}
+
+::-moz-selection
+{
+	background-color: #967ADC;
+	color: #FFF;
+}
+
+body 
+{
+	font-family: Helvitica, sans-serif;
+	font-size: 15px;
+	color: #555;
+}
+
+h1,h2,h3,h4,h5,h6
+{
+   	font-family: 'Droid Arabic Kufi',tahoma,sans-serif !important;
+    font-weight: lighter !important;
+}
+
+body > section
+{
+	margin-top: 60px;
+}
+
+/*-------------- header -------------*/
+.navbar
+{
+	border-bottom: 1px solid #DDD;	
+}
+
+.navbar-scrolled
+{
+	border-bottom: none;
+	box-shadow: 		0px 1px 5px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 0px 1px 5px rgba(0,0,0,0.3);
+	-moz-box-shadow: 	0px 1px 5px rgba(0,0,0,0.3);
+	-o-box-shadow: 		0px 1px 5px rgba(0,0,0,0.3);	
+}
+
+.navbar .navbar-brand
+{
+    font-size: 20px;
+    height: 100%;
+    text-align: center;
+    line-height: normal;
+    padding-top: 17px;
+    padding-bottom: 16px;
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+.navbar .navbar-nav > li > a
+{
+	padding-top: 20px;
+	padding-bottom: 20px;
+	transition: all .2s ease;
+	-webkit-transition: all .2s ease;
+	-moz-transition: all .2s ease;
+	-o-transition: all .2s ease;
+}
+
+.navbar .navbar-nav > li > a:hover
+{
+	background-color: #8CC152;
+	color: #FFF;
+}
+
+.navbar .navbar-nav .dropdown-toggle
+{
+	padding-top: 13px;
+    padding-bottom: 12px;
+}
+
+/*------------ default navbar ------------*/
+
+.navbar-default
+{
+	background-color: #FFF;
+}
+
+.navbar-inverse .navbar-brand
+{
+	color: #101010;
+}
+
+.navbar-default .navbar-nav > li > a
+{
+	color: #337ab7;
+}
+
+.navbar-default .navbar-nav > li > a:hover
+{
+	background-color: #8CC152;
+	color: #FFF;
+}
+
+/*------------ default inverse ------------*/
+
+.navbar-inverse
+{
+	background-color: #434A54;
+}
+
+.navbar-inverse .navbar-brand
+{
+	color: #FFF;
+}
+
+.navbar-inverse .navbar-nav > li > a
+{
+	color: #EEE;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover
+{
+	background-color: #8CC152;
+	color: #FFF;
+}
+
+/*----------------------- Grid -------------------------/
+/* Extra Small Devices, Phones (xs) */
+@media (max-width : 480px) 
+{	
+	.text-xs-center
+	{
+		text-align: center;
+	}
+
+	.text-xs-right
+	{
+		text-align: right;
+	}
+
+	.text-xs-left
+	{
+		text-align: left;
+	}
+}
+
+/* Small Devices, Tablets (sm) */
+@media (max-width : 768px)
+{
+	.text-sm-center
+	{
+		text-align: center;
+	}
+
+	.text-sm-right
+	{
+		text-align: right;
+	}
+
+	.text-sm-left
+	{
+		text-align: left;
+	}
+}
+
+/* Medium Devices, Desktops (md) */
+@media (max-width : 992px)
+{
+	.text-md-center
+	{
+		text-align: center;
+	}
+
+	.text-md-right
+	{
+		text-align: right;
+	}
+
+	.text-md-left
+	{
+		text-align: left;
+	}
+
+}
+
+
+
+/* Large Devices, Wide Screens (lg) */
+@media (max-width : 1200px)
+{
+
+}
+
+
+
+/*------------ end header -----------*/
+
+/*------------ jumbotron -----------*/
+
+.jumbotron
+{
+	background-color: rgba(0,0,0,0.6);
+	height: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+
+.jumbotron-background
+{
+	background: url("../img/pexels-3.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	background-position: center center;
+	/*height: 600px;*/
+	width: 100%;
+}
+
+.jumbotron-background h1
+{
+	font-family: 'Droid Arabic Kufi',sans-serif;
+	font-weight: lighter;
+	color: #FFF !important;
+	text-shadow: 0px 2px 13px rgba(0,0,0,0.7);
+	line-height: 100px;
+}
+
+.jumbotron .container
+{
+	padding-top: 100px;
+	line-height: 200px;
+}
+
+
+/*------------ end jumbotron -----------*/
+
+/*------------ special btn -----------*/
+
+.btn-special
+{
+	font-family: 'Droid Arabic Kufi',sans-serif;
+	font-weight: lighter;
+	color: #FFF;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+	border-radius: 3px;
+}
+
+.btn-special:hover
+{
+	color: #FFF;
+	text-shadow: 0px 0px 2px rgba(0,0,0,0.3);
+}
+
+.btn-special:active
+{
+	color: #FFF;
+}
+
+.btn-special:focus
+{
+	color: #FFF;
+}
+
+.btn-special-success
+{
+	color: #A0D468;
+	border: 2px solid #8CC152;
+}
+
+.btn-special-success:hover
+{
+	background-color: #8CC152;
+}
+
+.btn-special-primary
+{
+	color: #3BAFDA;
+	border: 2px solid #3BAFDA;
+}
+
+.btn-special-primary:hover
+{
+	background-color: #3BAFDA;
+}
+
+.btn-special-danger
+{
+	color: #DA4453;
+	border: 2px solid #DA4453;
+}
+
+.btn-special-danger:hover
+{
+	background-color: #DA4453;
+}
+
+.btn-special-warning
+{
+	color: #F6BB42;
+	border: 2px solid #F6BB42;
+}
+
+.btn-special-warning:hover
+{
+	background-color: #F6BB42;
+}
+
+/*--------------- footer ----------------*/
+footer
+{
+	background-color: #FFF;
+	border-top: 1px solid #EEE;
+	padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/*------------- steps box ---------------*/
+
+.steps-box
+{
+	padding-top: 60px;
+    padding-bottom: 100px;
+}
+
+.analytics-box
+{
+	background: url('../img/pexels-1.jpg') no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	font-size: 50px;
+	font-weight: lighter;
+	color: #FFF;
+	min-height: 200px;
+	line-height: 200px;
+}
+
+.analytics-box > .row
+{
+	background-color: rgba(0,0,0,0.6);
+}
+
+/*--------------- 404-box -------------------*/
+.box-404
+{
+	padding: 10px;
+	text-align: center;
+	margin: 100px auto 200px auto;
+}
+
+.box-404 span
+{
+	font-size: 100px;
+	font-weight: lighter;
+}
+
+/*---------------------------------------*/
+
+.cnotainer
+{
+	/*width: 1024px;*/
+}
+.profile-img
+{
+	width: 150px;
+	height: 150px;
+
+}
+.box-profile-img
+{
+	width: 150px;
+	height: 150px;
+	position: relative;
+}
+.box-profile-img .pencil
+{
+    padding: 6px;
+    color: #333;
+    text-shadow: 0px 0px 4px #fff;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+.box-profile-img span
+{
+    background: #000;
+    color: #fff;
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    display: none;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    opacity: 0.8;
+    z-index: 1;
+}
+.box-profile-img input[type=file]
+{
+    background: #ccc;
+    font-size: 0px;
+    color: #fff;
+    width: 100%;
+    height: 40px;
+    padding: 0px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    opacity: 0;
+    z-index: 2;
+    cursor: pointer;
+}
+.box-profile-img .progressBox
+{
+	font-family: arial,tahoma;
+	font-size: 50px;
+	color: #37BC9B;
+	background: #fff;
+	text-align: center;
+	padding: 40px 5px;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	opacity: 0.9;
+	z-index: 3;
+	display: none;
+}
+
+/*=================== box to upload =======================*/
+
+.upload
+{
+	text-align: center;
+	width: 200px;
+	height: 80px;
+	position: relative;
+
+}
+.upload img
+{
+	z-index: 1;
+}
+.upload input
+{
+	font-size: 0px;
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	z-index: 3;
+}
+.upload span
+{
+    color: #FFF;
+    font-size: 20px;
+    background: #222;
+    display: none;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.8;
+    z-index: 2;
+}
+.upload:hover span
+{
+	display: block;
+}
+/*==========================================*/
+
+.site-logo-img
+{
+	padding-top: 7px !important;
+    padding-bottom: 7px !important;
+}
+.site-logo-img img
+{
+	width: auto;
+	height: 45px;
+} 
+
+/*======== Box of links ======================================*/
+
+.boxLink
+{
+    padding: 10px 10px 2px 5px;
+    margin: 10px 0px;
+    background: #eee;
+    position: relative;
+}
+.boxLink b
+{
+	color: #434A54;
+}
+.boxLink hr
+{
+	color: #ccc;
+	background: #ccc;
+	height: 1px;
+}
+.boxLink .info
+{
+	padding: 10px 0px;
+}
+.boxLink .action
+{
+	padding: 10px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/*============================================================*/
+#title
+{
+	position: relative;
+}
+
+#title #searchBox
+{
+	padding-top: 10px;
+	width: 50%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.huge {
+    font-size: 40px;
+    font-weight: lighter;
+}
+/*============================================================*/
+

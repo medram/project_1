@@ -1,0 +1,9 @@
+# Tell PHP that the mod_rewrite module is ENABLED.
+#SetEnv HTTP_MOD_REWRITE On
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ %FOLDER%index.php/$1 [L]
+
+Options -Indexes

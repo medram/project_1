@@ -1,0 +1,27 @@
+body
+{
+	background-color: #F5F5F5;
+}
+
+body > section 
+{
+	margin-top: 0;
+}
+
+.navbar-default
+{
+    border-bottom: 1px solid #ddd;
+    box-shadow: none;
+}
+
+.section-box
+{
+	background: #FFF;
+	border-radius: 5px;
+	margin-top: 10px;
+	box-shadow: 		1px 1px 7px 0px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 1px 1px 7px 0px rgba(0,0,0,0.3);
+	-moz-box-shadow: 	1px 1px 7px 0px rgba(0,0,0,0.3);
+	-o-box-shadow: 		1px 1px 7px 0px rgba(0,0,0,0.3);
+}
+
