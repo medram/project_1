@@ -49,8 +49,8 @@ body > section
     height: 100%;
     text-align: center;
     line-height: normal;
-    padding-top: 17px;
-    padding-bottom: 16px;
+    padding-top: 15px;
+    padding-bottom: 18px;
     padding-left: 35px;
     padding-right: 35px;
 }
@@ -491,25 +491,42 @@ footer
 
 .boxLink
 {
-    padding: 10px 10px 2px 5px;
+    padding-top: 5px;
     margin: 10px 0px;
-    background: #eee;
+    background: #F5F5F5;
     position: relative;
+    border: 1px solid #DDD;
+    border-radius: 3px;
 }
-.boxLink b
+.boxLink h4
 {
-	color: #434A54;
 }
-.boxLink hr
+
+.boxLink a:hover
 {
-	color: #ccc;
-	background: #ccc;
-	height: 1px;
+	color: #555;
+	/*text-decoration: none !important;*/
 }
+
 .boxLink .info
 {
 	padding: 10px 0px;
 }
+
+.boxLink .info ul
+{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.boxLink .info ul li
+{
+	float: right;
+	margin-left: 15px;
+	cursor: help;
+}
+
 .boxLink .action
 {
 	padding: 10px;
@@ -539,3 +556,7 @@ footer
 }
 /*============================================================*/
 
+.clear
+{
+	clear: both;
+}

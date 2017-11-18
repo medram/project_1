@@ -784,6 +784,7 @@ class Adminpanel extends MY_controller
 				$a['fakeUsers'] 			= trim(abs(intval($this->input->post('fakeUsers',TRUE))));
 				$a['fakeLinks'] 			= trim(abs(intval($this->input->post('fakeLinks',TRUE))));
 				$a['bad_urls'] 				= trim(strip_tags($this->input->post('bad_urls',TRUE)));
+				$a['packages_domains'] 		= trim(strip_tags($this->input->post('packages_domains',TRUE)));
 				$a['admin_pub'] 			= strip_tags($this->input->post('pub',TRUE));
 				$a['admin_channel'] 		= trim(intval($this->input->post('channel',TRUE)));
 				$a['countdown'] 			= trim(abs(intval($this->input->post('countdown',TRUE))));

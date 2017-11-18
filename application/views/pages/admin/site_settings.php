@@ -453,7 +453,7 @@
 								<small><i>if you have a lot of URLs, put each URL on one line.</i></small>
 							</td>
 							<td>
-								<textarea name="bad_urls" class="form-control" rows="10" placeholder="http://www.exemple.com" ><?php echo get_config_item('bad_urls'); ?></textarea>
+								<textarea name="bad_urls" class="form-control" rows="5" placeholder="http://www.exemple.com" ><?php echo get_config_item('bad_urls'); ?></textarea>
 							</td>
 						</tr>
 						<tr>
@@ -500,6 +500,16 @@
 									<?php if (get_config_item('just_show_users_ads') == 1){echo "checked";} ?> > 
 									<span>Enable this mode</span>
 								</label>
+							</td>
+						</tr>
+						<tr>
+							<td width='40%'>
+								<label>packages domains: </label><br>
+								<small><i>we will use this domians on the sorted links.</i></small><br>
+								<small><i><b>NOTE:</b> the links order is important.</i></small>
+							</td>
+							<td>
+								<textarea name="packages_domains" class="form-control" rows="5" placeholder="example.com OR www.example.com" ><?php echo get_config_item('packages_domains'); ?></textarea>
 							</td>
 						</tr>
 						<tr>

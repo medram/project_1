@@ -388,6 +388,7 @@ class Account extends MY_controller
 			$title 		= trim(strip_tags($this->input->post('title',TRUE)));
 			$url 		= trim(strip_tags($this->input->post('url',TRUE)));
 			$type 		= abs(intval($this->input->post('type',TRUE)));
+			$domain		= intval($this->input->post('domain', TRUE));
 
 			$newLinks = '';
 			$ex  = explode("\n",$url);
@@ -426,12 +427,14 @@ class Account extends MY_controller
 				else
 				{
 					$slug = get_slug();
-					$newLinks = base_url().'go/'.$slug;
+					//$newLinks = base_url().'go/'.$slug;
+					$newLinks = get_domains($domain).'go/'.$slug;
 
 					$d['user_id'] 	= $this->data['userdata']['id'];
 					$d['title'] 		= $title;
 					$d['url'] 			= encode($url);
 					$d['slug'] 			= $slug;
+					$d['domain']		= $domain;
 					$d['status'] 		= 1;
 					$d['modified'] 		= time();
 					$d['created'] 		= time();
@@ -525,12 +528,14 @@ class Account extends MY_controller
 						foreach ($url as $link)
 						{
 							$slug = get_slug();
-							$newLinks[] = base_url().'go/'.$slug;
+							//$newLinks[] = base_url().'go/'.$slug;
+							$newLinks[] = get_domains($domain).'go/'.$slug;
 
 							$d['user_id'] 	= $this->data['userdata']['id'];
 							$d['title'] 		= $title;
 							$d['url'] 			= encode($link);
 							$d['slug'] 			= $slug;
+							$d['domain']		= $domain;
 							$d['status'] 		= 1;
 							$d['modified'] 		= time();
 							$d['created'] 		= time();

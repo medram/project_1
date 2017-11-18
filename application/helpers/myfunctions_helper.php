@@ -33,6 +33,29 @@ function is_url ($url)
     return (boolean) preg_match($pattren,$url);
 }
 
+function get_domains($index = 0)
+{
+    $domains = explode("\r\n", get_config_item('packages_domains'));
+    $default_url = base_url();
+
+    /*
+    echo '<pre>';
+    print_r($domains);
+    echo '</pre>';
+    */
+
+    if ($domains[0] == '')
+    {
+        return $default_url;
+    }
+    else if (isset($domains[$index]))
+    {
+        return preg_replace("/^(https|http)?:\/\/([a-zA-Z0-9-.]+)\/(.*)\//", "http://".$domains[$index]."/$3/", $default_url);
+    }
+    else
+        return 'http://'.$domains[0].'/';
+}
+
 function encode($url, $url_safe = false) {
     return $url;
 /*    global $CI;

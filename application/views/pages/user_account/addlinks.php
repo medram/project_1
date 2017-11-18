@@ -1,3 +1,5 @@
+<?php $domains = explode("\r\n", get_config_item('packages_domains')); ?>
+
 <!-- recaptcha script -->
 <!--<script src='https://www.google.com/recaptcha/api.js?hl=ar'></script>-->
 <script src="https://www.google.com/recaptcha/api.js?hl=ar&onload=myCallBack&render=explicit" async defer></script>
@@ -44,7 +46,7 @@
 					</li>
 				</ul>
 
-				<!--=================== form to add a one link =======================================-->
+				<!--=================== form to add a one link =========================-->
 				<div id="myTabContent" class="tab-content">
 					<div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
 						<br><br>
@@ -57,6 +59,27 @@
 								<label>رابط الموقع المراد اختصاره :</label>
 								<input type='text' dir='ltr' name='url' class='form-control' placeholder='http://www.example.com/blablabla...' >
 							</div>
+							<?php
+							
+							if (count($domains) >= 2)
+							{
+								// show the select option to select a domain
+							?>
+								<div class='form-group'>
+									<label>الدومين المفظل :</label>
+									<select name='domain' class='form-control'>
+										<?php
+										for ($i = 0; $i < count($domains); $i++)
+										{
+											echo "<option value='".$i."'>".$domains[$i]."</option>";
+										}
+										?>
+									</select>
+								</div>
+							<?php
+							}
+							?>
+
 							<?php
 							if (get_config_item('recaptcha_status') == 1)
 							{
@@ -76,7 +99,7 @@
 						</form>
 					</div>
 
-					<!--=========================== form to add a lot of links ===============================-->
+					<!--================ form to add a lot of links ======================-->
 
 					<div role="tabpanel" class="tab-pane fade" id="addLinks" aria-labelledby="addLinks-tab">
 						<br><br>
@@ -89,6 +112,27 @@
 								<label>روابط المواقع المراد اختصارها :</label>
 								<textarea dir='ltr' name='url' rows='7' class='form-control' placeholder='http://www.example.com/blablabla...' ></textarea>
 							</div>
+							<?php
+							
+							if (count($domains) >= 2)
+							{
+								// show the select option to select a domain
+							?>
+								<div class='form-group'>
+									<label>الدومين المفظل :</label>
+									<select name='domain' class='form-control'>
+										<?php
+										for ($i = 0; $i < count($domains); $i++)
+										{
+											echo "<option value='".$i."'>".$domains[$i]."</option>";
+										}
+										?>
+									</select>
+								</div>
+							<?php
+							}
+							?>
+
 							<?php
 							if (get_config_item('recaptcha_status') == 1)
 							{

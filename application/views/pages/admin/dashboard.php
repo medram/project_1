@@ -323,7 +323,7 @@
                     <thead>
                         <td style="vertical-align: middle;"><b>#id</b></td>
                         <td colspan='2'><b>info</b></td>
-                        <td><b>Confirmed ?</b></td>
+                        <td><b>register time</b></td>
                     </thead>
                     <?php
                     foreach ($lastUsers as $row)
@@ -334,18 +334,21 @@
                                 <img src='".get_profile_img($row['user_token'])."' class='pro-img img-circle ' width='35px' height='35px' >
                             </td>";
                             echo "<td>
-                                <b>".$row['username']."</b><br>
-                                <small>".$row['email']."</small>
-                                </td>";
-                            echo "<td style='vertical-align: middle;'>";
+                                <b>".$row['username']."</b>
+                                ";
                                 if ($row['user_verified'] == 1)
                                 {
-                                    echo "<i style='color: #8CC152;' class='fa fa-2x fa-check'></i>";
+                                    echo "<i style='color: #8CC152;' class='fa fa-check fa-fw' title='account activated'></i>";
                                 }
                                 else
                                 {
-                                    echo "<i style='color: #DA4453;'>Not yet</i>"; 
+                                    echo "<i style='color: #DA4453;' class='fa fa-times fa-fw' title='account not activated'></i>"; 
                                 }
+                            echo "<br>
+                                <small>".$row['email']."</small>
+                                </td>";
+                            echo "<td style='vertical-align: middle;'>";
+                            echo date(config_item('time_format'), $row['user_joined']);
                             echo "</td>";
                         echo "</tr>";
                     }
