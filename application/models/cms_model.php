@@ -406,24 +406,23 @@ class cms_model extends MY_model
 
                     $t = base_url($page)."/repass?t=".$code;
                     
-                    $msg = "<div style='padding: 5px 10px;'><b>مرحبا ".$row['username']."</b><br><br>
-                        يمكنك استعادة حسابك عن طريق إعادة تعيين كلمة المرور الخاصة بك ، من خلال الرابط التالي :<br>
-                        <div style='text-align: center; display: block; padding: 40px;'>
-                        <a href='".$t."' style='text-decoration: none; text-shadow: 0px 0px 5px #000;'>
-                        <span style='
-                            font-size: 15px;
-                            color: #fff;
-                            background: ".color().";
-                            border-radius: 5px;
-                            padding: 20px;
-                            margin: 10px;
-                            text-shadow: 0px 0px 5px #000;
-                            '>استعادة</span></a>
-                        </div>
-                        <br><br><b>ملاحضة</b> : هذا الرابط صالح لمدة ".get_config_item('restoration_time_account')." ساعة فقط بعد إرسال هذه الرسالة لك.
-                        </div>";
+                    $msg_path = "forget_password";
 
-                    if (sendEmail($to,$subject,$msg))
+                    $consts = array(
+                            'URL_TIMEOUT' => get_config_item('restoration_time_account'),
+                            'REST_PASSWORD_URL' => $t,
+                            'USERNAME' => $row['username']
+                        );
+
+                    $template = email_tpls_load_and_replace($msg_path, $consts, TRUE);
+
+                    /*
+                    echo "<pre dir='ltr'>";
+                    echo htmlspecialchars($template);
+                    echo '</pre>';
+                    */
+
+                    if (sendEmail($to,$subject,$template))
                     {
                         $ok = "لقد تم الإرسال رسالة إلى بريدك الإلكتروني لاستعادة حسابك.";
                         $ok .= "

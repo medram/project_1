@@ -240,6 +240,30 @@ class Adminpanel extends MY_controller
 		$s_online = $this->cms_model->select('online');
 		$this->data['online'] = $s_online->num_rows();
 
+		/*========================= get packages domains info ===========================*/
+		
+		$domains = explode("\r\n", get_config_item('packages_domains'));
+		$domains_info = array();
+
+		if (isset($domains[0]) && $domains[0] != '')
+		{		
+			for ($i = 0; $i < count($domains); $i++)
+			{
+				$q = $this->cms_model->select('links', array('domain' => $i));
+				$num = $q->num_rows();
+				$domains_info[] = array('label' => $domains[$i], 'value' => $num);
+				$q->free_result();
+			}
+		}
+		else
+		{
+			$q = $this->cms_model->select('links');
+			$num = $q->num_rows();
+			$domains_info[] = array('label' => 'local domain', 'value' => $num);
+			$q->free_result();
+		}
+
+		$this->data['domains_info'] = json_encode($domains_info);
 		/*==============================================================*/
 
 		$s_users->free_result();

@@ -349,7 +349,7 @@
 					<br><br>
 					<table class='table table-striped'>
 						<tr>
-							<td><label>Email method :</label></td>
+							<td width='30%'><label>Email method :</label></td>
 							<td>
 								<select name="email_method" class="form-control">
 									<option value="mail" 
@@ -403,6 +403,15 @@
 									<option value="ssl" 
 									<?php if (get_config_item('mail_encription') == 'ssl'){echo "selected";} ?> >ssl</option>
 								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><label>emails templates :</label></td>
+							<td>
+								you can costum or change the emails templates<br>
+								- for <b>account activation email (registration)</b> you can update this template 
+								<code>application\views\email_tpls\activation.html</code><br>
+								- for <b>forget password</b> : <code>application\views\email_tpls\forget_password.html</code><br>
 							</td>
 						</tr>
 						<tr>

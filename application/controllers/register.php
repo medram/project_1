@@ -79,29 +79,23 @@ class Register extends MY_Controller
 
 					$to = $email;
 					$sub = "تفعيل حسابك على ".config_item('sitename');
-					$msg = "
-					<div>
-						مرحبا <b>".$username."</b><br>
-						يسرنا تسجيلك بالموقع ".config_item('sitename')."،<br>
-						عليك تفعيل حسابك قبل أن تتمكن من استخدامه :<br><br>
-                        <div style='text-align: center; display: block; padding: 40px;'>
-                        <a href='".$t."' style='text-decoration: none; text-shadow: 0px 0px 5px #000;'>
-                        <span style='
-                            font-size: 15px;
-                            color: #fff;
-                            background: ".color().";
-                            border-radius: 5px;
-                            padding: 20px;
-                            margin: 10px;
-                            text-shadow: 0px 0px 5px #000;
-                            '>تفعيل</span></a>
-                        </div>
-						<br>
-						<p><b>ملاحضة</b> : إذا واجهتك مشكلة أثناء تفعيل حسابك ، يمكنك التواصل معنا عن طريق الرد على هذه الرسالة أو من خلال الموقع <a href='".base_url()."'>".config_item('sitename')."</a></p>
-					</div>
-					";
+					$tpl_path = "activation"; // include template here and replace all constants
 
-					if (sendEmail($to,$sub,$msg))
+					$const = array(
+							"TITLE" => $sub,
+							"USERNAME" => $username,
+							"ACTIVATION_URL" => $t
+						);
+
+					$tpl = email_tpls_load_and_replace($tpl_path, $const, TRUE);
+
+					/*
+					echo "<pre dir='ltr'>";
+					echo htmlspecialchars($tpl);
+					echo '</pre>';
+					*/
+
+					if (sendEmail($to, $sub, $tpl))
 					{
 						$ok = "تم التسجيل بنجاح، لقد تم إرسال رسالة إلى بريدك الإلكتروني لتفعيل حسابك.";
 					}

@@ -158,60 +158,43 @@ function get_ad ($type='',$in_account=FALSE)
     }
 }
 
+function get_email_tpl($path)
+{
+    return file_get_contents(APPPATH."/views/email_tpls/".$path.".html");
+}
+
+function email_tpls_load_and_replace($tpl_path, $consts, $load_header_footer = FALSE)
+{
+    $template = '';
+    $default_consts = array(
+            "SITE_NAME" => config_item('sitename'),
+            "SITE_URL" => base_url(),
+            "CONTACT_URL" => base_url('p/contact')
+        );
+
+    if (is_array($consts))
+        $default_consts = array_merge($default_consts, $consts);
+
+    if ($load_header_footer)
+    {
+        $template .= get_email_tpl('header');
+        $template .= get_email_tpl($tpl_path);
+        $template .= get_email_tpl('footer');
+    }
+    else
+        $template .= get_email_tpl($tpl_path);
+
+    foreach ($default_consts as $k => $v)
+    {
+        $template = str_replace("{".$k."}", $v, $template);
+    }
+
+    return $template;
+}
+
 function sendEmail($to, $subject, $msg, $from=array(), $priority=3, $mailtype='html')
 {
     global $CI;
-    $color = color();
-
-    if ($mailtype == 'html'){
-        $header = "
-        <div dir ='rtl' style='
-            font-family: tahoma,arial;
-            font-size: 13px;
-            background: #f9f9f9;
-        '>
-
-        <div style='
-            background: ".$color.";
-            color: #fff;
-            font-size: 50px;
-            height: 70px;
-            border-bottom: 1px solid #eee;
-            padding: 10px 5px;
-            margin-bottom: 20px;
-
-        '>
-            ".get_logo()."
-        </div>
-        <!-- open div content -->
-        <div style='padding: 5px 10px;'>
-        ";
-
-        $footer = "
-            <br>--------------------------------------------------<br>
-            للإستفسار يمكنكم التواصل معنا عبر الموقع ".base_url()."
-        </div><!-- close div content -->
-        <div style='
-            color: #fff;
-            border-top: 1px solid #eee;
-            padding: 10px 5px;
-            margin-top: 20px;
-            background: ".$color.";
-        '>
-            <copy>&copy; ".config_item('sitename')."</copy>
-        </div>
-        </div>
-        ";
-    }
-    else
-    {
-        $header = '';
-        $footer = "\n--------------------------------------------------\nللإستفسار يمكنكم التواصل معنا عبر الموقع ".base_url();
-    }
-
-    $message = $header;
-    $message .= $msg;
-    $message .= $footer;
 
     if (get_config_item('email_method') == 'smtp')
     {
@@ -221,11 +204,11 @@ function sendEmail($to, $subject, $msg, $from=array(), $priority=3, $mailtype='h
         $c['smtp_user']     = get_config_item('SMTP_User');
         $c['smtp_pass']     = get_config_item('SMTP_Pass');
         $c['smtp_crypto']   = get_config_item('mail_encription'); // tls or ssl
+        $c['smtp_timeout']  = 10;
     }
 
     $c['mailtype'] = $mailtype;
     $c['priority'] = $priority; // from 1 to 5 , 3 is normal
-    $c['smtp_timeout']  = 10;
     //$c['newline'] = '\r\n';
 
     $CI->load->library('email',$c);
@@ -242,9 +225,11 @@ function sendEmail($to, $subject, $msg, $from=array(), $priority=3, $mailtype='h
 
     $CI->email->to($to);
     $CI->email->subject($subject);
-    $CI->email->message($message);
+    $CI->email->message($msg);
 
-    return @$CI->email->send();
+    //return $CI->email->send();
+
+    return mail($to, $subject, $msg);
 }
 
 

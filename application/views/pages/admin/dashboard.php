@@ -1,10 +1,17 @@
 <link type='text/css' rel='stylesheet' href='<?php echo base_url(); ?>js/morris/morris.css' >
 <script type='text/javascript' src='<?php echo base_url(); ?>js/morris/raphael-min.js'></script>
 <script type='text/javascript' src='<?php echo base_url(); ?>js/morris/morris.min.js'></script>
-
 <script type='text/javascript'>
     $(document).ready(function (){
 
+        Morris.Donut({
+            element: 'graph-bar',
+            data: <?php echo $domains_info; ?>,
+            resize: true,
+            colors: ["#967ADC","#DA4453","#F6BB42","#8CC152",'#3BAFDA','#8CC152',"#434A54",'#37BC9B'],
+        });
+
+        /*--------------- graph1 ---------------*/
         Morris.Line({
             element: 'graph1',
             behaveLikeLine: false,
@@ -257,6 +264,21 @@
             </div>
             <div class="panel-body">
                 <div id="graph1"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Graph -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-globe fa-fw"></i> packages domains</h3>
+            </div>
+            <div class="panel-body">
+                <div id="graph-bar"></div>
             </div>
         </div>
     </div>
