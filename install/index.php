@@ -362,7 +362,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 								echo "
 								<div class='row text-center'>
 									<div class='col-lg-12'>
-										<a class='btn btn-warning' href='".$base_url."adminpanel' target='_blank'>Go to the Admin area</a>
+										<a class='btn btn-warning' href='".$base_url."adminpanel'>Go to the Admin area</a>
 									</div>
 								</div>";
 							}
