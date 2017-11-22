@@ -38,6 +38,13 @@
 
 //date_default_timezone_set("Etc/GMT+0");
 
+/*----------- check the installation script ----------*/
+
+if (is_dir('./install/'))
+{
+	die('you should to delete or rename the "install" folder!');
+}
+
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
