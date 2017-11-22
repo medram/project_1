@@ -1,3 +1,11 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+
+{BR}
+
+SET time_zone = "+00:00";
+
+{BR}
+
 CREATE TABLE `{DBP}contact` (
   `id` int(255) NOT NULL,
   `title` text COLLATE utf8_unicode_ci NOT NULL,
@@ -12,10 +20,11 @@ CREATE TABLE `{DBP}contact` (
 
 CREATE TABLE `{DBP}links` (
   `id` int(255) NOT NULL,
-  `user_token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` int(255) NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `url` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `url` text COLLATE utf8_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `domain` int(11) NOT NULL,
   `status` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `views` int(255) NOT NULL,
   `admin_views` int(255) NOT NULL,
@@ -69,9 +78,9 @@ CREATE TABLE `{DBP}settings` (
 {BR}
 
 INSERT INTO `{DBP}settings` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES
-(1, 'sitename', '', 'yes'),
+(1, 'sitename', 'Shorter', 'yes'),
 (2, 'siteurl', '', 'yes'),
-(3, 'version', '1.0.0', 'yes'),
+(3, 'version', '1.1.0', 'yes'),
 (4, 'powredby', 'MOHAMMED RAMOUCHY', 'no'),
 (6, 'siteclose', '0', 'yes'),
 (7, 'secret_key', '', 'no'),
@@ -80,13 +89,13 @@ INSERT INTO `{DBP}settings` (`option_id`, `option_name`, `option_value`, `autolo
 (10, 'site_domain', '', 'yes'),
 (11, 'use_cookie_on_https', '0', 'yes'),
 (12, 'hide_cookie_from_js', '1', 'yes'),
-(13, 'cookie_name', 'U_C', 'yes'),
+(13, 'cookie_name', 'U', 'yes'),
 (14, 'default_language', 'en', 'no'),
 (15, 'default_timezone', 'Africa/Casablanca', 'yes'),
 (16, 'shutdown_msg', '<h1>عذرا الموقع مغلق حاليا ، عد لاحقا من فضلك</h1>', 'no'),
 (17, 'tracking_code', '', 'no'),
 (18, 'registration_status', '1', 'no'),
-(19, 'user_delete_account', '1', 'no'),
+(19, 'user_delete_account', '0', 'no'),
 (20, 'user_page_path', 'account', 'no'),
 (21, 'admin_page_path', 'adminpanel', 'yes'),
 (22, 'recaptcha_status', '0', 'no'),
@@ -106,23 +115,28 @@ INSERT INTO `{DBP}settings` (`option_id`, `option_name`, `option_value`, `autolo
 (36, 'ad_728x90', '728 x 90', 'no'),
 (37, 'ad_300x250', '300 x 250', 'no'),
 (38, 'ad_300x600', '300 x 600', 'no'),
-(39, 'ad_autosize', 'autosize script here', 'no'),
+(39, 'ad_autosize', 'autosize ads', 'no'),
 (40, 'ads_status', '0', 'yes'),
 (41, 'ads_status_on_accounts', '0', 'yes'),
-(42, 'notes_delete_account', '', 'no'),
-(43, 'countdown', '10', 'no'),
+(42, 'notes_delete_account', 'يمكنك حذف حسابك من هنا<br>\r\n<b>ملاحظة هامة</b>: ستضل روابطك المختصرة شغالة لكن لن تظهر بها اعلاناتك', 'no'),
+(43, 'countdown', '15', 'no'),
 (44, 'admin_pub', '', 'no'),
 (45, 'admin_channel', '0', 'no'),
-(46, 'user_activation_ads', '1', 'no'),
-(47, 'cencored_words_status', '1', 'no'),
-(48, 'bad_words', 'aaa,xxxx,yyyy,zzzz', 'no'),
-(49, 'bad_urls', 'http://www.exemple.com\r\nhttp://www.exemple2.com\r\n...', 'no');
+(46, 'just_show_admin_ads', '0', 'no'),
+(47, 'just_show_users_ads', '0', 'no'),
+(48, 'bad_urls', 'gsurl.in\r\nlinkshrink.net\r\nadf.ly', 'no'),
+(49, 'go_head_code', '', 'no'),
+(50, 'showFakeNumbers', '1', 'no'),
+(51, 'fakeViews', '314802', 'no'),
+(52, 'fakeUsers', '568', 'no'),
+(53, 'fakeLinks', '1350', 'no'),
+(54, 'packages_domains', '', 'no');
 
 {BR}
 
 CREATE TABLE `{DBP}statistics` (
   `id` int(255) NOT NULL,
-  `user_token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `date` date NOT NULL,
   `views` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -145,88 +159,79 @@ CREATE TABLE `{DBP}users` (
 {BR}
 
 CREATE TABLE `{DBP}usersmeta` (
-  `id` int(255) NOT NULL,
-  `user_token` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` int(11) NOT NULL,
   `user_option` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `user_value` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 {BR}
 
-ALTER TABLE `{DBP}contact`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `{DBP}contact` ADD PRIMARY KEY (`id`);
 
 {BR}
 
-ALTER TABLE `{DBP}links`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `{DBP}links` ADD PRIMARY KEY (`id`);
 
 {BR}
 
-ALTER TABLE `{DBP}online`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `{DBP}links` ADD FULLTEXT KEY `title` (`title`);
 
 {BR}
 
-ALTER TABLE `{DBP}pages`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `{DBP}links` ADD FULLTEXT KEY `slug` (`slug`);
 
 {BR}
 
-ALTER TABLE `{DBP}settings`
-  ADD PRIMARY KEY (`option_id`);
+ALTER TABLE `{DBP}links` ADD FULLTEXT KEY `title_2` (`title`,`slug`);
 
 {BR}
 
-ALTER TABLE `{DBP}statistics`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `{DBP}online` ADD PRIMARY KEY (`id`);
 
 {BR}
 
-ALTER TABLE `{DBP}users`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `{DBP}pages` ADD PRIMARY KEY (`id`);
 
 {BR}
 
-ALTER TABLE `{DBP}usersmeta`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `{DBP}settings` ADD PRIMARY KEY (`option_id`);
 
 {BR}
 
-ALTER TABLE `{DBP}contact`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `{DBP}statistics` ADD PRIMARY KEY (`id`);
 
 {BR}
 
-ALTER TABLE `{DBP}links`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+ALTER TABLE `{DBP}users` ADD PRIMARY KEY (`id`);
 
 {BR}
 
-ALTER TABLE `{DBP}online`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+ALTER TABLE `{DBP}users` ADD FULLTEXT KEY `username` (`username`,`email`,`user_token`);
 
 {BR}
 
-ALTER TABLE `{DBP}pages`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `{DBP}contact` MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 {BR}
 
-ALTER TABLE `{DBP}settings`
-  MODIFY `option_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+ALTER TABLE `{DBP}links` MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 {BR}
 
-ALTER TABLE `{DBP}statistics`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+ALTER TABLE `{DBP}online` MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 {BR}
 
-ALTER TABLE `{DBP}users`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+ALTER TABLE `{DBP}pages` MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 {BR}
 
-ALTER TABLE `{DBP}usersmeta`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=944;
+ALTER TABLE `{DBP}settings` MODIFY `option_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+
+{BR}
+
+ALTER TABLE `{DBP}statistics` MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+
+{BR}
+
+ALTER TABLE `{DBP}users` MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;

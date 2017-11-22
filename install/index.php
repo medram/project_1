@@ -175,6 +175,10 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 				$content3 	= @str_replace("%PREFIX%",$db_prefix,$content3);
 				$creat3  	= @file_put_contents('../application/config/database.php',$content3);
 
+				$file4 = 'tmps/index.tmp.php';
+				$content4	= @file_get_contents($file4);
+				$creat4		= @file_put_contents('../index.php', $content4);
+
 				/*
 				if ($creat1)
 				{
@@ -365,12 +369,11 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 							?>
 						</div>
 					</div>
-
 				</div>
 			</div>
 			<div class='row text-center'>
 				<div class='col-lg-12'>
-					<copy>&copy; Powered by <b>MOHAMMED RAMOUCHY</b> <br>Medram v1.0.0</copy><br><br>
+					<copy>&copy; Powered by <b>MOHAMMED RAMOUCHY</b> <br>Medram v1.1.0</copy><br><br>
 				</div>
 			</div>
 		</div>
