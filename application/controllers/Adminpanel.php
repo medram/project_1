@@ -278,7 +278,7 @@ class Adminpanel extends MY_controller
 		$this->data['title'] = 'Hello '.$this->data['userdata']['username'];
 
 		$this->load->view('templates/admin_header',$this->data);
-		$this->load->view('pages/admin/Dashboard',$this->data);
+		$this->load->view('pages/admin/dashboard',$this->data);
 		$this->load->view('templates/admin_footer',$this->data);
 	}
 

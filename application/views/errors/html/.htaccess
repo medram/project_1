@@ -6,15 +6,10 @@
 	Options +FollowSymLinks -MultiViews
 
 	RewriteEngine On
-	RewriteBase /%FOLDER%/
+	RewriteBase /ci/
 	
 	#RewriteCond $1 !^(js|css|img|rebots\.txt)
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule ^(.*)$ index.php/$1 [L,QSA]
-	
-	# no-www to www
-	RewriteCond %{HTTP_HOST} !^www\. [NC]
-	RewriteCond %{HTTPS}s ^on(s)| 
-	RewriteRule ^(.*)$ http%1://www.%{HTTP_HOST}/$1 [R=301,L]
 </IfModule>

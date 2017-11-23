@@ -53,32 +53,20 @@ class Ajax extends MY_controller
 				$to 		= get_config_item('email_from');
 				$from 		= array($email,config_item('sitename').': '.$type);
 
-				/*$content .= "
-				<hr>
-				<div dir='ltr'>
-					<b>معلومات عن المرسل</b><br><br>
-					date : ".$date."<br>
-					ip : ".$ip."<br>
-					email : ".$email."<br>
-					platform : ".$platform."<br>
-					
-				</div>
-				";
-				*/
+				$consts = array(
+						'TITLE' => $title,
+						'DATE' => $date,
+						'EMAIL' => $email,
+						'PLATFORM' => $platform,
+						'IP' => $ip,
+						'TYPE' => $type,
+						'CONTENT' => $content
+					);
 
-				$msg = "<b>العنوان :</b> ".$title."<br><b>نوع الرسالة :</b> ".$type."<br><br>";
-				$msg .= $content;
-
-				$msg .= "
-					<br>--------------------------------------------------<br>
-					<b>معلومات عن المرسل</b><br>
-					تاريخ الإرسال : ".$date."<br>
-					الأيبي : ".$ip."<br>
-					نضام التشغيل : ".$platform."<br>
-					البريد الإلكتروني : ".$email."<br>";
+				$tpl = email_tpls_load_and_replace('contact', $consts, FALSE);
 
 				// $to,$subject,$msg,$priority=3,$mailtype='html'
-				if (sendEmail($to,$title,$msg,$from))
+				if (sendEmail($to,$title,$tpl,$from, 3, 'text'))
 				{
 					$ok = "تم الإرسال بنجــــاح.
 						<script type='text/javascript'>

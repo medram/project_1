@@ -412,6 +412,7 @@
 								- for <b>account activation email (registration)</b> you can update this template 
 								<code>application\views\email_tpls\activation.html</code><br>
 								- for <b>forget password</b> : <code>application\views\email_tpls\forget_password.html</code><br>
+								- for <b>contact</b> : <code>application\views\email_tpls\contact.html</code><br>
 							</td>
 						</tr>
 						<tr>

@@ -208,6 +208,7 @@ function sendEmail($to, $subject, $msg, $from=array(), $priority=3, $mailtype='h
     }
 
     $c['mailtype'] = $mailtype;
+    $c['charset'] = 'utf-8';
     $c['priority'] = $priority; // from 1 to 5 , 3 is normal
     //$c['newline'] = '\r\n';
 
