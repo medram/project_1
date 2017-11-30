@@ -51,7 +51,7 @@ class Ajax extends MY_controller
 				$platform 	= $this->agent->platform();
 				$date 		= date(config_item('time_format'),time());
 				$to 		= get_config_item('email_from');
-				$from 		= array($email,config_item('sitename').': '.$type);
+				//$from 		= array($email,config_item('sitename').': '.$type);
 
 				$consts = array(
 						'TITLE' => $title,
@@ -66,7 +66,7 @@ class Ajax extends MY_controller
 				$tpl = email_tpls_load_and_replace('contact', $consts, FALSE);
 
 				// $to,$subject,$msg,$priority=3,$mailtype='html'
-				if (sendEmail($to,$title,$tpl,$from, 3, 'text'))
+				if (sendEmail($to,$title,$tpl,null, 3, 'text'))
 				{
 					$ok = "تم الإرسال بنجــــاح.
 						<script type='text/javascript'>

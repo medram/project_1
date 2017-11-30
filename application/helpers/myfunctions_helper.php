@@ -215,22 +215,20 @@ function sendEmail($to, $subject, $msg, $from=array(), $priority=3, $mailtype='h
     $CI->load->library('email',$c);
     //$CI->email->set_newline("\r\n");
 
-    if(count($from) == 0)
-    {
-        $CI->email->from(get_config_item('email_from'), config_item('sitename'));
-    }
-    else
+    if (count($from) == 2)
     {
         $CI->email->from($from[0],$from[1]);
+    }
+    else 
+    {
+        $CI->email->from(get_config_item('email_from'), config_item('sitename'));
     }
 
     $CI->email->to($to);
     $CI->email->subject($subject);
     $CI->email->message($msg);
 
-    //return $CI->email->send();
-
-    return mail($to, $subject, $msg);
+    return $CI->email->send();
 }
 
 

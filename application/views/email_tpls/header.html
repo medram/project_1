@@ -12,7 +12,8 @@
             
             body
             {
-                font-family: tahoma, arial !important;
+                font: 12px tahoma, arial !important;
+                font-family: tahoma, arial;
                 font-size: 12px;
             }
             a
@@ -52,10 +53,30 @@
                 padding: 30px;
             }
             
+            .button-box
+            {
+                padding-top: 50px;
+                padding-bottom: 50px;
+            }
+
+            .button-box span
+            {
+                color: #FFF;
+                background-color: #A0D468;
+                font-size: 30px;
+                padding: 15px 50px;
+                border: 1px solid #8CC152;
+                border-radius: 5px;
+            }
+            
+            .button-box span:hover
+            {
+                background-color: #8CC152;
+            }
         </style>
     </head>
     <body>
-        <div class='container'>
+        <div class='container' style='font: 13px tahoma, arial !important'>
             <header>
                 <div><a href='{SITE_URL}'>{SITE_NAME}</a></div>
             </header>

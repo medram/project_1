@@ -9,9 +9,4 @@
 			<section><?php echo $pagedata['content']; ?></section>
 		</div>
 	</div>
-	<div class='row'>
-		<div class='col-md-12'>
-			<i>آخر تعديل : <span dir='ltr'><?php echo date(config_item('time_format'),$pagedata['modified']); ?></span></i>
-		</div>
-	</div>
 </div>
