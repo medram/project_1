@@ -77,6 +77,12 @@ body > section
     padding-bottom: 12px;
 }
 
+.navbar .navbar-toggle
+{
+	margin-top: 13px;
+	border: none;
+}
+
 /*------------ default navbar ------------*/
 
 .navbar-default

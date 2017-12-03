@@ -44,16 +44,12 @@ function get_domains($index = 0)
     echo '</pre>';
     */
 
-    if ($domains[0] == '')
-    {
-        return $default_url;
-    }
-    else if (isset($domains[$index]))
+    if (isset($domains[$index]) && $domains[$index] != '')
     {
         return preg_replace("/^(https|http)?:\/\/([a-zA-Z0-9-.]+)\/(.*)\//", "http://".$domains[$index]."/$3/", $default_url);
     }
     else
-        return 'http://'.$domains[0].'/';
+        return $default_url;
 }
 
 function encode($url, $url_safe = false) {

@@ -97,7 +97,7 @@
 						<div class="col-lg-6">
 							<span>Shorted link :</span>
 							<div class='input-group input-group-sm'>
-								<input class='form-control text-left' type='text' value="<?php echo base_url('go/'.$row['slug']); ?>" >
+								<input class='form-control text-left' type='text' value="<?php echo get_domains($row['domain']).$row['slug']; ?>" >
 								<span class='input-group-btn'>
 									<button class='btn btn-primary copy' type='button'>Copy</button>
 								</span>
