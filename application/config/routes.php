@@ -61,4 +61,5 @@ $route['go/([a-zA-Z0-9_-]+)'] = 'go/index/$1';
 
 $route['default_controller'] = 'home';
 $route['404_override'] = 'Page_404';
+$route['403_override'] = 'Page_403';
 $route['translate_uri_dashes'] = FALSE;

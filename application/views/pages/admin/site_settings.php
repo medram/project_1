@@ -5,11 +5,6 @@
         <h1 class="page-header">
             <i class="fa fa-gear"></i> Site settings <!--<small>Settings</small>-->
         </h1>
-        <ol class="breadcrumb">
-            <li class="active">
-                <i class="fa fa-dashboard"></i> Dashboard / site settings
-            </li>
-        </ol>
     </div>
 </div>
 <div class="row">
@@ -34,7 +29,7 @@
 				<a href="#email" role="tab" id="email-tab" data-toggle="tab" aria-controls="email" aria-expanded="false">Email</a>
 			</li>
 			<li role="presentation" class="">
-				<a href="#other" role="tab" id="other-tab" data-toggle="tab" aria-controls="other" aria-expanded="false">Other</a>
+				<a href="#other" role="tab" id="other-tab" data-toggle="tab" aria-controls="other" aria-expanded="false">Others</a>
 			</li>
 			<!--
 			<li role="presentation" class="">
@@ -51,7 +46,7 @@
 						<table class='table table-striped'>
 							<tr>
 								<td width='40%'>
-									<label>Site icon :</label>
+									<label>Site icon (favicon):</label>
 								</td>
 								<td>
 									<form action='<?php echo base_url($page_path); ?>/ajax' method='post' enctype='multipart/form-data'>
@@ -69,7 +64,7 @@
 							<tr>
 								<td width='40%'>
 									<label>Site logo :</label><br>
-									<small><i>The length of width should be greater than the height with three time</i></small>
+									<small><i>The image width should be greater than the image height with three time</i></small>
 								</td>
 								<td>
 									<form action='<?php echo base_url($page_path); ?>/ajax' method='post' enctype='multipart/form-data'>
@@ -100,7 +95,7 @@
 						</tr>
 						<tr>
 							<td width='40%'>
-								<label>keywords :</label><br>
+								<label>Keywords :</label><br>
 								<em>
 									<small>this keywords will be shown on all pages.</small>
 								</em>
@@ -111,10 +106,7 @@
 						</tr>
 						<tr>
 							<td width='40%'>
-								<label>description :</label><br>
-								<em>
-									<small>this description will be shown on all pages.</small>
-								</em>
+								<label>Description :</label>
 							</td>
 							<td>
 								<textarea rows='5' name='desc' class='form-control'><?php echo get_config_item('description'); ?></textarea>
@@ -123,10 +115,18 @@
 						<tr>
 							<td><label>Default language :</label></td>
 							<td>
-								<select disabled name='default_lang' class='form-control'>
-									<option value="1">Arabic</option>
-									<option value="2">English</option>
-									<option value="3">Fransh</option>
+								<select name='default_lang' class='form-control'>
+									<?php
+										if (count($languages) != 0)
+										{
+											$selected = '';
+											foreach($languages as $k => $row)
+											{
+												$selected = ($row['id'] == config_item('default_language'))? 'selected' : '' ;
+												echo "<option value='".$row['id']."' ".$selected.">".ucfirst($row['name'])."</option>";
+											}
+										}
+									?>
 								</select>
 							</td>
 						</tr>
@@ -412,7 +412,6 @@
 								- for <b>account activation email (registration)</b> you can update this template 
 								<code>application\views\email_tpls\activation.html</code><br>
 								- for <b>forget password</b> : <code>application\views\email_tpls\forget_password.html</code><br>
-								- for <b>contact</b> : <code>application\views\email_tpls\contact.html</code><br>
 							</td>
 						</tr>
 						<tr>

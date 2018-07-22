@@ -6,7 +6,7 @@
 </div>
 <br><br><br>
 <div style="text-align: center;">
-	<div style="text-align: right; width: 400px;margin: 0px auto;">
+	<div style="text-align: left; width: 400px;margin: 0px auto;">
 		<?php
 		if (isset($forb))
 		{
@@ -25,11 +25,11 @@
 
 		<form action="<?php echo base_url().$page_path.'/'; ?>login/repass" method="post" role="form">
 			<div class='form-group'>
-				<label>كلمة المرور الجديدة :</label>
+				<label>The new password :</label>
 				<input type='password' name='new-pass' class='form-control' >
 			</div>
 			<div class='form-group'>
-				<label>أعد كتابة كلمة المرور الجديدة :</label>
+				<label>Confirm the new password :</label>
 				<input type='password' name='conf-new-pass' class='form-control' >
 			</div>
 			<?php
@@ -45,7 +45,7 @@
 			?>
 			<div class='form-group'>
 				<input type='hidden' name='t' value='<?php echo $t; ?>' >
-				<input type='submit' name='submit' class='btn btn-success btn-block' value='حفظ' >	
+				<input type='submit' name='submit' class='btn btn-success btn-block' value='Save' >	
 			</div>
 		</form>
 		<?php

@@ -1,9 +1,9 @@
 <div class='jumbotron-background'>
     <div class="jumbotron text-center">
         <div class="container">
-            <h1 class='h1'>ضاعف أرباحك على Google Adsense بكل سهولة و أمان</h1>
+            <h1 class='h1'><?php langLine('theme.home.jumbotron.title') ?></h1>
             <p>
-                <a class="btn btn-special btn-special-success btn-lg" href="<?php echo base_url('register'); ?>" role="button">سجل مجانا</a>
+                <a class="btn btn-special btn-special-success btn-lg" href="<?php echo base_url('register'); ?>" role="button"><?php langLine('theme.home.jumbotron.registerForFree') ?></a>
             </p>
         </div>
     </div>
@@ -11,7 +11,7 @@
 <div class="container-fluid" style='background: #EEE;'>
     <div class='row'>
         <div class='page-header text-center'>
-            <h2>كل ما عليك فعله هو :</h2>
+            <h2><?php langLine('theme.home.title2') ?></h2>
         </div>
     </div>
     <div class="row text-center steps-box">
@@ -24,8 +24,8 @@
                     </span>
                 </div>
                 <div class='col-xs-8 col-sm-12 text-sm-right'>
-                    <h2>إختصر لنفسك روابطا جيدة</h2>
-                    <p>قم بانشاء حساب و ابدأ باختصار روابطك مباشرة</p>                
+                    <h2><?php langLine('theme.home.h2.1') ?></h2>
+                    <p><?php langLine('theme.home.h2.p1') ?></p>                
                 </div>
             </div>
         </div><!-- /.col-lg-4 -->
@@ -39,8 +39,8 @@
                     </span>
                 </div>
                 <div class='col-xs-8 col-sm-12 text-sm-right'>
-                    <h2>قم بنشرها على الإنترنت</h2>
-                    <p>يمكنك نشر و مشاركة روابطك المختصرة مع أصدقائك في الفيسبوك وتويتر وغيرها من مواقع التواصل الاجتماعي أو في موقعك أو في المنتديات</p>
+                    <h2><?php langLine('theme.home.h2.2') ?></h2>
+                    <p><?php langLine('theme.home.h2.p2') ?></p>
                 </div>
             </div>
         </div><!-- /.col-lg-4 -->
@@ -54,8 +54,8 @@
                     </span>
                 </div>
                 <div class='col-xs-8 col-sm-12 text-sm-right'>
-                    <h2>ستتضاعف أرباحك تلقائيا</h2>
-                    <p>بمجرد تضاعف مشاهدات روابطك المختصرة ، ستظهر إعلاناتك بشكل أكبر و بالتالي ستتضاعف أرباحك على Google adsense</p>
+                    <h2><?php langLine('theme.home.h2.3') ?></h2>
+                    <p><?php langLine('theme.home.h2.p3') ?></p>
                 </div>
             </div>
         </div><!-- /.col-lg-4 -->

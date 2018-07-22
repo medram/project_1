@@ -1,0 +1,35 @@
+#lang-box {
+	right: -7px;
+}
+
+/*----------------- footer -----------------*/
+
+footer {
+	direction: rtl;
+}
+
+footer .footer-links {
+	text-align: left;
+}
+
+footer .copy {
+	direction: ltr;
+	text-align: right;
+}
+
+/*--------------- account ---------------*/
+.boxLink {
+	direction: ltr;
+	text-align: right;
+}
+
+.boxLink .action {
+	left: 0;
+	right: auto;
+}
+
+.boxLink .info ul li
+{
+	float: right;
+}
+

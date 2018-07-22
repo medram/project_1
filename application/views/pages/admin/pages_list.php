@@ -1,13 +1,8 @@
 <div class="row">
     <div class="col-md-12">
         <h1 class="page-header">
-            <i class="fa fa-bars"></i> Manage pages
+            <i class="fa fa-fw fa-file-text-o"></i> Pages
         </h1>
-        <ol class="breadcrumb">
-            <li class="active">
-                <i class="fa fa-dashboard"></i> Dashboard / Manage pages
-            </li>
-        </ol>
     </div>
 </div>
 <div class='row'>
@@ -21,8 +16,9 @@
     <div class='col-lg-12'>
         <table class='table'>
             <tr>
-                <th>id</th>
-                <th>Title</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Language</th>
                 <th>Slug</th>
                 <th>Modified</th>
                 <th>Created</th>
@@ -30,11 +26,12 @@
             </tr>
             <?php
             $i = 1;
-            foreach ($pages as $row)
+            foreach ($pages as $k => $row)
             {
                 echo "<tr>";
                     echo "<td>".$i."</td>";
                     echo "<td>".$row['title']."</td>";
+                    echo "<td><span class='label label-info'>".ucfirst($pageLangData[$k])."</span></td>";
                     echo "<td>".$row['slug']."</td>";
                     echo "<td>".date(config_item('time_format'),$row['modified'])."</td>";
                     echo "<td>".date(config_item('time_format'),$row['created'])."</td>";

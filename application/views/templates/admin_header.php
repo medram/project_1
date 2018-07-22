@@ -174,21 +174,16 @@
                         <a href="<?php echo base_url().$page_path; ?>/users"><i class="fa fa-fw fa-users"></i> Users</a>
                     </li>
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-file-text-o"></i> Pages <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
-                            <li>
-                                <a href="<?php echo base_url().$page_path; ?>/pages"><i class="fa fa-fw fa-bars"></i> Manage pages</a>
-                            </li>
-                            <li>
-                                <a href="<?php echo base_url().$page_path; ?>/pages/add"><i class="fa fa-fw fa-plus-circle"></i> Add</a>
-                            </li>
-                        </ul>
+                        <a href="<?php echo base_url().$page_path; ?>/pages"><i class="fa fa-fw fa-file-text-o"></i> Pages</a>
                     </li>
                     <li>
                         <a href="<?php echo base_url().$page_path; ?>/profile"><i class="fa fa-fw fa-user"></i> My Profile</a>
                     </li>
                     <li>
                         <a href="<?php echo base_url().$page_path; ?>/settings"><i class="fa fa-fw fa-gear"></i> Site settings</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url().$page_path; ?>/languages"><i class="fa fa-fw fa-language"></i> Languages</a>
                     </li>
                     <!--
                     <li>

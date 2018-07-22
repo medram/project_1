@@ -9,9 +9,9 @@ class Page_404 extends MY_Controller
 
 	public function index()
 	{
-		$data['title'] = config_item('sitename').' : هذه الصفحة غير موجودة';
-		$data['heading'] = 'هذه الصفحة غير موجودة';
-		$data['message'] = 'عذرا فهذه الصفحة غير متوفرة حاليا ، ربما قد حدفت أو ما شابه !';
+		$data['title'] = langLine('theme.404.title', false);
+		$data['heading'] = langLine('theme.404.title', false);
+		$data['message'] = langLine('theme.404.message', false);
 
 		// set header here for SEO
 		$this->output->set_status_header('404');

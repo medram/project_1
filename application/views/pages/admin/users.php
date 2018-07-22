@@ -3,18 +3,13 @@
 	    <h1 class='page-header'>
 	        <i class="fa fa-users"></i> Users <!--<small>Settings</small>-->
 	    </h1>
-	    <ol class='breadcrumb'>
-	        <li class='active'>
-	            <i class='fa fa-dashboard'></i> Dashboard / Users
-	        </li>
-	    </ol>
 	</div>
 </div>
 <div class='row'>
 	<div class='col-lg-12'>
 		<form action='<?php echo base_url($page_path); ?>/users' method='GET'>
 			<div class='form-group'>
-				<label>Search for user :</label>
+				<label>Search for users :</label>
 				<div class="input-group">
 				  <input type="text" name='q_user' class="form-control" placeholder="Search for..." 
 				  	value='<?php if (isset($string) && $string != ''){echo $string;} ?>' >
@@ -38,7 +33,7 @@
 	?>
 			<table class='table table-striped'>
 				<tr>
-					<th>id</th>
+					<th>ID</th>
 					<th>Username</th>
 					<th>Email</th>
 					<th>Info</th>
@@ -60,14 +55,14 @@
 							</td>";
 						echo "<td style='vertical-align: middle;'>".$r['email']." ".$u_verified."</td>";
 						echo "<td style='vertical-align: middle;'>
-								<b>Joined: </b>".date(config_item("time_format"),$r['user_joined'])."<br><b>Account Status : </b>";
+								<b>Registered: </b>".date(config_item("time_format"),$r['user_joined'])."<br><b>Account Status : </b>";
 								if ($r['account_status'] == 1){echo "<span class='badge badge-warning'>Inactive</span>";}
 								else if ($r['account_status'] == 2){echo "<span class='badge badge-danger'>Banned</span>";}
 								else{ echo "<span class='badge badge-success'>Active</span>"; }
 						echo "</td>";
 						echo "<td style='vertical-align: middle;'>
 								<a href='".base_url($page_path)."/u/edit/".$r['id']."' target='_blank' 
-									class='btn btn-primary btn-xs' ><i class='fa fa-pencil'></i> edit</a> 
+									class='btn btn-primary btn-xs' ><i class='fa fa-pencil'></i> Edit</a> 
 								<span class='btn btn-xs btn-danger delete' id='".$r['id']."' ><i class='fa fa-times'></i> Delete</span>
 							  </td>
 							";

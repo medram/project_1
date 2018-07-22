@@ -28,11 +28,16 @@
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url(); ?>css/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>css/font-awesome/font-awesome.min.css" rel="stylesheet"> 
-    <link href="<?php echo base_url(); ?>css/bootstrap/css/bootstrap-rtl.css" rel="stylesheet">
 
     <!-- Load the style of the site -->
     <link href="<?php echo base_url(); ?>css/style.css?v=1.0" rel="stylesheet">
     <link href="<?php echo base_url(); ?>css/go-style.css" rel="stylesheet">
+
+    <!-- for RTL theme -->
+    <?php if (config_item('validLang')['isRTL']){ ?>
+    <link href="<?php echo base_url(); ?>css/bootstrap/css/bootstrap-rtl.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>css/style-rtl.css" rel="stylesheet">
+    <?php } ?>
 
     <!-- Head codes like google analytics -->
     <?php

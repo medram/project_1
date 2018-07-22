@@ -35,12 +35,15 @@
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url(); ?>css/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>css/font-awesome/font-awesome.min.css" rel="stylesheet"> 
-    <link href="<?php echo base_url(); ?>css/bootstrap/css/bootstrap-rtl.css" rel="stylesheet">
-
+    
     <!-- Load the style of the site -->
     <link href="<?php echo base_url(); ?>css/style.css?v=1.0" rel="stylesheet">    
 
-
+    <!-- for RTL theme -->
+    <?php if (config_item('validLang')['isRTL']){ ?>
+    <link href="<?php echo base_url(); ?>css/bootstrap/css/bootstrap-rtl.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>css/style-rtl.css" rel="stylesheet">
+    <?php } ?>
 
     <?php
     if (get_config_item('tracking_code') != '')
@@ -76,12 +79,12 @@
 		        else
 		        {
 
-		        	echo "<li><a href='".base_url()."'>الرئيسية</a></li>";
 
 		        	$s = $this->cms_model->getPages('header');
 
 					if ($s->num_rows() != 0)
 					{
+		        		echo "<li><a href='".base_url()."'>".langLine('theme.header.home', false)."</a></li>";
 						foreach ($s->result_array() as $row)
 						{
 							echo "<li><a href='".base_url("p/".$row['slug'])."'>".$row['title']."</a></li>";
@@ -105,10 +108,10 @@
 		          			<b><?php echo $userdata['username'];?></b> <span class="caret"></span>
 		          	</a>
 		          <ul class="dropdown-menu">
-		            <li><a href="<?php echo base_url($page_path); ?>/dashboard"><i class="fa fa-fw fa-dashboard"></i> لوحة التحكم</a></li>
-		            <li><a href="<?php echo base_url($page_path); ?>/profile"><i class="fa fa-fw fa-user"></i> الملف الشخصي</a></li>
+		            <li><a href="<?php echo base_url($page_path); ?>/dashboard"><i class="fa fa-fw fa-dashboard"></i> <?php langLine('theme.header.dashboard') ?></a></li>
+		            <li><a href="<?php echo base_url($page_path); ?>/profile"><i class="fa fa-fw fa-user"></i> <?php langLine('theme.header.profile') ?></a></li>
 		            <li class='divider'></li>
-		            <li><a href="<?php echo base_url(); ?>logout"><i class="fa fa-fw fa-sign-out"></i> خروج</a></li>
+		            <li><a href="<?php echo base_url(); ?>logout"><i class="fa fa-fw fa-sign-out"></i> <?php langLine('theme.header.logout') ?></a></li>
 		          </ul>
 		        </li>
 		        <?php
@@ -116,9 +119,9 @@
 		        else
 		        {
 		        ?>
-	            <li><a href="<?php echo base_url(); ?>login"><i class="fa fa-fw fa-sign-in"></i> دخول</a></li>
+	            <li><a href="<?php echo base_url(); ?>login"><i class="fa fa-fw fa-sign-in"></i> <?php langLine('theme.header.login'); ?></a></li>
 	            <li class='divider'></li>
-	            <li><a href="<?php echo base_url(); ?>register"><i class="fa fa-fw fa-user-plus"></i> تسجيل حساب جديد</a></li>
+	            <li><a href="<?php echo base_url(); ?>register"><i class="fa fa-fw fa-user-plus"></i> <?php langLine('theme.header.register'); ?></a></li>
 		        <?php
 		    	}
 		        ?>

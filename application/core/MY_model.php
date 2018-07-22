@@ -43,7 +43,7 @@ class MY_Model extends CI_model
 
     public function select ($table,$where="",$orderBy="",$length="",$start="")
     {
-        if (is_array($where) && $where != "")
+        if ($where != "")
         {
             $this->db->where($where);
         }

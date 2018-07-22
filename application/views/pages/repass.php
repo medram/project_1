@@ -1,5 +1,5 @@
 <!-- recaptcha script -->
-<script src='https://www.google.com/recaptcha/api.js?hl=ar'></script>
+<script src='https://www.google.com/recaptcha/api.js?hl=en'></script>
 <div class='container'>
 	<div class='row'>
 			<?php
@@ -13,7 +13,7 @@
 			{
 			?>
 			<div class='col-lg-5'>	
-				<h1><i class='fa fa-key'></i> تعيين كلمة مرور جديدة</h1>
+				<h1><i class='fa fa-key'></i> <?php langLine('account.repass.span.1') ?></h1>
 				<hr>
 				<?php
 				if (isset($msg))
@@ -24,11 +24,11 @@
 
 				<form action='<?php echo base_url($page_path); ?>/repass' method='post'>
 					<div class='form-group'>
-						<label>كلمة المرور الجديدة :</label>
+						<label><?php langLine('account.repass.span.2') ?> :</label>
 						<input type='password' name='new-pass' class='form-control' >
 					</div>
 					<div class='form-group'>
-						<label>أعد كتابة كلمة المرور الجديدة :</label>
+						<label><?php langLine('account.repass.span.3') ?> :</label>
 						<input type='password' name='conf-new-pass' class='form-control' >
 					</div>
 					<?php
@@ -44,7 +44,7 @@
 					?>
 					<div class='form-group'>
 						<input type='hidden' name='t' value='<?php echo $t; ?>' >
-						<input type='submit' name='submit' class='btn btn-success btn-block' value='حفظ' >	
+						<input type='submit' name='submit' class='btn btn-success btn-block' value='<?php langLine('account.repass.span.4') ?>' >	
 					</div>
 				</form>
 			</div>

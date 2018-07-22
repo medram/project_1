@@ -1,8 +1,8 @@
 <?php $domains = explode("\r\n", get_config_item('packages_domains')); ?>
 
 <!-- recaptcha script -->
-<!--<script src='https://www.google.com/recaptcha/api.js?hl=ar'></script>-->
-<script src="https://www.google.com/recaptcha/api.js?hl=ar&onload=myCallBack&render=explicit" async defer></script>
+<!--<script src='https://www.google.com/recaptcha/api.js?hl=en'></script>-->
+<script src="https://www.google.com/recaptcha/api.js?hl=<?php echo config_item('validLang')['symbol'] ?>&onload=myCallBack&render=explicit" async defer></script>
 <script>
   var recaptcha1;
   var recaptcha2;
@@ -26,23 +26,23 @@
 		echo $sidebar;
 		?>
 		<div class='col-md-9'>
-			<div><h1><i class="fa fa-fw fa-chain-broken"></i> <?php echo $title; ?></h1><hr></div>
+			<div><h1><i class="fa fa-fw fa-chain-broken"></i> <?php langLine('account.addlinks.title') ?></h1><hr></div>
 			<div class='msg'></div>
 			<!--==================== show links result ===============================-->
 			<div id='urls' style='display: none;'>
 				<textarea dir='ltr' class='form-control' rows='10'></textarea><br>
 				<div id='goBack' style='text-align: center;'>
-					<span class='btn btn-success'><i class="fa fa-fw fa-share"></i> اختصار رابط جديد</span>
+					<span class='btn btn-success'><i class="fa fa-fw fa-share"></i> <?php langLine('account.addlinks.span.1') ?></span>
 				</div>
 			</div>
 			<!--======================================================================-->
 			<div id='boxToAddLink'>
 				<ul id="myTabs" class="nav nav-tabs" role="tablist">
 					<li role="presentation" class="active">
-						<a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">اختصار رابط واحد</a>
+						<a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true"><?php langLine('account.addlinks.span.2') ?></a>
 					</li>
 					<li role="presentation">
-						<a href="#addLinks" role="tab" id="addLinks-tab" data-toggle="tab" aria-controls="addLinks" aria-expanded="false">اختصار مجموعة من الروابط</a>
+						<a href="#addLinks" role="tab" id="addLinks-tab" data-toggle="tab" aria-controls="addLinks" aria-expanded="false"><?php langLine('account.addlinks.span.3') ?></a>
 					</li>
 				</ul>
 
@@ -52,11 +52,11 @@
 						<br><br>
 						<form class="Addlink" action='<?php echo base_url(); ?>account/ajax' method='post'>
 							<div class='form-group'>
-								<label>عنوان الرابط :</label>
-								<input type='text' name='title' class='form-control' placeholder='مثال : أفضل الألعاب التي ستصدر الشهر القادم !' >
+								<label><?php langLine('account.addlinks.span.4') ?> : </label>
+								<input type='text' name='title' class='form-control' placeholder='<?php langLine('account.addlinks.span.5') ?>' >
 							</div>
 							<div class='form-group'>
-								<label>رابط الموقع المراد اختصاره :</label>
+								<label><?php langLine('account.addlinks.span.6') ?> : </label>
 								<input type='text' dir='ltr' name='url' class='form-control' placeholder='http://www.example.com/blablabla...' >
 							</div>
 							<?php
@@ -66,7 +66,7 @@
 								// show the select option to select a domain
 							?>
 								<div class='form-group'>
-									<label>الدومين المفظل :</label>
+									<label><?php langLine('account.addlinks.span.7') ?> :</label>
 									<select name='domain' class='form-control'>
 										<?php
 										for ($i = 0; $i < count($domains); $i++)
@@ -94,7 +94,7 @@
 							<div class='form-group'>
 								<input type='hidden' name='action' value='addLink' >
 								<input type='hidden' name='type' value='0' >
-								<button name='shortLinks' class='btn btn-success'><i class="fa fa-fw fa-chain-broken"></i> اختصار</button>
+								<button name='shortLinks' class='btn btn-success'><i class="fa fa-fw fa-chain-broken"></i> <?php langLine('account.addlinks.span.8') ?></button>
 							</div>
 						</form>
 					</div>
@@ -105,11 +105,11 @@
 						<br><br>
 						<form class="Addlink" action='<?php echo base_url(); ?>account/ajax' method='post'>
 							<div class='form-group'>
-								<label>عنوان للروابط :</label>
-								<input type='text' name='title' class='form-control' placeholder='مثال : أفضل الألعاب التي ستصدر الشهر القادم !' >
+								<label><?php langLine('account.addlinks.span.9') ?> :</label>
+								<input type='text' name='title' class='form-control' placeholder='<?php langLine('account.addlinks.span.10') ?>' >
 							</div>
 							<div class='form-group'>
-								<label>روابط المواقع المراد اختصارها :</label>
+								<label><?php langLine('account.addlinks.span.11') ?> :</label>
 								<textarea dir='ltr' name='url' rows='7' class='form-control' placeholder='http://www.example.com/blablabla...' ></textarea>
 							</div>
 							<?php
@@ -119,7 +119,7 @@
 								// show the select option to select a domain
 							?>
 								<div class='form-group'>
-									<label>الدومين المفظل :</label>
+									<label><?php langLine('account.addlinks.span.12') ?> :</label>
 									<select name='domain' class='form-control'>
 										<?php
 										for ($i = 0; $i < count($domains); $i++)
@@ -147,7 +147,7 @@
 							<div class='form-group'>
 								<input type='hidden' name='action' value='addLink' >
 								<input type='hidden' name='type' value='1' >
-								<button name='shortLinks' class='btn btn-success'><i class="fa fa-fw fa-chain-broken"></i> اختصار</button>
+								<button name='shortLinks' class='btn btn-success'><i class="fa fa-fw fa-chain-broken"></i> <?php langLine('account.addlinks.span.13') ?></button>
 							</div>
 						</form>
 					</div>

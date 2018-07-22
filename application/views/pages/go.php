@@ -1,4 +1,4 @@
-<script src="https://www.google.com/recaptcha/api.js?hl=ar&onload=myCallBack&render=explicit" async defer></script>
+<script src="https://www.google.com/recaptcha/api.js?hl=<?php echo config_item('validLang')['symbol'] ?>&onload=myCallBack&render=explicit" async defer></script>
 <script type='text/javascript'>
   var recaptcha1;
   var recaptcha2;
@@ -39,14 +39,14 @@ $(document).ready(function (){
 		{
 			clearInterval(set);
 			// إنتظر من فضلك ...
-			$('#stp1 .btn').html('جار توجيهك ...<br>أو إضغط <a style="color: #F6BB42;" href="'+$.url()+'?t=<?php echo time(); ?>'+'">هنـــا</a>');
+			$('#stp1 .btn').html(' <?php langLine('theme.go.span.1') ?> <a style="color: #F6BB42;" href="'+$.url()+'?t=<?php echo time(); ?>'+'"><?php langLine('theme.go.span.2') ?></a>');
 			setTimeout(function (){
 				window.location.href = $.url()+'?t=<?php echo time(); ?>';
 			},1000);
 		}
 		else
 		{
-			$('#stp1 .btn').html(count + '<br> إنتظر من فضلك ...');
+			$('#stp1 .btn').html(count + '<br> <?php langLine('theme.go.span.3') ?>');
 			count--;
 		}
 	},1300);
@@ -59,7 +59,7 @@ else
 ?>
 <script type='text/javascript'>
 	$(document).ready(function (){
-		$('#getLink').autosubmit('.msg','جار جلب الرابط...');
+		$('#getLink').autosubmit('.msg','<?php langLine('theme.go.span.4') ?>');
 	});
 </script>
 
@@ -71,7 +71,7 @@ else
 	<div class='row alert_adblock' style='display: none;'>
 		<br><br>
 		<div class='col-md-12'>
-			<div class='alert alert-warning lead' ><i class='fa fa-fw fa-lg fa-warning'></i> عذرا، من فضلك قم بتعطيل adblock من على متصفحك ، ثم قم بتحديث الصفحة لتتمكن من الذهاب للرابط المقصود ! ^_^ </div>
+			<div class='alert alert-warning lead' ><i class='fa fa-fw fa-lg fa-warning'></i> <?php langLine('theme.go.span.5') ?> ^_^ </div>
 		</div>
 		<br><br><br><br><br>
 		<br><br><br><br><br>
@@ -118,7 +118,7 @@ else
 			?>
 			<div class='row'>
 				<div class='col-md-12'>
-					<div class='alert alert-danger'><i class='fa fa-lg fa-info-circle'></i> لقد تم حضر هذا الرابط بسبب انتهاكه <a href='<?php echo base_url('p/terms'); ?>'>لشروط الإستخدام</a> أو <a href='<?php echo base_url('p/privacy'); ?>'>سياسة الخصوصية </a>.</div>
+					<div class='alert alert-danger'><i class='fa fa-lg fa-info-circle'></i> <?php langLine('theme.go.span.6') ?> <a href='<?php echo base_url('p/terms'); ?>'><?php langLine('theme.go.span.7') ?></a> أو <a href='<?php echo base_url('p/privacy'); ?>'><?php langLine('theme.go.span.8') ?> </a>.</div>
 				</div>
 			</div>
 			<?php
@@ -128,19 +128,19 @@ else
 				<div class='col-md-7'>
 					<table class='table table-bordered'>
 						<tr>
-							<td><i class='fa fa-user'></i> تم اختصاره من طرف :</td>
+							<td><i class='fa fa-user'></i> <?php langLine('theme.go.span.9') ?> :</td>
 							<td><?php echo $linkdata['username']; ?></td>
 						</tr>
 						<tr>
-							<td width=''><i class='fa fa-clock-o'></i> تاريخ اختصار الرابط :</td>
+							<td width=''><i class='fa fa-clock-o'></i> <?php langLine('theme.go.span.10') ?> :</td>
 							<td><?php echo date(config_item('time_format'),$linkdata['created']); ?></td>
 						</tr>
 						<tr>
-							<td><i class='fa fa-eye'></i> عدد مرات مشاهدات الرابط :</td>
+							<td><i class='fa fa-eye'></i> <?php langLine('theme.go.span.11') ?> :</td>
 							<td><?php echo $linkdata['views']; ?></td>
 						</tr>
 						<tr>
-							<td><i class='fa fa-link'></i> الموقع الإلكتروني :</td>
+							<td><i class='fa fa-link'></i> <?php langLine('theme.go.span.12') ?> :</td>
 							<td>
 							<?php
 							if (isset($linkdata['user_url']) && !empty($linkdata['user_url']))
@@ -149,7 +149,7 @@ else
 							}
 							else
 							{
-								echo 'لا يوجد !';
+								echo langLine('theme.go.span.13', false);
 							}
 							?>
 							</td>
@@ -158,7 +158,7 @@ else
 				</div>
 
 				<div class='col-md-5'>
-					<div dir='ltr'>
+					<div>
 						<?php
 						
 						if ($linkdata['status'] == 1)
@@ -182,7 +182,7 @@ else
 								?>
 								<input type='hidden' name='get_link' value='yes' >
 								<input type='hidden' name='slug' value='<?php echo $linkdata['slug']; ?>' >
-								<button dir='rtl' class='btn btn-primary btn-block' style='text-align: center;height: 70px;font-size: 20px;'>تأكيد</button>
+								<button class='btn btn-primary btn-block' style='text-align: center;height: 70px;font-size: 20px;'><?php langLine('theme.go.span.14') ?></button>
 							</form>
 						</div>
 							<?php
@@ -191,7 +191,7 @@ else
 							{
 							?>
 						<div id='stp1'>
-							<button dir='rtl' class='btn btn-danger btn-block' style='text-align: center;height: 70px;font-size: 20px;'>جار جلب الرابط ...</button>						
+							<button class='btn btn-danger btn-block' style='text-align: center;height: 70px;font-size: 20px;'><?php langLine('theme.go.span.15') ?></button>						
 						</div>
 						<?php
 							}
@@ -208,7 +208,7 @@ else
 
 			<div class='row'>
 				<div class='col-md-12'>
-					<div class='alert alert-info'><i class='fa fa-info-circle fa-fw'></i> يمكنك تبليغ إدارة الموقع عن هذا الرابط إذا كان مسيئا للأخلاق أو مشبوه، من <a href='<?php echo base_url(); ?>p/contact' ><b>هنـــا</b></a> !</div>
+					<div class='alert alert-info'><i class='fa fa-info-circle fa-fw'></i> <?php langLine('theme.go.span.16') ?> <a href='<?php echo base_url(); ?>p/contact' ><b><?php langLine('theme.go.span.17') ?></b></a> !</div>
 				</div>
 			</div>
 
@@ -232,7 +232,7 @@ else
 			</div>
 			<div class='row'>
 				<div class='col-md-6'>
-					<h2 class='h4'><i class='fa fa-flag'></i> آخر الروابط المختصرة لـ <?php echo $linkdata['username']; ?> : </h2>
+					<h2 class='h4'><i class='fa fa-flag'></i> <?php langLine('theme.go.span.18') ?> <?php echo $linkdata['username']; ?> : </h2>
 					<hr>
 					<div>
 						<?php
@@ -253,7 +253,7 @@ else
 			{
 			?>
 				<div class='col-md-6'>
-					<h2 class='h4'><i class='fa fa-thumbs-o-up'></i> روابط مشابهة : </h2>
+					<h2 class='h4'><i class='fa fa-thumbs-o-up'></i> <?php langLine('theme.go.span.19') ?> : </h2>
 					<hr>
 					<div>
 						<?php

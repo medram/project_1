@@ -1,4 +1,4 @@
-<script src="https://www.google.com/recaptcha/api.js?hl=ar&onload=myCallBack&render=explicit" async defer></script>
+<script src="https://www.google.com/recaptcha/api.js?hl=<?php echo config_item('validLang')['symbol'] ?>&onload=myCallBack&render=explicit" async defer></script>
 <script>
   var recaptcha1;
   var recaptcha2;
@@ -27,24 +27,24 @@
 				<div class='msg'></div>
 				<form id='sendMsg' action='<?php echo base_url("ajax"); ?>' method='post'>
 					<div class='form-group'>
-						<label>العنوان :</label>
+						<label><?php langLine('theme.contact.title') ?> : </label>
 						<input type='text' name='title' class='form-control'>
 					</div>
 					<div class='form-group'>
-						<label>البريد الإلكتروني الخاص بك :</label>
+						<label><?php langLine('theme.contact.email') ?> : </label>
 						<input type='text' name='email' class='form-control'>
 					</div>
 					<div class='form-group'>
-						<label>نوع الرسالة :</label>
+						<label><?php langLine('theme.contact.messageType') ?> : </label>
 						<select name='type' class='form-control'>
-							<option value='0'>رسالة عادية</option>
-							<option value='1'>الإبلاغ عن شيء ما</option>
-							<option value='2'>طلب استفسار</option>
-							<option value='3'>واجهت مشكلة بالموقع</option>
+							<option value='0'><?php langLine('theme.contact.span.1') ?></option>
+							<option value='1'><?php langLine('theme.contact.span.2') ?></option>
+							<option value='2'><?php langLine('theme.contact.span.3') ?></option>
+							<option value='3'><?php langLine('theme.contact.span.4') ?></option>
 						</select>
 					</div>
 					<div class='form-group'>
-						<label>محتوى الرسالة :</label>
+						<label><?php langLine('theme.contact.messageContent') ?> : </label>
 						<textarea name='content' rows='10' class='form-control'></textarea>
 					</div>
 					<?php
@@ -60,7 +60,7 @@
 					?>
 					<div class='form-group'>
 						<input type='hidden' name='contact' value='1' >
-						<button type='submit' class='btn btn-primary'><i class='fa fa-fw fa-send'></i> إرسال</button>
+						<button type='submit' class='btn btn-primary'><i class='fa fa-fw fa-send'></i> <?php langLine('theme.contact.btn.send') ?> </button>
 					</div>
 				</form>
 			</section>

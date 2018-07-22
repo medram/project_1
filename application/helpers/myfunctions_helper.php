@@ -2,6 +2,106 @@
 
 $CI =& get_instance();
 
+function langLine($key, $echo = true, $replace = [])
+{
+    global $CI;
+    static $loaded = [];
+    $langFile = explode('.', $key)[0];
+    
+    // this is auto load languages files
+    if (!in_array($langFile, $loaded))
+    {
+        //echo $langFile.' loading...<br>';
+        $loaded[] = $langFile;
+        // load the common lang files
+        $CI->lang->load($langFile, config_item('validLang')['name']);
+    }
+
+    $line = $CI->lang->line($key);
+
+    if (!is_array($replace) && $replace != '')
+    {
+        $line = str_ireplace("$1", $replace, $line);
+    }
+    else if (is_array($replace) && count($replace) > 0)
+    {
+        foreach ($replace as $k => $value)
+        {
+            $line = str_ireplace("${$k}", $value, $line);
+        }
+    }
+
+    if (!empty($key))
+    {
+        if ($echo)
+            echo $line;
+        else
+            return $line;
+    }
+}
+
+function copyFolder($srcFolder, $disFolder, $copyFolders = false)
+{
+    if (!is_dir($srcFolder) or !is_dir($disFolder))
+        return false;
+
+    $srcFolder = rtrim(str_ireplace('\\', '/', $srcFolder), '/');
+    $disFolder = rtrim(str_ireplace('\\', '/', $disFolder), '/');
+
+    $files = scandir($srcFolder);
+    $done = true;
+
+    foreach ($files as $k => $item)
+    {
+        $path = $srcFolder.'/'.$item;
+        if ($item != '.' && $item != '..'){
+
+            if (is_file($path))
+                copy($path, $disFolder.'/'.$item);
+            else if ($copyFolders && is_dir($path))
+            {
+                mkdir($disFolder.'/'.$item);
+                if (copyFolder($path, $disFolder.'/'.$item, true))
+                    return false;
+            }
+            else
+                return false;
+        }
+    }
+    return $done;
+}
+
+function deleteFolder($srcFolder, $deleteFolders = false)
+{
+    if (!is_dir($srcFolder))
+        return false;
+
+    $srcFolder = rtrim(str_ireplace('\\', '/', $srcFolder), '/');
+    
+    $files = scandir($srcFolder);
+    $done = true;
+
+    foreach ($files as $k => $item)
+    {
+        $path = $srcFolder.'/'.$item;
+        if ($item != '.' && $item != '..'){
+
+            if (is_file($path))
+                unlink($path);
+            else if ($deleteFolders && is_dir($path))
+            {
+                if (!deleteFolder($path, true))
+                    return false;
+            }
+            else
+                return false;
+        }
+    }
+    if ($done)
+        rmdir($srcFolder);
+    return $done;
+}
+
 function recaptcha ()
 {
 	global $CI;
@@ -204,27 +304,28 @@ function sendEmail($to, $subject, $msg, $from=array(), $priority=3, $mailtype='h
     }
 
     $c['mailtype'] = $mailtype;
-    $c['charset'] = 'utf-8';
     $c['priority'] = $priority; // from 1 to 5 , 3 is normal
     //$c['newline'] = '\r\n';
 
     $CI->load->library('email',$c);
     //$CI->email->set_newline("\r\n");
 
-    if (count($from) == 2)
-    {
-        $CI->email->from($from[0],$from[1]);
-    }
-    else 
+    if(count($from) == 0)
     {
         $CI->email->from(get_config_item('email_from'), config_item('sitename'));
+    }
+    else
+    {
+        $CI->email->from($from[0],$from[1]);
     }
 
     $CI->email->to($to);
     $CI->email->subject($subject);
     $CI->email->message($msg);
 
-    return $CI->email->send();
+    //return $CI->email->send();
+
+    return mail($to, $subject, $msg);
 }
 
 
@@ -232,6 +333,7 @@ function pagination($all_items,$num_per_page,$url,$lg='en')
 {
     global $CI;
     $CI->load->library('pagination');
+    $lg = (strtolower(config_item('validLang')['symbol']) == 'en' or strtolower(config_item('validLang')['symbol']) == 'ar') ? strtolower(config_item('validLang')['symbol']) : 'en' ;
 
     $lang = array();
     $lang['en']['next'] = '<span dir="rtl"><i class="fa fa-angle-right"></i> next</span>';
@@ -348,15 +450,7 @@ function color()
 
 function get_country_menu ($name='',$class='',$select=0,$l='')
 {
-    $a = array('en','ar');
-    if ($l != '' && in_array($l,$a))
-    {
-        $lang = $l;
-    }
-    else
-    {
-        $lang = 'ar'; // you can choose menu language from here : use 'en' or 'ar'        
-    }
+    $lang = config_item('validLang')['symbol'];
     $country = array();
     $country['ar'] = array(
         "اختر بلدك",
@@ -748,6 +842,8 @@ function get_country_menu ($name='',$class='',$select=0,$l='')
         "Zambia",
         "Zimbabwe"
     );
+
+    $lang = (isset($country[$lang]))? $lang : 'en' ; 
 
     $select = ($select == '')? 0 : $select ;
     $dir = ($lang == 'en')? 'ltr' : 'rtl' ;

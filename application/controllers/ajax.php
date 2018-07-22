@@ -15,7 +15,12 @@ class Ajax extends MY_controller
 		/*======================== Contact us ============================*/
 		if ($this->input->post('contact') == 1)
 		{
-			$a = array('رسالة عادية','الإبلاغ عن شيء ما','طلب استفسار','واجهت مشكلة بالموقع');
+			$a = array(
+				langLine('notifAccount.contact.span.1', false),
+				langLine('notifAccount.contact.span.2', false),
+				langLine('notifAccount.contact.span.3', false),
+				langLine('notifAccount.contact.span.4', false)
+			);
 
 			$title 		= trim(strip_tags($this->input->post('title',TRUE)));
 			$email 		= trim(strip_tags($this->input->post('email',TRUE)));
@@ -24,23 +29,23 @@ class Ajax extends MY_controller
 
 			if (!recaptcha())
 			{
-				$err = 'عذرا، كود الكابتشا خاطئ !';
+				$err = langLine('notifAccount.contact.span.5', false);
 			}
 			else if (empty($title) or empty($email) or empty($type) or empty($content))
 			{
-				$err = "عذرا، املأ جميع الخانات من فضلك !";
+				$err = langLine('notifAccount.contact.span.6', false);
 			}
 			else if (!filter_var($email,FILTER_VALIDATE_EMAIL))
 			{
-				$err = "عذرا، البريد الإلكتروني غير صالح !";
+				$err = langLine('notifAccount.contact.span.7', false);
 			}
 			else if (mb_strlen($title,'UTF-8') > 100)
 			{
-				$err = "عذرا، العنوان أطرل من للازم !";
+				$err = langLine('notifAccount.contact.span.8', false);
 			}
 			else if (mb_strlen($content,'UTF-8') > 1000)
 			{
-				$err = "عذرا، محتوى الرسالة أطرل من اللازم !";
+				$err = langLine('notifAccount.contact.span.9', false);
 			}
 			else
 			{
@@ -51,24 +56,32 @@ class Ajax extends MY_controller
 				$platform 	= $this->agent->platform();
 				$date 		= date(config_item('time_format'),time());
 				$to 		= get_config_item('email_from');
-				//$from 		= array($email,config_item('sitename').': '.$type);
+				$from 		= array($email,config_item('sitename').': '.$type);
 
-				$consts = array(
-						'TITLE' => $title,
-						'DATE' => $date,
-						'EMAIL' => $email,
-						'PLATFORM' => $platform,
-						'IP' => $ip,
-						'TYPE' => $type,
-						'CONTENT' => $content
-					);
+				/*$content .= "
+				<hr>
+				<div dir='ltr'>
+					<b>معلومات عن المرسل</b><br><br>
+					date : ".$date."<br>
+					ip : ".$ip."<br>
+					email : ".$email."<br>
+					platform : ".$platform."<br>
+					
+				</div>
+				";
+				*/
 
-				$tpl = email_tpls_load_and_replace('contact', $consts, FALSE);
+				$msg = langLine('notifAccount.contact.span.10', false, [$title, $type])."<br><br>";
+				$msg .= $content;
+
+				$msg .= "
+					<br>--------------------------------------------------<br>".
+					langLine('notifAccount.contact.span.11', false, [$date, $ip, $platform, $email]);
 
 				// $to,$subject,$msg,$priority=3,$mailtype='html'
-				if (sendEmail($to,$title,$tpl,null, 3, 'text'))
+				if (sendEmail($to,$title,$msg,$from))
 				{
-					$ok = "تم الإرسال بنجــــاح.
+					$ok = langLine('notifAccount.contact.span.12', false)."
 						<script type='text/javascript'>
 							$(document).ready(function(){
 								setTimeout(function (){
@@ -85,7 +98,7 @@ class Ajax extends MY_controller
 				}
 				else
 				{
-					$err = "عذرا، لقد حدث خطأ غير متوقع، أحد المحاولة من فضلك !";
+					$err = langLine('notifAccount.contact.span.13', false);
 				}
 			}
 

@@ -73,7 +73,7 @@ class Account extends MY_controller
 
 	public function index ()
 	{
-		$this->data['title'] = "مرحبا بك ".$this->data['userdata']['username']." !";
+		$this->data['title'] = langLine('notifAccount.index.span.1', false)." ".$this->data['userdata']['username']." !";
 		
 		/*============================= get statistics data ============================*/
 		$w_st['user_id'] = $this->data['userdata']['id'];
@@ -115,7 +115,7 @@ class Account extends MY_controller
 
 	public function profile()
 	{
-		$this->data['title'] = "حسابي";
+		$this->data['title'] = langLine('notifAccount.profile.span.1', false);
 		
 
 		$this->load->view("templates/header",$this->data);
@@ -128,7 +128,7 @@ class Account extends MY_controller
 	{
 		if ($this->data['userdata']['account_status'] == 2) // 2 = banned
 		{
-			$this->data['title'] = "تم حظر حسابك !";
+			$this->data['title'] = langLine('notifAccount.banned.title', false);
 			
 
 			$this->load->view("templates/header",$this->data);
@@ -144,7 +144,7 @@ class Account extends MY_controller
 
 	public function addlinks ()
 	{
-			$this->data['title'] = " إختصار روابط جديدة";
+			$this->data['title'] = langLine('notifAccount.addlinks.title', false);
 			
 
 			$this->load->view("templates/header",$this->data);
@@ -224,7 +224,7 @@ class Account extends MY_controller
 			}
 		}
 
-		$this->data['title'] = 'روابطي المختصرة';
+		$this->data['title'] = langLine('notifAccount.mylinks.title', false);
 
 		$this->load->view("templates/header",$this->data);
 		$this->data['sidebar'] = $this->load->view("templates/user_sidebar",$this->data,TRUE);
@@ -240,7 +240,7 @@ class Account extends MY_controller
 
 	public function settings ()
 	{
-		$this->data['title'] = 'إعدادات روابطي المختصرة';
+		$this->data['title'] = langLine('notifAccount.settings.title', false);
 
 		$this->load->view("templates/header",$this->data);
 		$this->data['sidebar'] = $this->load->view("templates/user_sidebar",$this->data,TRUE);
@@ -274,19 +274,19 @@ class Account extends MY_controller
 
 			if (!recaptcha())
 			{
-				$err = "كود الكابتشا خاطئ ، أعد المحاولة.";
+				$err = langLine('notifAccount.password.span.1', false);
 			}
 			else if ($old_pass == '' or $new_pass == '' or $conf_pass == '')
 			{
-				$err = "إملأ جميع الخانات من فضلك.";
+				$err = langLine('notifAccount.password.span.2', false);
 			}
 			else if (!password_verify($old_pass,$this->data['userdata']['password']))
 			{
-				$err = "عذرا، <b>كلمة المرور الحالية</b> غير صحيحة.";
+				$err = langLine('notifAccount.password.span.3', false);
 			}
 			else if ($new_pass != $conf_pass)
 			{
-				$err = "عذرا، <b>كلمتا المرور</b> غير متطابقتان.";
+				$err = langLine('notifAccount.password.span.4', false);
 			}
 			else
 			{
@@ -297,8 +297,8 @@ class Account extends MY_controller
 
 				if ($up)
 				{
-					$ok = "
-					تم حفظ كلمة المرور الجديدة بنجاح.
+					$ok = langLine('notifAccount.password.span.5', false);
+					$ok .= "
 					<script type='text/javascript'>
 						$('input[name=old-pass]').val('');
 						$('input[name=new-pass]').val('');
@@ -308,7 +308,7 @@ class Account extends MY_controller
 				}
 				else
 				{
-					$err = "عذرا، لقد حدث خطأ، أعد المحاولة !";
+					$err = langLine('notifAccount.password.span.6', false);
 				}
 			}
 
@@ -337,8 +337,8 @@ class Account extends MY_controller
 		if ($this->input->post('tab') == 'img')
 		{
 	        $config['upload_path']          = './uploads/users/profile-images';
-	        $config['allowed_types']        = 'gif|jpg|png';
-	        $config['max_size']             = 1024*1; // 1 MB
+	        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+	        $config['max_size']             = 1024; // 1 MB
 	        $config['max_width']            = 1024;
 	        $config['max_height']           = 1024;
 	        $config['file_name']			= md5($this->data['userdata']['user_token']).".png";
@@ -376,7 +376,7 @@ class Account extends MY_controller
 			    }
 			    else
 			    {
-			    	$ok = "تم التحميل بنجاح، أعد تحديث الصفحة إذا لم تظهر الصورة. ";
+			    	$ok = langLine('notifAccount.profileImage.span.1', false);
 			    }
 			}
 		}
@@ -398,31 +398,31 @@ class Account extends MY_controller
 			{
 				if (!recaptcha())
 				{
-					$err = "كود الكابتشا خاطئ ، أعد المحاولة.";
+					$err = langLine('notifAccount.newLink.span.1', false);
 				}
 				else if ($title == '')
 				{
-					$err = 'عذرا، أدخل عنوانا للرابط !';
+					$err = langLine('notifAccount.newLink.span.2', false);
 				}
 				else if (mb_strlen($title) > 100)
 				{
-					$err = 'عذرا، العنوان أطول من الازم !';
+					$err = langLine('notifAccount.newLink.span.3', false);
 				}
 				else if ($url == '')
 				{
-					$err = 'عذرا، أدخل الرابط المراد اختصاره';
+					$err = langLine('notifAccount.newLink.span.4', false);
 				}
 				else if (mb_strlen($url) > 500)
 				{
-					$err = 'عذرا، رابط الموقع طويل جدا !';
+					$err = langLine('notifAccount.newLink.span.5', false);
 				}
 				else if (!is_url($url))
 				{
-					$err = 'عذرا، الرابط غير صالح !';
+					$err = langLine('notifAccount.newLink.span.6', false);
 				}
 				else if (is_forbiden_url($url))
 				{
-					$err = 'عذرا، هذا الرابط محظور ، لا بمكنك اختصاره!';
+					$err = langLine('notifAccount.newLink.span.7', false);
 				}
 				else
 				{
@@ -443,11 +443,11 @@ class Account extends MY_controller
 					
 					if ($insert)
 					{
-						$ok = "تم الإختصار بنجاح.";
+						$ok = langLine('notifAccount.newLink.span.8', false);
 					}
 					else
 					{
-						$err = 'عذرا، لقد حدث خطأ غير متوقع، من فضلك أعد المحاولة !';
+						$err = langLine('notifAccount.newLink.span.9', false);
 					}
 				}
 			}
@@ -470,19 +470,19 @@ class Account extends MY_controller
 				$url = $a;
 				if (!recaptcha())
 				{
-					$err = "كود الكابتشا خاطئ ، أعد المحاولة.";
+					$err = langLine('notifAccount.newLink.span.10', false);
 				}
 				else if ($title == '')
 				{
-					$err = 'عذرا، أدخل عنوانا للروابط !';
+					$err = langLine('notifAccount.newLink.span.11', false);
 				}
 				else if (mb_strlen($title) > 100)
 				{
-					$err = 'عذرا، العنوان أطول من الازم !';
+					$err = langLine('notifAccount.newLink.span.12', false);
 				}
 				else if (count($url) == 0)
 				{
-					$err = 'عذرا، أدخل الروابط المراد اختصارها !';
+					$err = langLine('notifAccount.newLink.span.13', false);
 				}
 				else
 				{
@@ -499,16 +499,16 @@ class Account extends MY_controller
 						if (!is_url($link))
 						{
 							$err_link = $k+1;
-							$err_msg = "الرابط في السطر ".$err_link." غير صالح !";
+							$err_msg = langLine('notifAccount.newLink.span.14', false, $err_link);
 							break;
 						}
 						else if (mb_strlen($link) > 500)
 						{
-							$err_msg = "الرابط في السطر ".($k+1)." طويل جدا , ضع رابطا أقصر منه !";
+							$err_msg = langLine('notifAccount.newLink.span.15', false, $k+1);
 						}
 						else if (is_forbiden_url($link))
 						{
-							$err_msg = 'الرابط في السطر '.($k+1).' محظور، لايمكنك اختصاره!';
+							$err_msg = langLine('notifAccount.newLink.span.16', false, $k+1);
 							break;
 						}
 					}
@@ -519,7 +519,7 @@ class Account extends MY_controller
 					}
 					else if (count($url) > 10)
 					{
-						$err = "لقد وضعت روابط كثيرة , عدد الروابط المسموح باختصارها دفعة واحدة هي 10 روابط !";
+						$err = langLine('notifAccount.newLink.span.17', false);
 					}
 					else
 					{
@@ -554,11 +554,11 @@ class Account extends MY_controller
 					
 						if (!in_array(0,$a_errs))
 						{
-							$ok = "تم اختصار روابطك بنجاح.";
+							$ok = langLine('notifAccount.newLink.span.18', false);
 						}
 						else
 						{
-							$err = "عذرا، لقد حدث خطأ, أعد المحاولة من فضلك !";
+							$err = langLine('notifAccount.newLink.span.19', false);
 						}
 
 						// change the url array to string
@@ -617,11 +617,11 @@ class Account extends MY_controller
 		
 			if ($del)
 			{
-				echo "تم الحذف بنجـــاح";
+				echo langLine('notifAccount.deleteLink.span.1', false);
 			}
 			else
 			{
-				echo "عذرا، لقد حدث خطأ، أعد المحاولة من فضلك !";
+				echo langLine('notifAccount.deleteLink.span.2', false);
 			}
 		}
 
@@ -637,27 +637,27 @@ class Account extends MY_controller
 
 			if ($pub == '')
 			{
-				$err = 'أدخل كود pub من فضلك.';
+				$err = langLine('notifAccount.settings.span.1', false);
 			}
 			else if (!preg_match("/^(pub-){1}([0-9]{16})$/",$pub))
 			{
-				$err = 'كود pub غير صالح !';
+				$err = langLine('notifAccount.settings.span.2', false);
 			}
 			else if ($channel != '' && !is_numeric($channel))
 			{
-				$err = 'عذرا، يجب أن تكون قيمة كود channel قيمة رقمية !';
+				$err = langLine('notifAccount.settings.span.3', false);
 			}
 			else if (mb_strlen($channel) > 10)
 			{
-				$err = 'عذرا، كود channel غير صالح !';
+				$err = langLine('notifAccount.settings.span.4', false);
 			}
 			else if ($count < 10 or $count > 60)
 			{
-				$err = 'عذرا، قيمة العد التنازلي غير مسموح بها !';
+				$err = langLine('notifAccount.settings.span.5', false);
 			}
 			else if ($url != '' && !filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED))
 			{
-				$err = 'عذرا، رابط موقعك الإلكتروني غير صالح !';
+				$err = langLine('notifAccount.settings.span.6', false);
 			}
 			else
 			{
@@ -680,11 +680,11 @@ class Account extends MY_controller
 				
 				if ($del && $insert)
 				{
-					$ok = 'تم حفظ البيانات بنجاح !';
+					$ok = langLine('notifAccount.settings.span.7', false);
 				}
 				else
 				{
-					$err = 'عذرا، لقد حدث خطأ، أعد المحاولة من فضلك !';
+					$err = langLine('notifAccount.settings.span.8', false);
 				}
 			}
 		}
@@ -727,21 +727,21 @@ class Account extends MY_controller
 						},5000);
 						</script>
 						";
-						$ok = 'تم حذف حسابك بنجـــاح، جار تسجيل خروجك ...'.$script;
+						$ok = langLine('notifAccount.blockAccount.span.1', false).' '.$script;
 					}
 					else
 					{
-						$err = 'عذرا، لقد حدث خطأ، أعد المحاولة من فضلك !';
+						$err = langLine('notifAccount.blockAccount.span.2', false);
 					}
 				}
 				else
 				{
-					$err = 'عذرا، كلمة المرور خاطئة !';
+					$err = langLine('notifAccount.blockAccount.span.3', false);
 				}
 			}
 			else
 			{
-				$err = 'ههههههههه لم يحدت شيء!';
+				$err = langLine('notifAccount.blockAccount.span.4', false);
 			}
 
 			$s_user->free_result();

@@ -87,6 +87,7 @@ class CI_Lang {
 	 */
 	public function load($langfile, $idiom = '', $return = FALSE, $add_suffix = TRUE, $alt_path = '')
 	{
+
 		if (is_array($langfile))
 		{
 			foreach ($langfile as $value)

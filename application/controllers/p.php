@@ -15,9 +15,13 @@ class P extends MY_controller
 
 		if (preg_match("/^([a-zA-Z0-9_-]+)$/",$slug))
 		{
-			$where['slug'] = $slug;
-			$where['published']	= 1;
-			$sel = $this->cms_model->select('pages',$where);
+			$where = "slug='".$slug."' AND published=1";
+			$where .= " AND (lang_id=".config_item('validLang')['id']." OR lang_id=0)";
+			$sel = $this->cms_model->select('pages', $where);
+			
+/*			echo '<pre>';
+			print_r($sel->result_array()) ;
+			echo '</pre>';*/
 
 			if ($sel->num_rows() == 1)
 			{

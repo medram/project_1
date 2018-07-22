@@ -3,7 +3,7 @@
 <div class='container'>
 	<div class='row'>
 		<div class='col-md-12 page-header'>
-			<h1><i class="fa fa-fw fa-refresh"></i> استعادة حسابي</h1>
+			<h1><i class="fa fa-fw fa-refresh"></i> <?php langLine('theme.forget.title') ?></h1>
 		</div>
 	</div>
 	<div class='row'>
@@ -19,7 +19,7 @@
 			?>
 			<form action='<?php echo base_url($page_path); ?>/forget_pass' method='post'>
 				<div class='form-group'>
-					<label>أدخل البريد الإلكتروني الخاص بك :</label>
+					<label><?php langLine('theme.forget.span.1') ?> : </label>
 					<input type='text' name='e-mail' class='form-control' >
 				</div>
 				<?php
@@ -34,7 +34,7 @@
 				}
 				?>
 				<div class='form-group'>
-					<button name='submit' class='btn btn-primary btn-block' value='ok' ><i class="fa fa-fw fa-refresh"></i> استعادة</button>
+					<button name='submit' class='btn btn-primary btn-block' value='ok' ><i class="fa fa-fw fa-refresh"></i> <?php langLine('theme.forget.btn.recovery') ?></button>
 				</div>
 			</form>
 			<?php

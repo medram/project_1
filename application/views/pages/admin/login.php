@@ -6,7 +6,7 @@
 </div>
 <br><br><br>
 <div style="text-align: center;">
-	<div style="text-align: right; width: 400px;margin: 0px auto;">
+	<div style="text-align: left; width: 400px;margin: 0px auto;">
 			<?php
 				if(isset($msg) && $msg != '')
 				{
@@ -16,11 +16,11 @@
 
 		<form action="<?php echo base_url().$page_path.'/'; ?>login" method="post" role="form">
 			<div class="form-group">
-				<label>البريد الإلكتروني :</label>
+				<label>E-mail :</label>
 				<input type="text" name="email" class="form-control">
 			</div>
 			<div class="form-group">
-				<label>كلمة المرور :</label>
+				<label>Password :</label>
 				<input type="password" name="pass" class="form-control">
 			</div>
 			<!--
@@ -40,11 +40,11 @@
 			}
 			?>
 			<div>
-				<input type="submit" name="submit" value="دخول" class="btn btn-primary btn-block">
+				<input type="submit" name="submit" value="Login" class="btn btn-primary btn-block">
 			</div>
 			<div>
 				<br>
-				<span>نسيت كلمة المرور ؟ <a href="<?php echo base_url().$page_path.'/'; ?>login/forget_pass">إستعادة</a></span>
+				<span>I forgot my password - <a href="<?php echo base_url().$page_path.'/'; ?>login/forget_pass">Recovery</a></span>
 			</div>
 		</form>
 	</div>

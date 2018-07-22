@@ -46,11 +46,6 @@
         <h1 class="page-header">
             <i class='fa fa-dashboard'></i> Dashboard
         </h1>
-        <ol class="breadcrumb">
-            <li class="active">
-                <i class="fa fa-dashboard"></i> Dashboard
-            </li>
-        </ol>
     </div>
 </div>
 <!-- /.row -->
@@ -58,7 +53,7 @@
 
 <div class="row">
     <div class="col-lg-3 col-md-6">
-        <div class="panel panel-danger">
+        <div class="panel panel-info">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
@@ -66,7 +61,7 @@
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><?php echo $all_users_verified; ?></div>
-                        <div>Users verivied</div>
+                        <div>Users (emails verified)</div>
                     </div>
                 </div>
             </div>
@@ -89,7 +84,7 @@
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><?php echo $all_users_no_verified; ?></div>
-                        <div>Users no verivied</div>
+                        <div>Users (emails not verified yet)</div>
                     </div>
                 </div>
             </div>
@@ -112,7 +107,7 @@
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><?php echo $online; ?></div>
-                        <div>Online</div>
+                        <div>Online visitors</div>
                     </div>
                 </div>
             </div>
@@ -134,7 +129,7 @@
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><?php echo $all_links; ?></div>
-                        <div>All links</div>
+                        <div>Links</div>
                     </div>
                 </div>
             </div>
@@ -260,7 +255,7 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-area-chart fa-fw"></i> views on last 30 days</h3>
+                <h3 class="panel-title"><i class="fa fa-area-chart fa-fw"></i> Views on last 30 days</h3>
             </div>
             <div class="panel-body">
                 <div id="graph1"></div>
@@ -275,7 +270,7 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-globe fa-fw"></i> packages domains</h3>
+                <h3 class="panel-title"><i class="fa fa-globe fa-fw"></i> Domains package</h3>
             </div>
             <div class="panel-body">
                 <div id="graph-bar"></div>
@@ -343,9 +338,9 @@
                 ?>
                 <table class='table table-hover'>
                     <thead>
-                        <td style="vertical-align: middle;"><b>#id</b></td>
-                        <td colspan='2'><b>info</b></td>
-                        <td><b>register time</b></td>
+                        <td style="vertical-align: middle;"><b>ID</b></td>
+                        <td colspan='2'><b>Info</b></td>
+                        <td><b>Registration date</b></td>
                     </thead>
                     <?php
                     foreach ($lastUsers as $row)

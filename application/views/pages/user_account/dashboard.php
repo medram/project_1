@@ -72,7 +72,7 @@ if ($s_st->num_rows() > 0)
 			xkey: 'x',
 			ykeys: ['y'],
 
-			labels: [' المشاهدات '],
+			labels: [' Views '],
             lineColors: ['#3BAFDA','#8CC152',"#8CC152","#F6BB42","#DA4453","#434A54",'#37BC9B'],
             lineWidth: 2,
             smooth: true,
@@ -101,7 +101,7 @@ if (!isset($userdata['user_pub']) || empty($userdata['user_pub']))
 <div class='row'>
 	<div class='col-md-12'>
 		<div class='alert alert-warning'>
-			<i class='fa fa-info-circle fa-lg fa-fw'></i> لتتمكن من عرض اعلاناتك على روابطك المختصرة ، عليك بإدخال كود pub الخاص بك على google adsense من <a href='<?php echo base_url($page_path)."/settings"; ?>'>هنــــــا</a>
+			<i class='fa fa-info-circle fa-lg fa-fw'></i> <?php langLine('account.notification.span.1') ?> <a href='<?php echo base_url($page_path)."/settings"; ?>'><?php langLine('account.notification.span.2') ?></a>
 		</div>
 	</div>
 </div>
@@ -117,7 +117,7 @@ if (!isset($userdata['user_pub']) || empty($userdata['user_pub']))
 		<div class='col-md-9'>
 			<div class='row'>
 				<div class='col-lg-12 page-header'>
-					<h1><i class="fa fa-fw fa-pie-chart"></i> إحصاءاتي</h1>
+					<h1><i class="fa fa-fw fa-pie-chart"></i> <?php langLine('account.dashboard.span.1') ?></h1>
 				</div>
 			</div>
 			<?php
@@ -134,7 +134,7 @@ if (!isset($userdata['user_pub']) || empty($userdata['user_pub']))
 					            </div>
 					            <div class="col-xs-9 text-right">
 					                <div class="huge"><?php echo $all_views; ?></div>
-					                <div>عدد المشاهدات الكلية لآخر 30 يوما</div>
+					                <div><?php langLine('account.dashboard.span.2') ?></div>
 					            </div>
 					        </div>
 					    </div>
@@ -149,7 +149,7 @@ if (!isset($userdata['user_pub']) || empty($userdata['user_pub']))
 					            </div>
 					            <div class="col-xs-9 text-right">
 					                <div class="huge"><?php echo $all_links; ?></div>
-					                <div>عدد الروابط المختصرة</div><br>
+					                <div><?php langLine('account.dashboard.span.3') ?></div><br>
 					            </div>
 					        </div>
 					    </div>
@@ -164,7 +164,7 @@ if (!isset($userdata['user_pub']) || empty($userdata['user_pub']))
 					            </div>
 					            <div class="col-xs-9 text-right">
 					                <div class="huge"><?php echo $all_linls_views; ?></div>
-					                <div>عدد المشاهدات الكلية للروابط</div><br>
+					                <div><?php langLine('account.dashboard.span.4') ?></div><br>
 					            </div>
 					        </div>
 					    </div>
@@ -174,7 +174,7 @@ if (!isset($userdata['user_pub']) || empty($userdata['user_pub']))
 			<div class='row'>
 				<div class='col-lg-12'>
 					<div class="panel panel-info">
-						<div class="panel-heading"><b><i class='fa fa-lg fa-fw fa-area-chart'></i> إحصاءات آخر 30 يوما</b></div>
+						<div class="panel-heading"><b><i class='fa fa-lg fa-fw fa-area-chart'></i> <?php langLine('account.dashboard.span.5') ?></b></div>
 						<div class="panel-body">
 							<div id='graph' style='width: 100%; height: 400px;'></div>
 						</div>
@@ -186,8 +186,8 @@ if (!isset($userdata['user_pub']) || empty($userdata['user_pub']))
 				<div class='col-lg-12'>
 					<table class='table table-striped table-hover'>
 						<thead>
-							<th>الأيام</th>
-							<th>عدد المشاهدات</th>
+							<th><?php langLine('account.dashboard.span.6') ?></th>
+							<th><?php langLine('account.dashboard.span.7') ?></th>
 						</thead>
 						<tbady>
 						<?php
@@ -212,7 +212,7 @@ if (!isset($userdata['user_pub']) || empty($userdata['user_pub']))
 			?>
 			<div class='row'>
 				<div class='col-lg-12'>
-					<div class='alert alert-info'><i class='fa fa-info-circle'></i> لا توجد بيانات كافية لعرضها لحد الآن</div>
+					<div class='alert alert-info'><i class='fa fa-info-circle'></i> <?php langLine('account.dashboard.span.8') ?></div>
 				</div>
 			</div>
 			<?php

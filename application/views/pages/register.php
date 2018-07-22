@@ -4,7 +4,7 @@
 	<div class='row'>
 		<div class='col-md-12'>
 			<div class='page-header'>
-				<h1><i class="fa fa-fw fa-user-plus"></i> تسجيل حساب جديد</h1>
+				<h1><i class="fa fa-fw fa-user-plus"></i> <?php langLine('theme.register.title') ?></h1>
 			</div>
 		</div>
 	</div>
@@ -25,25 +25,25 @@
 			?>
 				<form action='<?php echo base_url(); ?>register' method='post' role='form'>
 					<div class='form-group'>
-						<label>اسم المستخدم :</label>
+						<label><?php langLine('theme.register.username') ?> : </label>
 						<input type='text' name='user' class='form-control' value="<?php if (!empty($user_name)){echo $user_name;} ?>">
 					</div>
 					<div class='form-group'>
-						<label>البريد الإلكتروني :</label>
+						<label><?php langLine('theme.register.email') ?> : </label>
 						<input type='text' name='email' class='form-control' value="<?php if (!empty($user_email)){echo $user_email;} ?>" >
 					</div>
 					<div class='form-group'>
-						<label>كلمة المرور :</label>
+						<label><?php langLine('theme.register.password') ?> : </label>
 						<input type='password' name='pass' class='form-control' >
 					</div>
 					<div class='form-group'>
-						<label>أعد كلمة المرور :</label>
+						<label><?php langLine('theme.register.repass') ?> : </label>
 						<input type='password' name='conf-pass' class='form-control' >
 					</div>
 					<div class='form-group'>
 						<input type="checkbox" name="agree" value="1" >
 						<label>
-							&nbsp; <span>قرأت <a href="<?php echo base_url('p/terms'); ?>">شروط الإستخدام</a> و <a href="<?php echo base_url('p/privacy'); ?>">سياسة الخصوصية</a> و أوافق عليها.</span>
+							&nbsp; <span><?php langLine('theme.register.span.1') ?></span>
 						</label>
 					</div>
 					<?php
@@ -58,11 +58,11 @@
 					}
 					?>
 					<div>
-						<input type='submit' name='submit' value='تسجيل' class='btn btn-primary' >
+						<input type='submit' name='submit' value='<?php langLine('theme.register.btn.register') ?>' class='btn btn-primary' >
 					</div>
 					<div>
 						<br>
-						<span>لدي حساب بالفعل ؟ <a href='<?php echo base_url(); ?>login'>دخول</a></span><br>
+						<span><?php langLine('theme.register.span.2') ?> <a href='<?php echo base_url(); ?>login'><?php langLine('theme.register.span.login') ?></a></span><br>
 					</div>
 				</form>
 			<?php

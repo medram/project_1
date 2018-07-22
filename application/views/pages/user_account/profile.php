@@ -13,11 +13,11 @@
 				<ul class="nav nav-tabs" role="tablist">
 					<li role="presentation" class="active">
 						<a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
-						<i class='fa fa-lg fa-user'></i> الملف الشخصي</a>
+						<i class='fa fa-lg fa-user'></i> <?php langLine('account.profile.span.1') ?></a>
 					</li>
 					<li role="presentation">
 						<a href="#repass" aria-controls="repass" role="tab" data-toggle="tab">
-						<i class='fa fa-lg fa-unlock-alt'></i> تغيير كلمة المرور</a>
+						<i class='fa fa-lg fa-unlock-alt'></i> <?php langLine('account.profile.span.2') ?></a>
 					</li>
 					<?php
 					if (get_config_item('user_delete_account') == 1)
@@ -26,7 +26,7 @@
 					?>
 					<li role="presentation">
 						<a href="#block" aria-controls="block" role="tab" data-toggle="tab">
-						<i class='fa fa-lg fa-trash-o'></i> حذف حسابي</a>
+						<i class='fa fa-lg fa-trash-o'></i> <?php langLine('account.profile.span.3') ?></a>
 					</li>
 					<?php
 
@@ -44,7 +44,7 @@
 									<form id='form-img' action='<?php echo base_url($page_path); ?>/ajax' method='post' enctype='multipart/form-data'>
 										<input type='file' name='img' >
 										<input type='hidden' name='tab' value='img'>
-										<span><i class='fa fa-lg fa-camera'></i> <b>اختر صورة</b></span>
+										<span><i class='fa fa-lg fa-camera'></i> <b><?php langLine('account.profile.span.4') ?></b></span>
 										<i class='fa fa-2x fa-pencil pencil'></i>
 									</form>
 									<div class='progressBox'></div>
@@ -54,20 +54,20 @@
 						<div class='col-md-8'>
 							<form id='updateProfile' action='<?php echo base_url($page_path); ?>/ajax' method='post'>
 								<div class='form-group'>
-									<label>اسم المستخدم :</label>
+									<label><?php langLine('account.profile.span.5') ?> :</label>
 									<input type='text' name='username' value='<?php echo htmlentities($userdata['username'],ENT_QUOTES); ?>' class='form-control' >
 								</div>
 								<div class='form-group'>
-									<label>البريد الإلكتروني :</label>
+									<label><?php langLine('account.profile.span.6') ?> :</label>
 									<input type='text' value='<?php echo $userdata['email']; ?>' disabled class='form-control' >
 								</div>
 								<div class='form-group'>
-									<label>النوع :</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<input type='radio' name='gender' value='1' <?php if ($userdata['gender'] == 1){echo "checked";} ?> > ذكر
-									<input type='radio' name='gender' value='2' <?php if ($userdata['gender'] == 2){echo "checked";} ?>> أنثى
+									<label><?php langLine('account.profile.span.7') ?> :</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type='radio' name='gender' value='1' <?php if ($userdata['gender'] == 1){echo "checked";} ?> > <?php langLine('account.profile.span.8') ?>
+									<input type='radio' name='gender' value='2' <?php if ($userdata['gender'] == 2){echo "checked";} ?>> <?php langLine('account.profile.span.9') ?>
 								</div>
 								<div class='form-group'>
-									<label>الدولة :</label>
+									<label><?php langLine('account.profile.span.10') ?> :</label>
 									<?php
 									if (isset($userdata["country"]))
 									{
@@ -80,23 +80,23 @@
 									echo get_country_menu('country','form-control',$country); ?>
 								</div>
 								<div class='form-group'>
-									<label>تاريخ الإزدياد :</label>
+									<label><?php langLine('account.profile.span.11') ?> :</label>
 									<input type='text' name='birth-day' 
 									value='<?php if (isset($userdata["birth_date"])){echo $userdata["birth_date"];} ?>' placeholder='DD/MM/YYYY' class='form-control' >
 								</div>
 								<div class='form-group'>
-									<label>سؤال الأمان :</label>
+									<label><?php langLine('account.profile.span.12') ?> :</label>
 									<input type='text' name='sec-que' 
-									value='<?php if (isset($userdata["sec_ques"])){echo htmlentities($userdata["sec_ques"],ENT_QUOTES);} ?>' placeholder='مثال: ماهي أول دولة تود زيارتها ؟' class='form-control' >
+									value='<?php if (isset($userdata["sec_ques"])){echo htmlentities($userdata["sec_ques"],ENT_QUOTES);} ?>' placeholder='<?php langLine('account.profile.span.13') ?>' class='form-control' >
 								</div>
 								<div class='form-group'>
-									<label>جواب سؤال الأمان :</label>
+									<label><?php langLine('account.profile.span.14') ?> :</label>
 									<input type='text' name='ans-que' 
-									value='<?php if (isset($userdata["ans_ques"])){echo htmlentities($userdata["ans_ques"],ENT_QUOTES);} ?>' placeholder='مثال: اليابان' class='form-control' >
+									value='<?php if (isset($userdata["ans_ques"])){echo htmlentities($userdata["ans_ques"],ENT_QUOTES);} ?>' placeholder='<?php langLine('account.profile.span.15') ?>' class='form-control' >
 								</div>
 								<div class='form-group'>
 									<input type='hidden' name='tab' value='1' >
-									<button type='submit' name='edit-profile' class='btn btn-primary'><i class='fa fa-fw fa-floppy-o'></i> حفظ</button>
+									<button type='submit' name='edit-profile' class='btn btn-primary'><i class='fa fa-fw fa-floppy-o'></i> <?php langLine('account.profile.span.16') ?></button>
 								</div>
 							</form>
 						</div>
@@ -106,15 +106,15 @@
 						<div class='col-lg-8'>
 							<form id='updatePassword' action='<?php echo base_url($page_path); ?>/ajax' method='post'>
 								<div class='form-group'>
-									<label>كلمة المرور الحالية :</label>
+									<label><?php langLine('account.profile.span.17') ?> :</label>
 									<input type='password' name='old-pass' class='form-control' >
 								</div>
 								<div class='form-group'>
-									<label>كلمة المرور الجديدة :</label>
+									<label><?php langLine('account.profile.span.18') ?> :</label>
 									<input type='password' name='new-pass' class='form-control' >
 								</div>
 								<div class='form-group'>
-									<label>أعد كتابة كلمة المرور الجديدة :</label>
+									<label><?php langLine('account.profile.span.19') ?> :</label>
 									<input type='password' name='conf-new-pass' class='form-control' >
 								</div>
 								<?php
@@ -130,7 +130,7 @@
 								?>
 								<div class='form-group'>
 									<input type='hidden' name='tab' value='2' >
-									<button type='submit' name='repass' class='btn btn-primary'><i class='fa fa-fw fa-key'></i> حفظ كلمة المرور الجديدة</button>
+									<button type='submit' name='repass' class='btn btn-primary'><i class='fa fa-fw fa-key'></i> <?php langLine('account.profile.span.20') ?></button>
 								</div>
 							</form>
 						</div>
@@ -151,7 +151,7 @@
 						</div><br>
 						<div style='width: 300px; margin: 0px auto;'>
 							<div class='form-group'>
-								<button class='btn btn-danger btn-block' id='deleteAccountByUser'><i class='fa fa-trash-o'></i> حذف حسابي</button>
+								<button class='btn btn-danger btn-block' id='deleteAccountByUser'><i class='fa fa-trash-o'></i> <?php langLine('account.profile.span.21') ?></button>
 							</div>
 						</div>
 					</div>

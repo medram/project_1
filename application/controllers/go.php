@@ -189,7 +189,7 @@ class Go extends MY_controller
 		{
 			if (!recaptcha())
 			{
-				$err = 'عذرا، كود الكابتشا خاطأ، اعد المحاولة';
+				$err = langLine('notifAccount.go.span.1', false);
 			}
 			else
 			{
@@ -202,11 +202,11 @@ class Go extends MY_controller
 				{
 					$row = $s->row_array();
 
-					$ok = "<a dir='rtl' style='text-decoration: none;' href='".decode($row['url'])."' target='_blank' ><button class='btn btn-success btn-block' style='text-align: center;height: 70px;font-size: 20px;'><i class='fa fa-link'></i> إضغط هنا للذهاب للرابط</button></a>";
+					$ok = "<a style='text-decoration: none;' href='".decode($row['url'])."' target='_blank' ><button class='btn btn-success btn-block' style='text-align: center;height: 70px;font-size: 20px;'><i class='fa fa-link'></i> ".langLine('notifAccount.go.span.2', false)."</button></a>";
 				}
 				else
 				{
-					$err = 'عذرا، الرابط غير موجود !';
+					$err = langLine('notifAccount.go.span.3', false);
 				}
 
 				$s->free_result();

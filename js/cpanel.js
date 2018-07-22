@@ -212,7 +212,38 @@ $(function (){
 	    }
 	});
 
+	/*===================== Delete language ======================*/
+	
+	$(".deleteLang").click(function (){
+	    var id = $(this).attr('id');
+	    var tr = $(this).parents('tr');
 
+	    if(confirm("Are you sure you want to delete this language (ID: "+id+")?\nremember, the translated files will be removed."))
+	    {
+	       $.ajax({
+	            url: $.url()+'/../ajax',
+	            type: 'POST',
+	            data: "deleteLang=1&id="+id,
+	            success: function(r,s,xhr)
+	            {
+	                if (s == "success")
+	                {
+	                    $(tr).slideUp('slow',function (){
+	                        alert(r);
+	                    });
+	                }
+	            },
+	            error: function (xhr)
+	            {
+	                alert(xhr.statusText);
+	            },
+	       }); 
+	    }
+	    else
+	    {
+	        return false;
+	    }
+	});
 
 
 }); // end

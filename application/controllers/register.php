@@ -21,43 +21,43 @@ class Register extends MY_Controller
 
 			if (!recaptcha())
 			{
-				$err = "كود الكابتشا خاطئ ، أعد المحاولة.";
+				$err = langLine('notifAccount.register.span.1', false);
 			}
 			else if ($username == '' or $email == '' or $password == '' or $conf_pass == '')
 			{
-				$err = "من فضلك إملأ جميع الحقول بما يناسب.";
+				$err = langLine('notifAccount.register.span.2', false);
 			}
 			else if (mb_strlen($username) > 50)
 			{
-				$err = "<b>اسم المستخدم أطول من اللازم.</b>";
+				$err = langLine('notifAccount.register.span.3', false);
 			}
 			else if (mb_strlen($username) < 4)
 			{
-				$err = "<b>اسم المستخدم</b> أقصر من اللازم.";
+				$err = langLine('notifAccount.register.span.4', false);
 			}
 			else if (!filter_var($email,FILTER_VALIDATE_EMAIL))
 			{
-				$err = "عذرا، <b>البريد الإلكتروني</b> غير صالح.";
+				$err = langLine('notifAccount.register.span.5', false);
 			}
 			else if ($this->cms_model->is_registered($email))
 			{
-				$err = "عذرا، <b>البريد الإلكتروني</b> تم التسجيل به من قبل.";
+				$err = langLine('notifAccount.register.span.6', false);
 			}
 			else if (mb_strlen($password) > 100) 
 			{
-				$err = "عذرا،<b>كلمة المرور</b> أطول من اللازم.";
+				$err = langLine('notifAccount.register.span.7', false);
 			}
 			else if (mb_strlen($password) < 5)
 			{
-				$err = "عذرا،<b>كلمة المرور</b> أقصر من اللازم.";
+				$err = langLine('notifAccount.register.span.8', false);
 			}
 			else if ($password != $conf_pass)
 			{
-				$err = "عذرا، كلمتا المرور غير متطابقتان.";
+				$err = langLine('notifAccount.register.span.9', false);
 			}
 			else if ($agree != 1)
 			{
-				$err = "عذرا، عليك الموافقة على شروط الإستخدام";
+				$err = langLine('notifAccount.register.span.10', false);
 			}
 			else
 			{
@@ -75,10 +75,10 @@ class Register extends MY_Controller
 				if ($this->cms_model->register($data))
 				{
 					// send email to activation
-					$t = base_url('login/activation?u=').encode($token,TRUE);
+					$t = base_url('register/activation?u=').encode($token,TRUE);
 
 					$to = $email;
-					$sub = "تفعيل حسابك على ".config_item('sitename');
+					$sub = langLine('notifAccount.register.span.11', false, config_item('sitename'));
 					$tpl_path = "activation"; // include template here and replace all constants
 
 					$const = array(
@@ -97,16 +97,16 @@ class Register extends MY_Controller
 
 					if (sendEmail($to, $sub, $tpl))
 					{
-						$ok = "تم التسجيل بنجاح، لقد تم إرسال رسالة إلى بريدك الإلكتروني لتفعيل حسابك.";
+						$ok = langLine('notifAccount.register.span.12', false);
 					}
 					else
 					{
-						$err = "عذرا، لقد حدث خطأ غير متوقع، أعد المحاولة من فضلك !";
+						$err = langLine('notifAccount.register.span.13', false);
 					}
 				}
 				else
 				{
-					$err = "عذرا، لقد حدث خطأ، أعد المحاولة من فضلك";
+					$err = langLine('notifAccount.register.span.14', false);
 				}
 				
 				//$err = $username.'<br>'.$email.'<br>'.$password.'<br>'.password_hash($password,PASSWORD_DEFAULT);
@@ -125,7 +125,7 @@ class Register extends MY_Controller
 
 		}
 
-		$data['title'] = "تسجيل حساب جديد";
+		$data['title'] = langLine('notifAccount.register.span.15', false);
 
 		$this->load->view("templates/header",$data);
 		$this->load->view("pages/register",$data);

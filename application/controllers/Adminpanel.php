@@ -278,7 +278,7 @@ class Adminpanel extends MY_controller
 		$this->data['title'] = 'Hello '.$this->data['userdata']['username'];
 
 		$this->load->view('templates/admin_header',$this->data);
-		$this->load->view('pages/admin/dashboard',$this->data);
+		$this->load->view('pages/admin/Dashboard',$this->data);
 		$this->load->view('templates/admin_footer',$this->data);
 	}
 
@@ -290,6 +290,7 @@ class Adminpanel extends MY_controller
 	public function settings ()
 	{
 		$this->data['title'] = 'Site settings';
+		$this->data['languages'] = $this->cms_model->select('languages')->result_array();
 
 		$this->load->view('templates/admin_header',$this->data);
 		$this->load->view('pages/admin/site_settings',$this->data);
@@ -448,20 +449,20 @@ class Adminpanel extends MY_controller
 
 		if ($action == "")
 		{
-			$this->data['title'] = 'تسجل الدخول !';
+			$this->data['title'] = 'Admin login page !';
 			$page = "login";
 			$this->data['msg'] = $this->cms_model->login('admin');
 		}
 		else if ($action == 'forget_pass')
 		{
-			$this->data['title'] = 'استعادة حسابي !';
+			$this->data['title'] = 'Recovery my account !';
 			$page = "forget_pass";
 
 			$this->data['msg'] = $this->cms_model->forget_pass('admin');
 		}
 		else if ($action == 'repass')
 		{
-			$this->data['title'] = 'تعيين كلمة مرور جديدة';
+			$this->data['title'] = 'Set new password';
 			$page = 'repass';
 	        
 	        $t = ($this->input->get('t',TRUE) != '')? $this->input->get('t',TRUE) : $this->input->post('t',TRUE) ;
@@ -483,7 +484,7 @@ class Adminpanel extends MY_controller
 	            }
 	            else
 	            {
-	                $this->data['forb'] = "<div class='alert alert-danger'><i class='fa fa-lg fa-clock-o'></i> عذرا، لقد انتهت مدة صلاحية هذا الرابط !</div>";
+	                $this->data['forb'] = "<div class='alert alert-danger'><i class='fa fa-lg fa-clock-o'></i> Sorry this link is not available anymore !</div>";
 	            }
 	        }
 
@@ -602,6 +603,155 @@ class Adminpanel extends MY_controller
 		$this->load->view("templates/admin_footer",$this->data);
 	}
 
+	public function languages($action = NULL)
+	{
+		if ($action == NULL)
+		{
+			$pagename = "Languages";
+			$page = "languages";
+
+			$r = $this->cms_model->select('languages');
+			$this->data['result'] = $r->result_array();
+
+		}
+		else if ($action == 'add')
+		{
+			$pagename = "Add language";
+			$page = 'add_lang';
+
+			if ($this->input->post('add'))
+			{
+				$name = $this->input->post('name', true);
+				$symbol = $this->input->post('symbol', true);
+				$direction = intval($this->input->post('direction', true));
+
+				if ($name == '' or $symbol == '')
+				{
+					$err = 'Please fill all the fields.';
+				}
+				else if (!preg_match("/^([a-zA-Z0-9_.\-]+)$/", $name))
+				{
+					$err = 'Oops, the language name is invalid, it\'s should be consists of these (a-z, A-Z, 0-9, -, _) characters';
+				}
+				else if (!preg_match("/^([a-zA-Z0-9_\-.]+)$/", $symbol))
+				{
+					$err = 'Oops, the language symbol is invalid, it\'s should be consists of these (a-z, A-Z, 0-9, -, _) characters';
+				}
+				else
+				{
+					$w = "name='{$name}' OR symbol='{$symbol}'";
+					$s = $this->cms_model->select('languages', $w);
+
+					if ($s->num_rows() > 0)
+					{
+						$err = 'Oops, this language already used, please try another language.';
+					}
+					else
+					{
+						$langData['name'] = $name;
+						$langData['symbol'] = $symbol;
+						$langData['isRTL'] = $direction;
+						
+						$save = $this->cms_model->insert('languages', $langData);
+						
+						$name = strtolower($name);
+						$languageFolder = str_ireplace('\\', '/', APPPATH."language/");
+						mkdir($languageFolder.$name);
+
+						if ($save && copyFolder($languageFolder.'tpls', $languageFolder.$name, true))
+						{
+							//$ok = 'Saved successfully.';
+							header('location: '.base_url($this->data['page_path'].'/languages'));
+							exit();
+						}
+						else
+						{
+							$err = 'Oops, Something wrong, please try again.';
+						}
+					}
+				}
+			}
+		}
+		else if ($action == 'edit')
+		{
+			$pagename = 'Edit language';
+			$page = 'edit_lang';
+
+			if ($this->input->post('edit'))
+			{
+				$symbol = $this->input->post('symbol', true);
+				$direction = intval($this->input->post('direction', true));
+				$status = intval($this->input->post('status', true));
+
+				if ($symbol == '')
+				{
+					$err = 'Please fill all the fields.';
+				}
+				else if (!preg_match("/^([a-zA-Z0-9_\-.]+)$/", $symbol))
+				{
+					$err = 'Oops, the language symbol is invalid, it\'s should be consists of these (a-z, A-Z, 0-9, -, _) characters';
+				}
+				else
+				{
+					$w = "id=".intval($this->uri->segment(4));
+					$s = $this->cms_model->select('languages', $w);
+					$r = $s->row_array();
+
+					$s2 = $this->cms_model->select('languages', ['symbol' => $symbol]);
+					
+					if ($r['symbol'] != $symbol && $s2->num_rows() > 0)
+					{
+						$err = 'Oops, this language symbol is already used, please try to use another symbol.';
+					}
+					else
+					{
+						$langData['symbol'] = $symbol;
+						$langData['isRTL'] = $direction;
+						$langData['active'] = $status;
+						$save = $this->cms_model->update('languages', $langData, ['id' => $r['id']]);
+						
+						if ($save)
+						{
+							//$ok = 'Saved successfully.';
+							header('location: '.base_url($this->data['page_path'].'/languages'));
+							exit();
+						}
+						else
+						{
+							$err = 'Oops, Something wrong, please try again.';
+						}
+					}
+				}
+			}
+
+			$s = $this->cms_model->select('languages', ['id' => intval($this->uri->segment(4))]);
+			
+			if ($s->num_rows() == 0)
+			{
+				header('location: '.base_url($this->data['page_path'].'/languages'));
+			}
+			else
+			{
+				$this->data['result'] = $s->row_array();
+			}
+		}
+
+		if (isset($err) && $err != '')
+		{
+			$this->data['msg'] = "<div class='alert alert-warning'><i class='fa fa-lg fa-info-circle'></i> ".$err."</div>";
+		}
+		else if (isset($ok) && $ok != '')
+		{
+			$this->data['msg'] = "<div class='alert alert-success'><i class='fa fa-lg fa-check'></i> ".$ok."</div>";
+		}
+
+		$this->data['title'] = $pagename;
+		
+		$this->load->view("templates/admin_header",$this->data);
+		$this->load->view("pages/admin/$page",$this->data);
+		$this->load->view("templates/admin_footer",$this->data);
+	}
+
 	public function pages ($action="",$var="")
 	{
 		if ($action == '')
@@ -613,17 +763,34 @@ class Adminpanel extends MY_controller
 
 			$this->data['pages'] = $select->result_array();
 
+			$pageLangData = [];
+			foreach ($this->data['pages'] as $row)
+			{
+				if ($row['lang_id'] == 0)
+				{
+					$pageLangData[] = 'All languages';
+					continue;	
+				}
+
+				$tmp_s = $this->cms_model->select('languages', ['id' => $row['lang_id']]);
+				$pageLangData[] = $tmp_s->row_array()['name'];
+				$tmp_s->free_result();
+			}
+
+			$this->data['pageLangData'] = $pageLangData;
+
 			$select->free_result();
 		}
 		else if ($action == 'add')
 		{
 			$pagename = 'Add pages';
-			$page = 'add_pages';
+			$page = 'add_page';
 
 			if ($this->input->post('add',TRUE))
 			{
 				$title 		= trim(strip_tags($this->input->post('title',TRUE)));
 				$slug		= trim(strip_tags($this->input->post('slug',TRUE)));
+				$lang_id	= intval($this->input->post('lang-id',TRUE));
 				$keywords	= trim(strip_tags($this->input->post('keywords',TRUE)));
 				$desc		= trim(strip_tags($this->input->post('desc',TRUE)));
 				$published	= intval($this->input->post('published',TRUE));
@@ -642,16 +809,18 @@ class Adminpanel extends MY_controller
 				else
 				{
 					$where['slug']	= $slug;
+					$where['lang_id'] = $lang_id;
 					$s = $this->cms_model->select('pages',$where);
 
 					if ($s->num_rows() == 1)
 					{
-						$err = "Sorry, this <b>slug</b> already used.";
+						$err = "Sorry, this <b>slug</b> already used at this language that you choosed.";
 					}
 					else
 					{
 						$d['title'] 		= $title;
 						$d['slug'] 			= $slug;
+						$d['lang_id'] 		= $lang_id;
 						$d['keywords']		= $keywords;
 						$d['description']	= $desc;
 						$d['published'] 	= $published;
@@ -665,11 +834,10 @@ class Adminpanel extends MY_controller
 
 						if ($insert)
 						{
-							$ok = "the page was added successfully";
-						}
-						else
-						{
-							$err = "Error: Something was wrong !";
+							$s->free_result();
+							header('location: '.base_url($this->data['page_path'].'/pages'));
+							//$ok = "the page was added successfully";
+							exit();
 						}
 					}
 
@@ -757,6 +925,7 @@ class Adminpanel extends MY_controller
 				$a['sitename'] 				= trim(strip_tags($this->input->post('site_name',TRUE)));
 				$a['keywords'] 				= trim(strip_tags($this->input->post('keywords',TRUE)));
 				$a['description'] 			= trim(strip_tags($this->input->post('desc',TRUE)));
+				$a['default_language'] 			= trim(intval($this->input->post('default_lang',TRUE)));
 				$a['siteemail'] 			= trim(strip_tags($this->input->post('support-email',TRUE)));
 				$a['siteclose'] 			= trim(intval($this->input->post('status_site',TRUE)));
 				$a['shutdown_msg'] 			= $this->input->post('msg_closed_site',TRUE);
@@ -1117,6 +1286,7 @@ class Adminpanel extends MY_controller
 		{
 			$title 		= trim(strip_tags($this->input->post('title',TRUE)));
 			$slug		= trim(strip_tags($this->input->post('slug',TRUE)));
+			$lang_id	= intval($this->input->post('lang-id',TRUE));
 			$keywords 	= trim(strip_tags($this->input->post('keywords',TRUE)));
 			$desc 		= trim(strip_tags($this->input->post('desc',TRUE)));
 			$published 	= intval($this->input->post('published',TRUE));
@@ -1151,27 +1321,40 @@ class Adminpanel extends MY_controller
 				}
 				else
 				{
-					$set['title'] 		= $title;
-					$set['slug'] 		= $slug;
-					$set['keywords'] 	= $keywords;
-					$set['description'] = $desc;
-					$set['published'] 	= $published;
-					$set['show_header'] = $header;
-					$set['show_footer'] = $footer;
-					$set['content'] 	= $content;
-					$set['modified']	= time();
+					$wh['slug']	= $slug;
+					$wh['lang_id'] = $lang_id;
+					$s2 = $this->cms_model->select('pages',$wh);
 
-					$w['id'] = $id;
-					$update = $this->cms_model->update('pages',$set,$w);
-
-					if ($update)
+					if ($row['lang_id'] != $lang_id && $s2->num_rows() > 0)
 					{
-						$ok = "Update was Done.";
+						$err = "Sorry, this <b>slug</b> already used at this language that you choosed.";
 					}
 					else
 					{
-						$err = "Something was wrong !";
+						$set['title'] 		= $title;
+						$set['slug'] 		= $slug;
+						$set['lang_id']		= $lang_id;
+						$set['keywords'] 	= $keywords;
+						$set['description'] = $desc;
+						$set['published'] 	= $published;
+						$set['show_header'] = $header;
+						$set['show_footer'] = $footer;
+						$set['content'] 	= $content;
+						$set['modified']	= time();
+
+						$w['id'] = $id;
+						$update = $this->cms_model->update('pages',$set,$w);
+
+						if ($update)
+						{
+							$ok = "the page was Updated successfully.";
+						}
+						else
+						{
+							$err = "Something was wrong!";
+						}
 					}
+					$s2->free_result();
 				}
 			}
 			$s->free_result();
@@ -1250,6 +1433,43 @@ class Adminpanel extends MY_controller
 			if ($del)
 			{
 				echo "Delete was Done.";
+			}
+			else
+			{
+				echo "Oops, Something was wrong !";
+			}
+		}
+
+		/*================== delete language ==================*/
+
+		if ($this->input->post('deleteLang') == 1)
+		{
+			$id = abs(intval($this->input->post('id')));
+			
+			$w['id'] = $id;
+			$w['undeletable'] = 0;
+
+			$s = $this->cms_model->select('languages',$w);
+			$result = $s->row_array();
+
+
+			$del = $this->cms_model->delete('languages',$w);
+
+			if ($s->num_rows() && $del)
+			{
+				$path = APPPATH.'language/'.strtolower($result['name']);
+				
+				if (is_dir($path))
+				{
+					if (deleteFolder($path, true))
+						echo "Deleted successfully.";
+					else
+						echo "Oops, Something was wrong !";
+				}
+				else
+				{
+					echo "Oops, Something was wrong !";
+				}
 			}
 			else
 			{

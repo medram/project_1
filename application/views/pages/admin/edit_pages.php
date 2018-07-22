@@ -19,12 +19,12 @@
 		?>
 		<form id='editPage' action='<?php echo base_url($page_path."/ajax"); ?>' method='post'>
 			<div class='form-group'>
-				<label>Title :</label>
+				<label>Page name :</label>
 				<input type='text' name='title' class='form-control'
 				value="<?php if(isset($pagedata['title'])){ echo htmlentities($pagedata['title'],ENT_QUOTES); } ?>" >
 			</div>
 			<div class='form-group'>
-				<label>Slug (page name):</label>
+				<label>Slug:</label>
 				<!--<input type='text' name='slug' class='form-control' placeholder='example'>-->
 				<div class="input-group">
 					<span class="input-group-addon" id="basic-addon3"><b><?php echo base_url('p'); ?>/</b></span>
@@ -32,6 +32,21 @@
 					value="<?php if(isset($pagedata['slug'])){ echo $pagedata['slug']; } ?>"
 					<?php if (isset($pagedata['uneditable']) && $pagedata['uneditable'] == 1){ echo "disabled"; } ?> >
 				</div>
+			</div>
+			<div class='form-group'>
+				<label>this page will be availabel for : </label><br>
+				<small><i>choose the language.</i></small>
+				<select name='lang-id' class='form-control'>
+					<option value='0'>---------- All languages ----------</option>
+					<?php
+					$selected = '';
+					foreach(config_item('languages') as $k => $row)
+					{
+						$selected = ($row['id'] == $pagedata['lang_id'])? 'selected' : '' ;
+						echo "<option value='".($k+1)."' ".$selected.">".ucfirst($row['name'])."</option>";
+					}
+					?>
+				</select>
 			</div>
 			<div class='form-group'>
 				<label>Keywords :</label><br>

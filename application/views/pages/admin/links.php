@@ -3,19 +3,14 @@
         <h1 class="page-header">
             <i class='fa fa-link'></i> <?php echo $title; ?>
         </h1>
-        <ol class="breadcrumb">
-            <li class="active">
-                <i class="fa fa-dashboard"></i> Dashboard / <?php echo $title; ?>
-            </li>
-        </ol>
     </div>
 </div>
 <!-- /.row -->
 <div class='row'>
 	<div class='col-lg-12'>
 		<div class='alert alert-info'>
-			<b>Notes :</b><br>
-			when You want to search about any links, you should use :<br>
+			<b>Notes :</b>
+			You can search about any links by :<br>
 			- link title.<br>
 			- link slug.<br>
 		</div>
@@ -38,7 +33,7 @@
 		</div>
 		<br>
 		<?php
-			echo "<i>Result : ".$all_items."</i><hr>";
+			echo "<i>Results : ".$all_items."</i><hr>";
 		?>
 	</div>
 </div>
@@ -97,7 +92,7 @@
 						<div class="col-lg-6">
 							<span>Shorted link :</span>
 							<div class='input-group input-group-sm'>
-								<input class='form-control text-left' type='text' value="<?php echo get_domains($row['domain']).$row['slug']; ?>" >
+								<input class='form-control text-left' type='text' value="<?php echo get_domains($row['domain']).'go/'.$row['slug']; ?>" >
 								<span class='input-group-btn'>
 									<button class='btn btn-primary copy' type='button'>Copy</button>
 								</span>

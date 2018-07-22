@@ -20,7 +20,6 @@
     	?>
     	<table class='table table-hover'>
     		<thead>
-	    		<td><b>#id</b></td>
 	    		<td><b>ip</b></td>
 	    		<td><b>Platform</b></td>
 	    		<td><b>Agent</b></td>
@@ -29,7 +28,6 @@
     		foreach ($online->result_array() as $row)
     		{
     			echo "<tr>";
-    				echo "<td>".$row['id']."</td>";
     				echo "<td>".$row['ip']."</td>";
     				echo "<td>".$row['platform']."</td>";
     				echo "<td>".$row['agent']."</td>";

@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+	# Tell PHP that the mod_rewrite module is ENABLED.
+	#SetEnv HTTP_MOD_REWRITE On
+	
+	Options -Indexes
+	Options +FollowSymLinks -MultiViews
+
+	RewriteEngine On
+	RewriteBase /%FOLDER%/
+	
+	#RewriteCond $1 !^(js|css|img|rebots\.txt)
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+</IfModule>

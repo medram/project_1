@@ -3,7 +3,7 @@
 <div class='container'>
 	<div class='row'>
 		<div class='col-md-12 page-header'>
-			<h1><i class="fa fa-fw fa-sign-in"></i> تسجيل الدخول</h1>
+			<h1><i class="fa fa-fw fa-sign-in"></i> <?php langLine('theme.login.title') ?></h1>
 		</div>
 	</div>
 	<div class='row'>
@@ -15,15 +15,15 @@
 			?>
 			<form action='<?php echo base_url(); ?>login' method='post' role='form'>
 				<div class='form-group'>
-					<label>البريد الإلكتروني :</label>
+					<label><?php langLine('theme.login.email') ?> : </label>
 					<input type='text' name='email' class='form-control' >
 				</div>
 				<div class='form-group'>
-					<label>كلمة المرور :</label>
+					<label><?php langLine('theme.login.password') ?> : </label>
 					<input type='password' name='pass' class='form-control' >
 				</div>
 				<div class='form-group'>
-					<input type='checkbox' name='remember' value='1' > <span> تذكرني</span>
+					<input type='checkbox' name='remember' value='1' > <span> <?php langLine('theme.login.rememberMe') ?></span>
 				</div>
 				<?php
 				if (get_config_item('recaptcha_status') == 1)
@@ -37,12 +37,12 @@
 				}
 				?>
 				<div>
-					<input type='submit' name='submit' value='دخول' class='btn btn-primary' >
+					<input type='submit' name='submit' value='<?php langLine('theme.login.btn.login') ?>' class='btn btn-primary' >
 				</div>
 				<div>
 					<br>
-					<span>ليس لديك حساب ؟ <a href='<?php echo base_url(); ?>register'>تسجيل</a></span><br>
-					<span>نسيت كلمة المرور ؟ <a href='<?php echo base_url(); ?>login/forget_pass'>إستعادة</a></span>
+					<span><?php langLine('theme.login.span.dontHaveAccount') ?> <a href='<?php echo base_url(); ?>register'><?php langLine('theme.login.span.register') ?></a></span><br>
+					<span><?php langLine('theme.login.span.getBackPass') ?> <a href='<?php echo base_url(); ?>login/forget_pass'><?php langLine('theme.login.span.recovery') ?></a></span>
 				</div>
 			</form>
 			<br>

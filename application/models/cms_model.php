@@ -71,16 +71,21 @@ class cms_model extends MY_model
 
     public function getPages ($var)
     {
-        $where['published'] = 1;
+        //$where['published'] = 1;
+        $where = 'published=1';
         if ($var == 'header')
         {
-            $where['show_header'] = 1;
+            //$where['show_header'] = 1;
+            $where .= ' AND show_header=1';
         }
 
         if ($var == 'footer')
         {
-            $where['show_footer'] = 1;
+            //$where['show_footer'] = 1;
+            $where .= ' AND show_footer=1';
         }
+        
+        $where .= ' AND lang_id='.config_item('validLang')['id'].' OR lang_id=0';
         return $this->select('pages',$where);
     }
 
@@ -141,23 +146,23 @@ class cms_model extends MY_model
 
             if (!recaptcha())
             {
-                $err = "كود الكابتشا خاطئ ، أعد المحاولة.";
+                $err = langLine('notifAccount.cms_model.span.1', false);
             }
             else if ($email == '' or $password == '')
             {
-                $err = "أدخل البريد الإلكتروني و كلمة المرور لتسجيل الدخول.";
+                $err = langLine('notifAccount.cms_model.span.2', false);
             }
             else if (!filter_var($email,FILTER_VALIDATE_EMAIL))
             {
-                $err = "عذرا، <b>البريد الإلكتروني</b> غير صالح.";
+                $err = langLine('notifAccount.cms_model.span.3', false);
             }
             else if (mb_strlen($password) > 50 or mb_strlen($password) < 4)
             {
-                $err = "عذرا، أخطأت بإدخال البريد الإلكتروني أو كلمة المرور.";
+                $err = langLine('notifAccount.cms_model.span.4', false);
             }
             else if (!$this->is_login($email,$password))
             {
-                $err = "عذرا، أخطأت بإدخال البريد الإلكتروني أو كلمة المرور.";
+                $err = langLine('notifAccount.cms_model.span.5', false);
             }
             else
             {
@@ -170,7 +175,7 @@ class cms_model extends MY_model
                 
                 if ($r[0]['account_status'] == 1)
                 {
-                    $err = "عذرا، هذا الحساب معطل !";
+                    $err = langLine('notifAccount.cms_model.span.6', false);
                 }
                 else
                 {
@@ -372,15 +377,15 @@ class cms_model extends MY_model
 
             if (!recaptcha())
             {
-                $err = "كود الكابتشا خاطئ ، أعد المحاولة.";
+                $err = langLine('notifAccount.cms_model.span.7', false);
             }
             else if ($email == '')
             {
-                $err = "عذرا، أدخل البريد الإلكتروني الخاص بك.";
+                $err = langLine('notifAccount.cms_model.span.8', false);
             }
             else if (!filter_var($email,FILTER_VALIDATE_EMAIL))
             {
-                $err = "عذرا، البريد الإلكتروني غير صحيح.";
+                $err = langLine('notifAccount.cms_model.span.9', false);
             }
             else
             {
@@ -400,7 +405,7 @@ class cms_model extends MY_model
                     // send a msg to the email
                     
                     $to = $row['email'];
-                    $subject = "استعادة كلمة المرور.";
+                    $subject = langLine('notifAccount.cms_model.span.10', false);
 
                     $page = ($type == '')? 'login' : get_config_item('admin_page_path').'/login' ;
 
@@ -424,7 +429,7 @@ class cms_model extends MY_model
 
                     if (sendEmail($to,$subject,$template))
                     {
-                        $ok = "لقد تم الإرسال رسالة إلى بريدك الإلكتروني لاستعادة حسابك.";
+                        $ok = langLine('notifAccount.cms_model.span.11', false);
                         $ok .= "
                         <script>
                         setTimeout(function (){
@@ -436,12 +441,12 @@ class cms_model extends MY_model
                     }
                     else
                     {
-                        $err = "عذرا، لقد حدث خطأ أعد المحاولة.";
+                        $err = langLine('notifAccount.cms_model.span.12', false);
                     }
                 }
                 else
                 {
-                    $err = "عذرا، البريد الإلكتروني غير مسجل لدينا.";
+                    $err = langLine('notifAccount.cms_model.span.13', false);
                 }
             }
 
@@ -466,23 +471,23 @@ class cms_model extends MY_model
 
             if (!recaptcha())
             {
-                $err = "كود الكابتشا خاطئ ، أعد المحاولة.";
+                $err = langLine('notifAccount.cms_model.span.14', false);
             }
             else if ($newPass == "" or $confNewPass == "")
             {
-                $err = "عذرا، املأ جميع الحقول.";
+                $err = langLine('notifAccount.cms_model.span.15', false);
             }
             else if ($newPass != $confNewPass)
             {
-                $err = "عذرا، كلمتا المرور غير متطابقتان.";
+                $err = langLine('notifAccount.cms_model.span.16', false);
             }
             else if (mb_strlen($newPass) > 100) 
             {
-                $err = "عذرا،<b>كلمة المرور</b> أطول من اللازم.";
+                $err = langLine('notifAccount.cms_model.span.17', false);
             }
             else if (mb_strlen($newPass) < 5)
             {
-                $err = "عذرا،<b>كلمة المرور</b> أقصر من اللازم.";
+                $err = langLine('notifAccount.cms_model.span.18', false);
             }
             else
             {
@@ -498,7 +503,7 @@ class cms_model extends MY_model
                 {
                     $redirect = ($type == '')? 'login' : get_config_item('admin_page_path').'/login' ;
 
-                    $ok = "تم حفظ كلمة المرور الجديدة بنجاح، جار توجيهك ...";
+                    $ok = langLine('notifAccount.cms_model.span.19', false);
                     $ok .= "
                     <script type='text/javascript'>
                         setTimeout(function (){
@@ -509,7 +514,7 @@ class cms_model extends MY_model
                 }
                 else
                 {
-                    $err = "عذرا، لقد حدث خطأ غير متوقع !";
+                    $err = langLine('notifAccount.cms_model.span.20', false);
                 }
             }
         }
@@ -536,27 +541,27 @@ class cms_model extends MY_model
 
         if ($username == '')
         {
-            $err = "عذرا، أدخل اسم المستخدم.";
+            $err = langLine('notifAccount.cms_model.span.21', false);
         }
         else if (mb_strlen($username) < 4)
         {
-            $err = "عذرا، اسم المستخدم أقصر من اللازم.";
+            $err = langLine('notifAccount.cms_model.span.22', false);
         }
         else if (mb_strlen($username) > 50)
         {
-            $err = "عذرا، اسم المستخدم أطول من اللازم.";
+            $err = langLine('notifAccount.cms_model.span.23', false);
         }
         else if ($gender == '')
         {
-            $err = "عذرا، إختر نوعك ذكر أم أنتى";
+            $err = langLine('notifAccount.cms_model.span.24', false);
         }
         else if ($country == 0)
         {
-            $err = "عذرا، إختر دولتك.";
+            $err = langLine('notifAccount.cms_model.span.25', false);
         }        
         else if (!preg_match("/^((0?[13578]|10|12)(-|\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[01]?))(-|\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1}))|(0?[2469]|11)(-|\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[0]?))(-|\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1})))$/m",$birth_day))
         {
-            $err = "عذرا، تاريخ الإزدياد غير صالح !";
+            $err = langLine('notifAccount.cms_model.span.26', false);
         }
         else
         {
@@ -603,11 +608,11 @@ class cms_model extends MY_model
             
             if (in_array(0,$s))
             {
-                $err = "عذرا، لقد حدث خطأ، أعد المحاولة !";
+                $err = langLine('notifAccount.cms_model.span.27', false);
             }
             else
             {
-                $ok = "تم حفظ البيانات بنجاح.";
+                $ok = langLine('notifAccount.cms_model.span.28', false);
             }            
         } // end else
 
@@ -621,38 +626,6 @@ class cms_model extends MY_model
         }
     
     } // and userProfileUpdate function
-
-    /*
-    public function switchLanguage() {
-        //$language = ($language != "") ? $language : config_item('default_language');
-        
-        $q = $this->select('settings',array('option_name'=>'default_language'));
-        $row = $q->result_array();
-
-        $a = array('en','ar');
-        //$language = config_item('default_language');
-
-        if (in_array($this->input->get('lang',TRUE),$a))
-        {
-            //echo '1';
-            $language = trim(strip_tags($this->input->get('lang',TRUE)));
-            set_cookie('site_lang',$language,config_item('cookie_expire'));
-        }
-        else if (get_cookie('site_lang') != '' && in_array(get_cookie('site_lang'),$a))
-        {
-            //echo '2';
-            $language = trim(strip_tags(get_cookie('site_lang')));
-        }
-        else
-        {
-            redirect(base_url(uri_string().'?lang='.$row[0]['option_value']));
-        }
-
-        $this->lang->load($language,$language);
-        //redirect(base_url().uri_string());
-    }
-    */
-
 
 }
 

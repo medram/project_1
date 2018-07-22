@@ -77,12 +77,6 @@ body > section
     padding-bottom: 12px;
 }
 
-.navbar .navbar-toggle
-{
-	margin-top: 13px;
-	border: none;
-}
-
 /*------------ default navbar ------------*/
 
 .navbar-default
@@ -268,13 +262,15 @@ body > section
 
 .btn-special-success
 {
-	color: #A0D468;
+	color: #FFF;
+	background-color: #8CC152;
 	border: 2px solid #8CC152;
+	font-weight: 500;
 }
 
 .btn-special-success:hover
 {
-	background-color: #8CC152;
+	background-color: #A0D468;
 }
 
 .btn-special-primary
@@ -319,6 +315,10 @@ footer
     padding-bottom: 20px;
 }
 
+footer .footer-links {
+	direction: ltr;
+	text-align: right;
+}
 /*------------- steps box ---------------*/
 
 .steps-box
@@ -387,6 +387,7 @@ footer
 }
 .box-profile-img span
 {
+	font-size: 12px;
     background: #000;
     color: #fff;
     width: 100%;
@@ -528,7 +529,7 @@ footer
 
 .boxLink .info ul li
 {
-	float: right;
+	float: left;
 	margin-left: 15px;
 	cursor: help;
 }
@@ -538,7 +539,8 @@ footer
 	padding: 10px;
 	position: absolute;
 	top: 0;
-	left: 0;
+	right: 0;
+	left: auto;
 }
 
 /*============================================================*/
@@ -566,3 +568,14 @@ footer
 {
 	clear: both;
 }
+
+/*=========== language box ===========*/
+#lang-box {
+	position: fixed;
+	top: 25%;
+	left: -5px;
+	width: 60px;
+	border-radius: 5px;
+	box-shadow: -1px 1px 3px rgba(0,0,0,0.2);
+}
+

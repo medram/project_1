@@ -15,7 +15,7 @@ class Login extends MY_controller
 	{
 		$this->data['msg'] = $this->cms_model->login();
 
-		$this->data['title'] = "تسجيل الدخول";
+		$this->data['title'] = langLine('notifAccount.login.span.1', false);
 
 		$this->load->view("templates/header",$this->data);
 		$this->load->view("pages/login",$this->data);
@@ -24,7 +24,7 @@ class Login extends MY_controller
 
 	public function forget_pass()
 	{
-        $this->data['title'] = "إستعادة حسابي";
+        $this->data['title'] = langLine('notifAccount.login.span.2', false);
 
         $this->data['msg'] = $this->cms_model->forget_pass();
 
@@ -54,11 +54,11 @@ class Login extends MY_controller
             }
             else
             {
-                $this->data['forb'] = "<div class='alert alert-danger'><i class='fa fa-lg fa-clock-o'></i> عذرا، لقد انتهت مدة صلاحية هذا الرابط !</div>";
+                $this->data['forb'] = "<div class='alert alert-danger'><i class='fa fa-lg fa-clock-o'></i> ".langLine('notifAccount.login.span.3', false)."</div>";
             }
         }
 
-		$this->data['title'] = "إستعادة حسابي";
+		$this->data['title'] = langLine('notifAccount.login.span.4', false);
 
 		$this->load->view("templates/header",$this->data);
 		$this->load->view("pages/repass",$this->data);
@@ -80,7 +80,7 @@ class Login extends MY_controller
                 $r = $s->row_array();
                 if ($r['user_verified'] == 1)
                 {
-                    $err = "لقد تم تفعيل هذا الحساب مسبقا.";
+                    $err = langLine('notifAccount.login.span.5', false);
                 }
                 else
                 {
@@ -89,7 +89,7 @@ class Login extends MY_controller
 
                     if ($up)
                     {
-                        $ok = "تم تفعيل حسابك بنجاح، جار توجيهك ...";
+                        $ok = langLine('notifAccount.login.span.6', false);
                         $ok .= "
                             <script type='text/javascript'>
                             setTimeout(function (){
@@ -100,13 +100,13 @@ class Login extends MY_controller
                     }
                     else
                     {
-                        $err = "عذرا، لقد حدث خطأ غير متوقع.";
+                        $err = langLine('notifAccount.login.span.7', false);
                     }
                 }
             }
             else
             {
-                $err = "عذرا، هذا الرابط غير صالح !";
+                $err = langLine('notifAccount.login.span.8', false);
             }
             $s->free_result();
         }
@@ -124,7 +124,7 @@ class Login extends MY_controller
             $this->data['msg'] = "<div class='alert alert-success'><i class='fa fa-lg fa-check'></i> ".$ok."</div>";
         }
 
-        $this->data['title'] = "تفعيل حسابك";
+        $this->data['title'] = langLine('notifAccount.login.span.9', false);
 
         $this->load->view("templates/header",$this->data);
         $this->load->view("pages/activation",$this->data);
