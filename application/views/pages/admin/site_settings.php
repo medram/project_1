@@ -97,7 +97,7 @@
 							<td width='40%'>
 								<label>Keywords :</label><br>
 								<em>
-									<small>this keywords will be shown on all pages.</small>
+									<small>this keywords will be shown at all pages.</small>
 								</em>
 							</td>
 							<td>
@@ -113,7 +113,14 @@
 							</td>
 						</tr>
 						<tr>
-							<td><label>Default language :</label></td>
+							<td>
+								<label>Default language :</label><br>
+								<small><i><b>Note:</b><br>
+								- The admin dashboard is not supporting the multi languages.<br>
+								- You can manage / add languages from <a href='languages'>HERE.</a>
+								</i>
+								</small>
+							</td>
 							<td>
 								<select name='default_lang' class='form-control'>
 									<?php
@@ -147,21 +154,30 @@
 						</tr>
 						<tr>
 							<td>
-								<label>time format :</label>
+								<label>Date format :</label><br>
+								<small>
+									<i>This URL will help you to custom the date format,  </i>
+									<a href="http://php.net/manual/en/function.date.php" target="_blank" >HERE</a>
+								</small>
 							</td>
 							<td>
 								<input type='text' name='time_format' class='form-control' value='<?php echo get_config_item("time_format");?>' >
 							</td>
 						</tr>
 						<tr>
-							<td><label>Website Live :</label></td>
+							<td><label>Website status :</label></td>
 							<td>	
 								<input type='radio' <?php if (get_config_item("siteclose") == 0){echo "checked";} ?> name='status_site' value='0' > <span>Open</span><br>
 								<input type='radio' name='status_site' <?php if (get_config_item("siteclose") == 1){echo "checked";} ?> value='1' > <span>Close</span>
 							</td>
 						</tr>
 						<tr>
-							<td><label>Shutdown Message :</label></td>
+							<td>
+								<label>Shutdown Message :</label><br>
+								<small>
+									<i>This is message will show up to the visitors when the <b>"Website status"</b> option will be <b>close</b>. </i>
+								</small>
+							</td>
 							<td>	
 								<textarea rows='5' cols='30' class='form-control' name='msg_closed_site' ><?php echo get_config_item("shutdown_msg"); ?></textarea>
 							</td>
@@ -169,7 +185,8 @@
 						<tr>
 							<td>
 								<label>Head code :</label><br>
-								<small><i>a code like Analytics/Tracking codes!</i></small>
+								<small><i>You can add a code like Analytics/Tracking codes!</i></small>
+								
 							</td>
 							<td>	
 								<textarea rows='5' cols='30' class='form-control' name='analytics_code'><?php echo get_config_item("tracking_code"); ?></textarea>
@@ -195,8 +212,11 @@
 					<br><br>
 					<table class='table table-striped'>
 						<tr>
-							<td width='40%'><label>Registration Enable :</label></td>
-							<td><input type='checkbox' name='registration_status' value='1' <?php if (get_config_item('registration_status') == 1){echo "checked";} ?> > <span>Allow visitor to register a new account</span></td>
+							<td width='40%'>
+								<label>Registration status :</label><br>
+								<small><i>Allow the visitors to register a new account.</i></small>
+							</td>
+							<td><input type='checkbox' name='registration_status' value='1' <?php if (get_config_item('registration_status') == 1){echo "checked";} ?> > <span>Active</span></td>
 						</tr>
 						<tr>
 							<td><label>Shutdown message of registration :</label></td>
@@ -205,13 +225,16 @@
 							</td>
 						</tr>
 						<tr>
-							<td><label>block Account :</label></td>
-							<td><input type='checkbox' name='account_status' value='1' <?php if (get_config_item('user_delete_account') == 1){echo "checked";} ?> > <span>Allow user to unlock (delete) his account</span></td>
+							<td>
+								<label>Block Accounts :</label><br>
+								<small><i><b>Note:</b> All the blocked accounts their shorten links will still work.</i></small>
+							</td>
+							<td><input type='checkbox' name='account_status' value='1' <?php if (get_config_item('user_delete_account') == 1){echo "checked";} ?> > <span>Allow the users to delete (block) their accounts.</span></td>
 						</tr>
 						<tr>
 							<td>
-								<label>notes :</label><br>
-								<small><i>show notes when a user want to block (delete) his account</i></small>
+								<label>Notes :</label><br>
+								<small><i>This notes will show up when a user is going to delete (block) his account.</i></small>
 							</td>
 							<td>
 								<textarea class='form-control' rows='7' name='notes_delete_account'><?php echo get_config_item('notes_delete_account'); ?></textarea>
@@ -289,7 +312,7 @@
 						<tr>
 							<td width='40%'>
 								<label>Cookie name :</label><br>
-								<small><i>the name must be composed of the following symbols (<b>a-z A-Z 0-9 - _ </b>) </i></small>
+								<small><i>The name must consist of the following symbols <br>(<b>a-z A-Z 0-9 - _ </b>) </i></small>
 							</td>
 							<td>
 								<input type="text" name="cookie_name" class="form-control" value='<?php echo get_config_item('cookie_name'); ?>' >
@@ -297,7 +320,7 @@
 						</tr>
 						<tr>
 							<td>
-								<label>Time cookie expiration  :</label><br>
+								<label>Cookie expiration time  :</label><br>
 								<small><i>Use <b>15</b> days, it is better</i></small>
 							</td>
 							<td>
@@ -309,9 +332,9 @@
 						</tr>
 						<tr>
 							<td>
-								<label>Restauration time account :</label><br>
+								<label>Account recovery time  :</label><br>
 								<small><i>- Use <b>1</b> hour, it is better.
-								<br>- The time allowed for the user to restore his account after sending a message of recovery, which allows him to set a new password.</i></small>
+								<br>- The allowed time for the user to restore (recovery) his account after sending a recovery message , which allows him to set a new password.</i></small>
 							</td>
 							<td>
 								<div class="input-group">
@@ -395,7 +418,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td><label>mail encription :</label></td>
+							<td><label>Mail encription :</label></td>
 							<td>
 								<select name="mail_encription" class="form-control">
 									<option value="tls" 
@@ -406,12 +429,11 @@
 							</td>
 						</tr>
 						<tr>
-							<td><label>emails templates :</label></td>
+							<td><label>Email templates :</label></td>
 							<td>
-								you can costum or change the emails templates<br>
-								- for <b>account activation email (registration)</b> you can update this template 
-								<code>application\views\email_tpls\activation.html</code><br>
-								- for <b>forget password</b> : <code>application\views\email_tpls\forget_password.html</code><br>
+								you can custom or change the emails templates from this folder:<br>
+								<code>application\language\{LANGUAGE_NAME}\email_tpls\</code><br><br>
+								<small><b>Note:</b> the "{LANGUAGE_NAME}" means that folder named like 'engish' or 'arabic' and so on.</small>
 							</td>
 						</tr>
 						<tr>
@@ -430,7 +452,7 @@
 				<form class="optionForm" action='<?php echo base_url($page_path); ?>/ajax' method='post'>
 					<table class='table table-striped'>
 						<tr>
-							<td><label>show fake statistics:</label></td>
+							<td><label>Show fake statistics:</label></td>
 							<td>
 								<label>
 									<input type='checkbox' name='showFakeNumbers' value='1' <?php echo (get_config_item("showFakeNumbers") == 1)? 'checked' : ''; ?>>
@@ -458,21 +480,25 @@
 						</tr>
 						<tr>
 							<td width='40%'>
-								<label>URLs will be forbidden:</label><br>
-								<small><i>if you have a lot of URLs, put each URL on one line.</i></small>
+								<label>Forbidden URLs:</label><br>
+								<small><i>The user can't short this URLs.</i></small><br>
+								<small><i><b>Note:</b> if you have a lot of URLs, put each URL on one line.</i></small><br>
 							</td>
 							<td>
 								<textarea name="bad_urls" class="form-control" rows="5" placeholder="http://www.exemple.com" ><?php echo get_config_item('bad_urls'); ?></textarea>
 							</td>
 						</tr>
 						<tr>
-							<td><label>Pub Code of Google Adsense :</label></td>
+							<td>
+								<label>PUB Code of your Google Adsense account:</label><br>
+								<small style='color: red'><i><b>Important note:</b> Your google adsense account should be <b>Not hosted</b>.</i></small>
+							</td>
 							<td>
 								<input type='text' name='pub' placeholder='pub-xxxxxxxxxxxxxx'class='form-control' value='<?php echo get_config_item("admin_pub"); ?>'>
 							</td>
 						</tr>
 						<tr>
-							<td><label>Channel Code of Google Adsense :</label></td>
+							<td><label>Channel Code of your Google Adsense account:</label></td>
 							<td>
 								<input type='text' name='channel' placeholder='xxxxxxxx'class='form-control' 
 									value='<?php echo get_config_item("admin_channel"); ?>'>
@@ -487,8 +513,8 @@
 						</tr>
 						<tr>
 							<td>
-								<label>just show admin ads :</label><br>
-								<small><i>the users ads won't show up any more!</i></small>
+								<label>Just show admin ads :</label><br>
+								<small style='color: red'><i>the users ads won't show up any more!</i></small>
 							</td>
 							<td>
 								<label>
@@ -500,8 +526,8 @@
 						</tr>
 						<tr>
 							<td>
-								<label>just show users ads :</label><br>
-								<small><i>the admin ads won't show up any more!</i></small>
+								<label>Just show users ads :</label><br>
+								<small style='color: red'><i>the admin ads won't show up any more!</i></small>
 							</td>
 							<td>
 								<label>
@@ -513,9 +539,10 @@
 						</tr>
 						<tr>
 							<td width='40%'>
-								<label>packages domains: </label><br>
-								<small><i>we will use this domians on the sorted links.</i></small><br>
-								<small><i><b>NOTE:</b> the links order is important.</i></small>
+								<label>Domains package: </label><br>
+								<small><i>we will use this domains on the sorten links.</i></small><br>
+								<small><i><b>Note:</b> if you have a lot of URLs, put each URL on one line.</i></small>
+								<small style='color: red'><i><b>NOTE:</b> the links order is important, (put the new domain at the last line and don't change the domains order).</i></small>
 							</td>
 							<td>
 								<textarea name="packages_domains" class="form-control" rows="5" placeholder="example.com OR www.example.com" ><?php echo get_config_item('packages_domains'); ?></textarea>

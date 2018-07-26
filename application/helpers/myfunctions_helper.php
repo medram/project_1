@@ -256,7 +256,7 @@ function get_ad ($type='',$in_account=FALSE)
 
 function get_email_tpl($path)
 {
-    return file_get_contents(APPPATH."/views/email_tpls/".$path.".html");
+    return file_get_contents(str_ireplace('\\', '/', APPPATH.'language/'.config_item('validLang')['name'].'/email_tpls/'));
 }
 
 function email_tpls_load_and_replace($tpl_path, $consts, $load_header_footer = FALSE)

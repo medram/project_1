@@ -314,15 +314,15 @@ class Adminpanel extends MY_controller
 
 			if (empty($username) or empty($email))
 			{
-				$err = "please insert all information !";
+				$err = "please fill the all fields !";
 			}
 			else if (!filter_var($email,FILTER_VALIDATE_EMAIL))
 			{
-				$err = "Your email was not correct !";
+				$err = "Your email is not correct !";
 			}
 			else if (!preg_match("/^((0?[13578]|10|12)(-|\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[01]?))(-|\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1}))|(0?[2469]|11)(-|\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[0]?))(-|\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1})))$/m",$birth_date))
 			{
-				$err = "Your birth date was not correct !";
+				$err = "Your birth date is not correct!";
 			}
 			else
 			{
@@ -378,7 +378,7 @@ class Adminpanel extends MY_controller
 				}
 				else
 				{
-					$ok = "Update is done successfully";
+					$ok = "Updated successfully";
 				}
 				
 			}
@@ -401,11 +401,11 @@ class Adminpanel extends MY_controller
 			}
 			else if (!password_verify($old_pass,$this->data['userdata']['password']))
 			{
-				$err = "the <b>old password</b> isn't correct !";
+				$err = "The <b>old password</b> isn't correct !";
 			}
 			else if ($new_pass != $conf_pass)
 			{
-				$err = "the <b>new password</b> and <b>confirmation password</b> aren't <b>same</b>.";
+				$err = "The two passwords aren't matched.";
 			}
 			else
 			{
@@ -416,7 +416,7 @@ class Adminpanel extends MY_controller
 
 				if ($up)
 				{
-					$ok = "the password was changed successfully.";
+					$ok = "The password changed successfully.";
 				}
 				else
 				{
@@ -462,7 +462,7 @@ class Adminpanel extends MY_controller
 		}
 		else if ($action == 'repass')
 		{
-			$this->data['title'] = 'Set new password';
+			$this->data['title'] = 'Set a new password';
 			$page = 'repass';
 	        
 	        $t = ($this->input->get('t',TRUE) != '')? $this->input->get('t',TRUE) : $this->input->post('t',TRUE) ;
@@ -565,7 +565,7 @@ class Adminpanel extends MY_controller
 		}
 		else if ($var == "edit")
 		{
-			$this->data['title'] = "Edit Profile";
+			$this->data['title'] = "Edit My Profile";
 
 			$w['id'] = $id;
 			//$w['user_status !='] = 1;
@@ -577,7 +577,7 @@ class Adminpanel extends MY_controller
 
 				if ($row['user_status'] == 1)
 				{
-					$this->data['forb_msg'] = "Sorry, You can't edit data of admin from here !";
+					$this->data['forb_msg'] = "Sorry, You can't edit admin data from here !";
 				}
 				else
 				{
@@ -644,7 +644,7 @@ class Adminpanel extends MY_controller
 
 					if ($s->num_rows() > 0)
 					{
-						$err = 'Oops, this language already used, please try another language.';
+						$err = 'Oops, this language is already used, please try another language.';
 					}
 					else
 					{
@@ -800,11 +800,11 @@ class Adminpanel extends MY_controller
 
 				if ($title == '' or $slug == '')
 				{
-					$err = "Please add <b>title</b> and <b>slug</b> to add the page !";
+					$err = "Please add a <b>title</b> and a <b>slug</b> of a page.";
 				}
 				else if (!preg_match("/^([a-zA-Z0-9_-]+)$/",$slug))
 				{
-					$err = "the <b>slug</b> was not correct, because it has a forbidden characters";
+					$err = "the <b>slug</b> is not correct, it has a forbidden characters";
 				}
 				else
 				{
@@ -814,7 +814,7 @@ class Adminpanel extends MY_controller
 
 					if ($s->num_rows() == 1)
 					{
-						$err = "Sorry, this <b>slug</b> already used at this language that you choosed.";
+						$err = "Oops, this <b>slug</b> is already used, please try another one.";
 					}
 					else
 					{
@@ -1017,7 +1017,7 @@ class Adminpanel extends MY_controller
 				print_r($a);
 				echo '</pre>';
 				*/
-				$ok = 'Save was Done successfully';
+				$ok = 'Saved successfully';
 			}
 			else
 			{
@@ -1086,7 +1086,7 @@ class Adminpanel extends MY_controller
 			    }
 			    else
 			    {
-			    	$ok = "the image was uploaded successfully.";
+			    	$ok = "The image has been uploaded successfully.";
 			    }
 			}
 		}
@@ -1107,7 +1107,7 @@ class Adminpanel extends MY_controller
 			}
 			else
 			{
-				$err = "the user token was not correct !";
+				$err = "Oops, The user token is not correct!";
 			}
 
 			$s->free_result();
@@ -1127,23 +1127,23 @@ class Adminpanel extends MY_controller
 
 	        if ($username == '')
 	        {
-	            $err = "Sorry, insert the <b>username</b>";
+	            $err = "Oops, insert the <b>username</b>";
 	        }
 	        else if (mb_strlen($username) < 4)
 	        {
-	            $err = "Sorry, the <b>username</b> was verry short.";
+	            $err = "Oops, the <b>username</b> is too short.";
 	        }
 	        else if (mb_strlen($username) > 50)
 	        {
-	            $err = "Sorry, the <b>username</b> was verry long.";
+	            $err = "Oops, the <b>username</b> is too long.";
 	        }
 			else if (!filter_var($email,FILTER_VALIDATE_EMAIL))
 			{
-				$err = "Sorry, the <b>email</b> was not correct !";
+				$err = "Oops, the <b>email</b> is not correct!";
 			}
 			else if ($this->cms_model->is_registered($email,array('email !='=>$old_email)))
 			{
-				$err = "Sorry, this <b>email</b> already registered !";
+				$err = "Oops, this <b>email</b> is already used!";
 			}
 			/*
 	        else if ($gender == '')
@@ -1153,11 +1153,11 @@ class Adminpanel extends MY_controller
 	        */
 	        else if ($birth_day != '' && !preg_match("/^((0?[13578]|10|12)(-|\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[01]?))(-|\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1}))|(0?[2469]|11)(-|\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[0]?))(-|\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1})))$/m",$birth_day))
 	        {
-	            $err = "Sorry, the <b>birth day</b> wasn't correct !";
+	            $err = "Oops, the <b>birth day</b> isn't correct !";
 	        }
 			else if ($pub != '' && !preg_match("/^(pub-)[0-9]{16}$/",$pub))
 			{
-				$err = "Sorry, the <b>Pub</b> was not correct !";
+				$err = "Oops, the <b>PUB</b> is not correct !";
 			}
 	        else
 	        {
@@ -1214,7 +1214,7 @@ class Adminpanel extends MY_controller
 	            }
 	            else
 	            {
-	                $ok = "Save was done successfully";
+	                $ok = "Saved successfully.";
 	            }
 	        }
 
@@ -1247,7 +1247,7 @@ class Adminpanel extends MY_controller
 
 					if ($d && $d2)
 					{
-						echo "Delete was Done :D";
+						echo "Deleted successfully :)";
 					}
 					else
 					{
@@ -1257,7 +1257,7 @@ class Adminpanel extends MY_controller
 			}
 			else
 			{
-				echo "Oops, User not found of id ".$id." !";
+				echo "Oops, The user not found (ID=".$id.") !";
 			}			
 
 			$s->free_result();
@@ -1272,7 +1272,7 @@ class Adminpanel extends MY_controller
 			
 			if (delete_profile_img($token))
 			{
-				echo "Delete was Done";
+				echo "Deleted successfully.";
 			}
 			else
 			{
@@ -1313,11 +1313,11 @@ class Adminpanel extends MY_controller
 				}
 				if ($slug == '')
 				{
-					$err = "Please insert a <b>slug (page name)</b> !";
+					$err = "Please insert a <b>slug</b> !";
 				}
 				else if (!preg_match("/^([a-zA-Z0-9_-]+)$/",$slug))
 				{
-					$err = "the <b>slug</b> was not correct, because it has a forbidden characters";
+					$err = "the <b>slug</b> is not correct, it has a forbidden characters";
 				}
 				else
 				{
@@ -1327,7 +1327,7 @@ class Adminpanel extends MY_controller
 
 					if ($row['lang_id'] != $lang_id && $s2->num_rows() > 0)
 					{
-						$err = "Sorry, this <b>slug</b> already used at this language that you choosed.";
+						$err = "Oops, this <b>slug</b> is already used at this language that you choosed.";
 					}
 					else
 					{
@@ -1347,7 +1347,7 @@ class Adminpanel extends MY_controller
 
 						if ($update)
 						{
-							$ok = "the page was Updated successfully.";
+							$ok = "Updated successfully.";
 						}
 						else
 						{
@@ -1372,7 +1372,7 @@ class Adminpanel extends MY_controller
 
 			if ($del)
 			{
-				echo "Delete was Done.";
+				echo "Deleted successfully.";
 			}
 			else
 			{
@@ -1396,7 +1396,7 @@ class Adminpanel extends MY_controller
 
 			if ($new_slug != $slug && $s->num_rows() > 0)
 			{
-				$err = "Sorry, the <b>slug</b> already used !";
+				$err = "Oops, the <b>slug</b> is already used !";
 			}
 			else
 			{
@@ -1412,7 +1412,7 @@ class Adminpanel extends MY_controller
 
 				if ($up)
 				{
-					$ok = "Save was Done successfully !";
+					$ok = "Saved successfully.";
 				}
 				else
 				{
@@ -1432,7 +1432,7 @@ class Adminpanel extends MY_controller
 
 			if ($del)
 			{
-				echo "Delete was Done.";
+				echo "Delete successfully.";
 			}
 			else
 			{
@@ -1464,16 +1464,16 @@ class Adminpanel extends MY_controller
 					if (deleteFolder($path, true))
 						echo "Deleted successfully.";
 					else
-						echo "Oops, Something was wrong !";
+						echo "Oops, Something is wrong !";
 				}
 				else
 				{
-					echo "Oops, Something was wrong !";
+					echo "Oops, Something is wrong !";
 				}
 			}
 			else
 			{
-				echo "Oops, Something was wrong !";
+				echo "Oops, Something is wrong !";
 			}
 		}
 
