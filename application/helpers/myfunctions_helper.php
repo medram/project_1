@@ -61,7 +61,7 @@ function copyFolder($srcFolder, $disFolder, $copyFolders = false)
             else if ($copyFolders && is_dir($path))
             {
                 mkdir($disFolder.'/'.$item);
-                if (copyFolder($path, $disFolder.'/'.$item, true))
+                if (!copyFolder($path, $disFolder.'/'.$item, true))
                     return false;
             }
             else
