@@ -544,7 +544,8 @@
         									<label>Domains package: </label><br>
         									<small><i>we will use this domains on the sorten links.</i></small><br>
         									<small><i><b>Note:</b> if you have a lot of URLs, put each URL on one line.</i></small>
-        									<small style='color: red'><i><b>NOTE:</b> the links order is important, (put the new domain at the last line and don't change the domains order).</i></small>
+        									<small style='color: red'><i>
+        									<br><b>NOTE:</b> the links order is important, (put the new domain at the last line and don't change the domains order).</i></small>
         								</td>
         								<td>
         									<textarea name="packages_domains" class="form-control" rows="5" placeholder="example.com OR www.example.com" ><?php echo get_config_item('packages_domains'); ?></textarea>

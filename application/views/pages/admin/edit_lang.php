@@ -31,7 +31,6 @@
         						<option value='1' <?php if($result['isRTL']) { echo 'selected';} ?> >RTL</option>
         					</select>
         				</div>
-        				<?php if ($result['id'] != 1){ ?>
         				<div class='form-group'>
         					<label>Status (ready to use on website):</label>
         					<select name='status' class='form-control'>
@@ -39,7 +38,6 @@
         						<option value='1' <?php if($result['active']) { echo 'selected';} ?> >On</option>
         					</select>
         				</div>
-        				<?php } ?>
         				<hr>
         				<div class='form-group'>
         					<input type='submit' name='edit' class='btn btn-primary' value='Save'>

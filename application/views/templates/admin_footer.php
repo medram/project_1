@@ -5,7 +5,7 @@
             <div class="pull-right hidden-xs">
                 <b>Version</b> <?php echo config_item('version') ?>
             </div>
-            <strong>Copyright &copy; <?php echo date('Y').' '.config_item('sitename')?>.</strong> All rights
+            <strong>&copy; <?php echo date('Y').' '.config_item('sitename')?>.</strong> All rights
             reserved.
         </footer>
 

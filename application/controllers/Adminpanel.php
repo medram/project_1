@@ -698,10 +698,16 @@ class Adminpanel extends MY_controller
 					$r = $s->row_array();
 
 					$s2 = $this->cms_model->select('languages', ['symbol' => $symbol]);
+					$s3 = $this->cms_model->select('languages', ['active' => 1]);
 					
+
 					if ($r['symbol'] != $symbol && $s2->num_rows() > 0)
 					{
 						$err = 'Oops, this language symbol is already used, please try to use another symbol.';
+					}
+					else if ($s3->num_rows() == 1 && $status == 0 && $r['active'] == 1)
+					{
+						$err = 'Oops, you can\'t disactivate the all languages from the website, you should at least to keep one language active.';
 					}
 					else
 					{
