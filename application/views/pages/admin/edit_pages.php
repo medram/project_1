@@ -81,10 +81,15 @@
         				if ($pagedata['slug'] != 'contact') // some privite pages
         				{
         				?>
-        				<div class='form-group'>
+        				<!-- <div class='form-group'>
         					<label>Content :</label>
         					<textarea name='content' class='form-control' rows='5'><?php if(isset($pagedata['content'])){ echo $pagedata['content']; } ?></textarea>
-        				</div>
+        				</div> -->
+                        
+                        <div> <!-- start editor -->
+                            <textarea name='content' id="some-textarea" placeholder="Enter the content here ..." style="width: 100%; height: 480px; padding: 10px;"><?php if(isset($pagedata['content'])){ echo $pagedata['content']; } ?></textarea>
+                        </div> <!-- end editor -->
+
         				<?php
         				}
         				?>

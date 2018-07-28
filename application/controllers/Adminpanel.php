@@ -1023,7 +1023,7 @@ class Adminpanel extends MY_controller
 				print_r($a);
 				echo '</pre>';
 				*/
-				$ok = 'Saved successfully';
+				$ok = 'Saved successfully.';
 			}
 			else
 			{

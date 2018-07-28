@@ -130,6 +130,19 @@ class Ajax extends MY_controller
 		}
 	}
 
+	public function jsAjaxStrings()
+	{
+		$path = APPPATH.'language/'.config_item('validLang')['name'].'/ajax_lang.php';
+
+		if (file_exists($path))
+		{
+			$data = include_once($path);
+			
+			header('Content-Type: application/json; charset=utf-8');
+			echo json_encode($data);
+		}
+	}
+
 } // end class
 
 ?>

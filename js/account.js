@@ -1,170 +1,190 @@
-$(function (){
-	
-	/*======================== Add a new link ====================================*/
-	$(".Addlink").autosubmit('.msg','<i class="fa fa-spin fa-spinner"></i> الإختصار جار ...');
-	
-	/*======================== show and hide the box profile to change it ========*/
+var ajaxStr = {}; // this is Global variable
 
-	$('.box-profile-img').mouseenter(function (){
-		$('.box-profile-img .pencil').hide();
-		$('.box-profile-img span').show();
+/*======================== Get ajax strings ====================================*/
+$.ajax({
+	url: $.url()+'/../../ajax/jsAjaxStrings',
+	type: 'GET',
+	success: function (r, s, xhr){
+		if (s == 'success')
+		{
+			ajaxStr = r;
+			//console.log(ajaxStr);
 
-	});
+			$(function (){
+				
+				
+				/*======================== Add a new link ====================================*/
+				$(".Addlink").autosubmit('.msg','<i class="fa fa-spin fa-spinner"></i> ' + ajaxStr['ajax.str.1']);
+				
+				/*======================== show and hide the box profile to change it ========*/
 
-	$('.box-profile-img').mouseleave(function (){
-		$('.box-profile-img .pencil').show();
-		$('.box-profile-img span').fadeOut();
-	});
+				$('.box-profile-img').mouseenter(function (){
+					$('.box-profile-img .pencil').hide();
+					$('.box-profile-img span').show();
 
-	/*======================== upload profile image ====================================*/
+				});
 
-	$('input[type=file]').change(function (){
-		
-		$('#form-img').ajaxForm({
-			beforeSend: function ()
-			{
-				$(".progressBox").show();
-			},
-			uploadProgress: function(a,b,c,d)
-			{
-				$(".progressBox").html(d+"%");
-			},
-			success: function(r,s,xhr)
-			{
-				$(".progressBox").fadeOut('slow');
-				if (s == 'success')
-				{
-					$("input[type=file]").val("");
-					$('.msg').slideUp(function (){
-						$(this).html(r).slideDown('slow').delay(6000).slideUp('slow',function (){
-							$(this).html("");
-						});
+				$('.box-profile-img').mouseleave(function (){
+					$('.box-profile-img .pencil').show();
+					$('.box-profile-img span').fadeOut();
+				});
+
+				/*======================== upload profile image ====================================*/
+
+				$('input[type=file]').change(function (){
+					
+					$('#form-img').ajaxForm({
+						beforeSend: function ()
+						{
+							$(".progressBox").show();
+						},
+						uploadProgress: function(a,b,c,d)
+						{
+							$(".progressBox").html(d+"%");
+						},
+						success: function(r,s,xhr)
+						{
+							$(".progressBox").fadeOut('slow');
+							if (s == 'success')
+							{
+								$("input[type=file]").val("");
+								$('.msg').slideUp(function (){
+									$(this).html(r).slideDown('slow').delay(6000).slideUp('slow',function (){
+										$(this).html("");
+									});
+								});
+
+								// reload src of image
+								$(".pro-img").attr('src',$('.profile-img').attr('src')+"?"+Math.random());
+							}
+							else
+							{
+								alert(ajaxStr['ajax.str.2']);
+							}
+						},
+					}).submit();
+				
+				});
+
+				/*=========================== Update profile ==============================*/
+				$('#updateProfile').autosubmit('.msg', ajaxStr['ajax.str.3']);
+
+				/*=========================== Update password ==============================*/
+				$('#updatePassword').autosubmit('.msg', ajaxStr['ajax.str.3']);
+
+				/*=========================== Hide the box of shorted links ==============================*/
+
+				$('#goBack').click(function (){
+					$('.msg').fadeOut();
+					$('#urls').slideUp(function (){
+						$('#boxToAddLink').slideDown();
 					});
+				});
 
-					// reload src of image
-					$(".pro-img").attr('src',$('.profile-img').attr('src')+"?"+Math.random());
-				}
-				else
-				{
-					alert('عذرا، لقد حدث خطأ غير متوقع، أعد المحاولة . ');
-				}
-			},
-		}).submit();
-	
-	});
+				/*============================ delete links =============================*/
 
-	/*=========================== Update profile ==============================*/
-	$('#updateProfile').autosubmit('.msg','جار الحفظ ...');
+				$('.boxLink .deleteLink').click(function(){
+					var id = $(this).attr('id');
+					var box = $(this).parents('.boxLink');
 
-	/*=========================== Update password ==============================*/
-	$('#updatePassword').autosubmit('.msg','جار الحفظ ...');
-
-	/*=========================== Hide the box of shorted links ==============================*/
-
-	$('#goBack').click(function (){
-		$('.msg').fadeOut();
-		$('#urls').slideUp(function (){
-			$('#boxToAddLink').slideDown();
-		});
-	});
-
-	/*============================ delete links =============================*/
-
-	$('.boxLink .deleteLink').click(function(){
-		var id = $(this).attr('id');
-		var box = $(this).parents('.boxLink');
-
-		if (confirm('هل أنت متأكد من حذف هذا الرابط ؟'))
-		{
-			$.ajax({
-				url: $.url()+'/../../../ajax',
-				type: 'POST',
-				data: 'id='+id+'&deleteLink=yes',
-				success: function(r,s,xhr)
-				{
-					if (s == 'success')
+					if (confirm(ajaxStr['ajax.str.4']))
 					{
-						alert(r);
-						box.slideUp(function ()
-						{
-							$(this).html('');
+						$.ajax({
+							url: $.url()+'/../../../ajax',
+							type: 'POST',
+							data: 'id='+id+'&deleteLink=yes',
+							success: function(r,s,xhr)
+							{
+								if (s == 'success')
+								{
+									alert(r.replace(new RegExp("\n\r", 'g'), ''));
+									box.slideUp(function ()
+									{
+										$(this).html('');
+									});
+								}
+							},
+							error: function(xhr)
+							{
+								alert("Error : "+xhr.status+" "+xhr.statusText);
+							}
 						});
 					}
-				},
-				error: function(xhr)
-				{
-					alert("Error : "+xhr.status+" "+xhr.statusText);
+
+				});
+
+				/*=========================== auto copy the urls ==============================*/
+
+				$('.copy').click(function (){
+					var children = this.parentElement.parentElement.children;
+					var input = children[1];
+					input.select();
+					document.execCommand('copy');
+					
+					this.classList.replace('btn-primary', 'btn-success');
+					this.textContent = 'Copied';
+					clearSelection();
+					
+					setTimeout((function (){
+						this.textContent = 'Copy';
+						this.classList.replace('btn-success', 'btn-primary');
+					}).bind(this), 2000);
+				});
+
+				// clear selected items
+				function clearSelection() {
+				    if ( document.selection ) {
+				        document.selection.empty();
+				    } else if ( window.getSelection ) {
+				        window.getSelection().removeAllRanges();
+				    }
 				}
-			});
-		}
 
-	});
+				/*=========================== update User Settings ==============================*/
 
-	/*=========================== auto copy the urls ==============================*/
+				$('#updateUserSettings').autosubmit('.msg', ajaxStr['ajax.str.3']);
 
-	$('.copy').click(function (){
-		var children = this.parentElement.parentElement.children;
-		var input = children[1];
-		input.select();
-		document.execCommand('copy');
-		
-		this.classList.replace('btn-primary', 'btn-success');
-		this.textContent = 'Copied';
-		clearSelection();
-		
-		setTimeout((function (){
-			this.textContent = 'Copy';
-			this.classList.replace('btn-success', 'btn-primary');
-		}).bind(this), 2000);
-	});
+				/*========================= delete Account By User  deleteAccountByUser ============================*/
 
-	// clear selected items
-	function clearSelection() {
-	    if ( document.selection ) {
-	        document.selection.empty();
-	    } else if ( window.getSelection ) {
-	        window.getSelection().removeAllRanges();
-	    }
-	}
-
-	/*=========================== update User Settings ==============================*/
-
-	$('#updateUserSettings').autosubmit('.msg','الحفظ جار ...');
-
-	/*========================= delete Account By User  deleteAccountByUser ============================*/
-
-	$('#deleteAccountByUser').click(function(){
-		btn = $(this);
-		
-		if (confirm('هل أنت متأكد من حذف حسابك ؟'))
-		{
-			var pass = window.prompt('أدخل كلمة المرور لحذف حسابك');
-			if (pass)
-			{
-				$.ajax({
-					url: $.url()+'/../ajax',
-					type: 'POST',
-					data: 'pass='+pass+'&blockAccount=yes',
-					beforeSend: function ()
+				$('#deleteAccountByUser').click(function(){
+					var btn = $(this);
+					
+					if (confirm(ajaxStr['ajax.str.5']))
 					{
-						$('.msg').hide();
-						btn.hide();
-					},
-					success: function(r,s,xhr)
-					{
-						if (s == 'success')
+						var pass = window.prompt(ajaxStr['ajax.str.6']);
+						if (pass)
 						{
-							//alert(r);
-							$('.msg').html(r).slideDown();
+							$.ajax({
+								url: $.url()+'/../ajax',
+								type: 'POST',
+								data: 'pass='+pass+'&blockAccount=yes',
+								beforeSend: function ()
+								{
+									$('.msg').hide();
+									btn.hide();
+								},
+								success: function(r,s,xhr)
+								{
+									if (s == 'success')
+									{
+										//alert(r);
+										$('.msg').html(r).slideDown();
+									}
+								},
+								error: function(xhr)
+								{
+									alert("Error : "+xhr.status+" "+xhr.statusText);
+								}
+							});	
 						}
-					},
-					error: function(xhr)
-					{
-						alert("Error : "+xhr.status+" "+xhr.statusText);
 					}
-				});	
-			}
-		}
-	});
+				});
 
-}); // end
+			}); // end
+		}
+	},
+	error: function (xhr){
+		console.log("Error : "+xhr.status+" "+xhr.statusText);
+	},
+});
+

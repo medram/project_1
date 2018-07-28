@@ -32,6 +32,9 @@
     <!-- AdminLTE for demo purposes -->
     <script src="<?php echo base_url('assets/AdminLTE-2.4.5'); ?>/dist/js/demo.js"></script>
 
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="<?php echo base_url('assets/AdminLTE-2.4.5'); ?>/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+
 </body>
 
 </html>
