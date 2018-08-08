@@ -52,9 +52,9 @@
                                 echo "<td><span class='label label-info'>".ucfirst($row['symbol'])."</span></td>";
                                 echo "<td>";
                                 if ($row['active'])
-                                    echo "<span class='badge badge-success' title='Available to use on the website'>On</span>";
+                                    echo "<span class='label label-success' title='Available to use on the website'>On</span>";
                                 else
-                                    echo "<span class='badge badge-danger' title='is not Available to use on the website'>Off</span>";
+                                    echo "<span class='label label-danger' title='is not Available to use on the website'>Off</span>";
                                 echo "</td>";
 
                                 echo "<td>";

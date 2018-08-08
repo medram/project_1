@@ -61,9 +61,9 @@
 									echo "<td style='vertical-align: middle;'>".$r['email']." ".$u_verified."</td>";
 									echo "<td style='vertical-align: middle;'>
 											<b>Registered: </b>".date(config_item("time_format"),$r['user_joined'])."<br><b>Account Status : </b>";
-											if ($r['account_status'] == 1){echo "<span class='badge badge-warning'>Inactive</span>";}
-											else if ($r['account_status'] == 2){echo "<span class='badge badge-danger'>Banned</span>";}
-											else{ echo "<span class='badge badge-success'>Active</span>"; }
+											if ($r['account_status'] == 1){echo "<span class='label label-warning'>Inactive</span>";}
+											else if ($r['account_status'] == 2){echo "<span class='label label-danger'>Banned</span>";}
+											else{ echo "<span class='label label-success'>Active</span>"; }
 									echo "</td>";
 									echo "<td style='vertical-align: middle;'>
 											<a href='".base_url($page_path)."/u/edit/".$r['id']."' target='_blank' 

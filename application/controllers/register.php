@@ -75,7 +75,7 @@ class Register extends MY_Controller
 				if ($this->cms_model->register($data))
 				{
 					// send email to activation
-					$t = base_url('register/activation?u=').encode($token,TRUE);
+					$t = base_url('login/activation?u=').encode($token,TRUE);
 
 					$to = $email;
 					$sub = langLine('notifAccount.register.span.11', false, config_item('sitename'));
