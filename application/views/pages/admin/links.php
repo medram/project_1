@@ -68,11 +68,11 @@
 								<?php
 								if ($row['status'] == 1)
 								{
-									echo "<div class='badge badge-success'>Active</div>";
+									echo "<div class='label label-success'>Active</div>";
 								}
 								else
 								{
-									echo "<div class='badge badge-danger'>Banned</div>";
+									echo "<div class='label label-danger'>Banned</div>";
 								}
 								?>
 							</div>

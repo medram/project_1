@@ -164,6 +164,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 				$file2 	= 'tmps/config.tmp.php';
 				$content2 	= @file_get_contents($file2);
 				$content2 	= @str_replace("%FOLDER%",$folder,$content2);
+				$content2 	= @str_replace("%ENC_KEY%", sha1(time()),$content2);
 				$creat2 	= @file_put_contents('../application/config/config.php',$content2);
 
 				$file3 	= 'tmps/database.tmp.php';

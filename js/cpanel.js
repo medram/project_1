@@ -1,5 +1,6 @@
 $(function (){
 
+
 	/*=========================== auto copy the urls ==============================*/
 
 	$('.copy').click(function (){

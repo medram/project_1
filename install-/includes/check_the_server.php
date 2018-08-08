@@ -9,9 +9,9 @@ if (file_exists('../install'))
 */
 
 /*=============== You can remove this if you are confident that your PHP version is sufficient. ====*/
-if (version_compare(PHP_VERSION,'5.5.9') < 0)
+if (version_compare(PHP_VERSION,'5.4') < 0)
 {
-	$err[] = 'Your <b>PHP version</b> must be equal or higher than 5.5.9';
+	$err[] = 'Your <b>PHP version</b> must be equal or higher than 5.4';
 }
 
 /*=============== Check if the mod_rewrite is enabled ====================*/

@@ -76,7 +76,7 @@ $config['url_suffix'] = '.html';
 | than english.
 |
 */
-$config['language']	= 'arabic';
+$config['language']	= 'english';
 
 /*
 |--------------------------------------------------------------------------
@@ -314,7 +314,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = md5('2016');
+$config['encryption_key'] = "%ENC_KEY%";
 
 /*
 |--------------------------------------------------------------------------
