@@ -112,20 +112,23 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 			$sqls = explode("{BR}",@file_get_contents('tmps/db.tmp.sql'));
 
 			$e = array();
+			//echo "<pre>";
 			foreach ($sqls as $sql)
 			{
 				$sql = str_replace("{DBP}",$db_prefix,$sql);
 				$insert = @$db->query($sql);
-
 				if (!$insert)
 				{
+					echo $sql."<br>";
 					$e[] = 0;
+					break;
 				}
 			}
+			//echo "</pre>";
 
 			if (count($e) > 0)
 			{
-				$msg[]['er'] = 'Sorry, Somethings was wrong ! <b>( Note:</b> You should clear your old database tables first ! <b>)</b>';
+				$msg[]['er'] = 'Sorry, Something was wrong ! <b>( Note:</b> You should to clear your old database tables first ! <b>)</b>';
 			}
 			else
 			{
@@ -158,7 +161,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 
 				$file1 	= 'tmps/tmp.htaccess';
 				$content1 	= @file_get_contents($file1);
-				$content1 	= @str_replace("%FOLDER%",$folder,$content1);
+				$content1 	= @str_replace("%FOLDER%",($folder=='')?'/':$folder,$content1);
 				$creat1 	= @file_put_contents('../.htaccess',$content1);
 								
 				$file2 	= 'tmps/config.tmp.php';
@@ -278,7 +281,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 						?>
 					</div>
 					<div class="panel panel-info">
-						<div class="panel-heading"><h1><i class='glyphicon glyphicon-save'></i> Welcome to instalation page</h1></div>
+						<div class="panel-heading"><h1><i class='glyphicon glyphicon-save'></i> Welcome to the instalation page :</h1></div>
 						<div class="panel-body">
 							<?php
 							if ($is_error == '' || $is_error == 'yes')
@@ -288,7 +291,8 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 								<h2><i class='glyphicon glyphicon-cog'></i> Site information :</h2>
 								<div class='form-group'>
 									<label>Site name :</label>
-									<input type='text' name='sitename' class='form-control' value='<?php echo $_SERVER['HTTP_HOST']; ?>' >
+									<?php $sitename = ucfirst(str_ireplace("www.", "", $_SERVER['HTTP_HOST'])); ?>
+									<input type='text' name='sitename' class='form-control' value='<?php echo $sitename; ?>' >
 								</div>
 								<div class='form-group'>
 									<label>Support email :</label>
@@ -302,7 +306,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 								<h2><i class='glyphicon glyphicon-tasks'></i> Database information :</h2>
 								<div class='form-group'>
 									<label>Host name :</label>
-									<input type='text' name='db_hostname' class='form-control' >
+									<input type='text' name='db_hostname' placeholder="localhost" class='form-control' >
 								</div>
 								<div class='form-group'>
 									<label>Database username :</label>
@@ -345,10 +349,10 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 							{
 								echo "<div class='row'>
 									<div class='col-lg-12'>
-										<div class='well'>
-											Website installation was done successfully, thank you :D .
+										<div class='alert alert-success'>
+											Installed successfully !, thank you for your patience :D .
 											<br>
-											Now you can go to the admin area to manage your website, enjoy :D
+											Your website is ready to use right NOW, you can manage it from the admin area, Enjoy :D .
 										</div>
 									</div>
 								</div>";
@@ -363,7 +367,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 								echo "
 								<div class='row text-center'>
 									<div class='col-lg-12'>
-										<a class='btn btn-warning' href='".$base_url."adminpanel' target='_blank'>Go to the Admin area</a>
+										<a class='btn btn-warning btn-lg' href='".$base_url."adminpanel' target='_blank'>Go to the Admin area</a>
 									</div>
 								</div>";
 							}
@@ -374,7 +378,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 			</div>
 			<div class='row text-center'>
 				<div class='col-lg-12'>
-					<copy>&copy; Powered by <b>MOHAMMED RAMOUCHY</b> <br>Medram v1.1.0</copy><br><br>
+					<copy>&copy; Powered by <b>MOHAMMED RAMOUCHY</b></copy><br><br>
 				</div>
 			</div>
 		</div>

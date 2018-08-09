@@ -14,7 +14,7 @@ CREATE TABLE `{DBP}contact` (
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `ip` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `date` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 {BR}
 
@@ -25,7 +25,7 @@ CREATE TABLE `{DBP}languages` (
   `isRTL` int(1) NOT NULL,
   `undeletable` int(1) NOT NULL,
   `active` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 {BR}
 
@@ -47,7 +47,7 @@ CREATE TABLE `{DBP}links` (
   `admin_views` int(255) NOT NULL,
   `modified` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 {BR}
 
@@ -56,7 +56,7 @@ CREATE TABLE `{DBP}online` (
   `agent` text COLLATE utf8_unicode_ci NOT NULL,
   `platform` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `time` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 {BR}
 
@@ -74,15 +74,15 @@ CREATE TABLE `{DBP}pages` (
   `uneditable` int(255) NOT NULL,
   `created` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `modified` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 {BR}
 
 INSERT INTO `{DBP}pages` (`id`, `title`, `slug`, `lang_id`, `keywords`, `description`, `published`, `show_header`, `show_footer`, `content`, `uneditable`, `created`, `modified`) VALUES
 (1, 'contact', 'contact', 0, 'contact,contact us,support', '', '1', '1', '1', '', 1, '1474631403', '1532733916'),
-(2, 'terms', 'terms', 1, '', '', '1', '1', '1', '', 0, '1531866913', '1531869055');
+(2, 'terms', 'terms', 1, '', '', '1', '1', '1', '', 0, '1531866913', '1531869055'),
 (3, 'شروط الإستخدام', 'terms', 2, 'terms,my site', 'nothing here', '1', '0', '1', '', 0, '1469443321', '1531871193'),
-(4, 'سياسة الخصوصية', 'privacy', 2, '', '', '1', '0', '1', '', 0, '1469443321', '1531868254'),
+(4, 'سياسة الخصوصية', 'privacy', 2, '', '', '1', '0', '1', '', 0, '1469443321', '1531868254');
 
 {BR}
 
@@ -91,7 +91,7 @@ CREATE TABLE `{DBP}settings` (
   `option_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `option_value` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `autoload` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 {BR}
 
@@ -127,8 +127,8 @@ INSERT INTO `{DBP}settings` (`option_id`, `option_name`, `option_value`, `autolo
 (30, 'email_from', '', 'no'),
 (31, 'SMTP_Host', '', 'no'),
 (32, 'SMTP_Port', '', 'no'),
-(33, 'SMTP_User', 'admin@moakt.ws', 'no'),
-(34, 'SMTP_Pass', '00112233', 'no'),
+(33, 'SMTP_User', '', 'no'),
+(34, 'SMTP_Pass', '', 'no'),
 (35, 'mail_encription', 'tls', 'no'),
 (36, 'ad_728x90', '728 x 90', 'no'),
 (37, 'ad_300x250', '300 x 250', 'no'),
@@ -157,7 +157,7 @@ CREATE TABLE `{DBP}statistics` (
   `user_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `date` date NOT NULL,
   `views` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 {BR}
 
@@ -172,7 +172,7 @@ CREATE TABLE `{DBP}users` (
   `user_token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `user_verified` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `account_status` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 {BR}
 
@@ -180,7 +180,7 @@ CREATE TABLE `{DBP}usersmeta` (
   `user_id` int(11) NOT NULL,
   `user_option` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `user_value` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 {BR}
 ALTER TABLE `{DBP}contact`
@@ -234,7 +234,7 @@ ALTER TABLE `{DBP}languages`
 {BR}
 
 ALTER TABLE `{DBP}links`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 {BR}
 
@@ -249,10 +249,9 @@ ALTER TABLE `{DBP}settings`
 {BR}
 
 ALTER TABLE `{DBP}statistics`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 {BR}
 
 ALTER TABLE `{DBP}users`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT;
-
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;

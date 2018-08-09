@@ -41,7 +41,7 @@
 	<body>
 		<div class='welcome-box'>
 			<h1>Welcome</h1>
-			<p>go to the install page from <a href='./install/'>HERE</a></p>
+			<p>Go to the installation page from <a href='./install/'>HERE</a></p>
 		</div>
 	</body>
 </html>

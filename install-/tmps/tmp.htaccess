@@ -6,7 +6,7 @@
 	Options +FollowSymLinks -MultiViews
 
 	RewriteEngine On
-	RewriteBase /%FOLDER%/
+	RewriteBase %FOLDER%
 	
 	#RewriteCond $1 !^(js|css|img|rebots\.txt)
 	RewriteCond %{REQUEST_FILENAME} !-f

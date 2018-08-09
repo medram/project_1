@@ -79,14 +79,14 @@
 					<li class="dropdown user user-menu">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<img src="<?php echo get_profile_img($userdata['user_token']) ?>" class="user-image" alt="User Image">
-							<span class="hidden-xs">Welcome <?php echo $userdata['username']; ?></span>
+							<span class="hidden-xs">Welcome <b><?php echo $userdata['username']; ?></b></span>
 						</a>
 						<ul class="dropdown-menu">
 							<!-- User image -->
 							<li class="user-header">
 								<img src="<?php echo get_profile_img($userdata['user_token']) ?>" class="img-circle" alt="User Image">
 
-								<p>Welcome <?php echo $userdata['username']; ?></p>
+								<p>Welcome <b><?php echo $userdata['username']; ?></b></p>
 							</li>
 							<!-- Menu Body -->
 							<li class="user-body">

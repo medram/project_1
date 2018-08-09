@@ -53,7 +53,7 @@
         									<td>
         										<form action='<?php echo base_url($page_path); ?>/ajax' method='post' enctype='multipart/form-data'>
         											<div class='upload'>
-        												<img src='<?php echo base_url("img/favicon.png"); ?>' width="70px" height="70px">
+        												<img src='<?php echo base_url("img/favicon.png?v=".time()); ?>' width="70px" height="70px">
         												<input type='file' name='icon' class='uploadLogoImage' >
         												<input type='hidden' name='type' value='icon' >
         												<input type='hidden' name='uploadImg' value='yes' >
@@ -71,7 +71,7 @@
         									<td>
         										<form action='<?php echo base_url($page_path); ?>/ajax' method='post' enctype='multipart/form-data'>
         											<div class='upload'>
-        												<img src='<?php echo base_url("img/logo.png"); ?>' >
+        												<img src='<?php echo base_url("img/logo.png?v=".time()); ?>' >
         												<input type='file' name='logo' class='uploadLogoImage' >
         												<span class='progress'></span>
         												<span class='choose-image'><i class='fa fa-image fa-lg'></i><br>Choose an image</span>

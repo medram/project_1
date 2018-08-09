@@ -81,7 +81,7 @@ $lang['theme.go.span.19'] = 'Familiar links';
 
 /*------------- page 404 -------------*/
 $lang['theme.404.title'] = 'Page Not Found!';
-$lang['theme.404.message'] = 'Oops, this page not found, maybe it\'s removed.';
+$lang['theme.404.message'] = 'Oops, this page not found, maybe it was removed.';
 
 
 /*------------- page 403 -------------*/
