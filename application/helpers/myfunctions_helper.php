@@ -21,13 +21,14 @@ function langLine($key, $echo = true, $replace = [])
 
     if (!is_array($replace) && $replace != '')
     {
-        $line = str_ireplace("$1", $replace, $line);
+        $line = str_ireplace('$1', $replace, $line);
     }
     else if (is_array($replace) && count($replace) > 0)
     {
         foreach ($replace as $k => $value)
         {
-            $line = str_ireplace("${$k}", $value, $line);
+            $tmp_num = $k+1;
+            $line = str_ireplace("$$tmp_num", $value, $line);
         }
     }
 

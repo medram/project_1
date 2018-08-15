@@ -1,9 +1,17 @@
+# Auto redirection to HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301] 
+
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^(.*)$ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
 <IfModule mod_rewrite.c>
 	# Tell PHP that the mod_rewrite module is ENABLED.
 	#SetEnv HTTP_MOD_REWRITE On
 	
 	Options -Indexes
-	Options +FollowSymLinks -MultiViews
+	#Options +FollowSymLinks -MultiViews
 
 	RewriteEngine On
 	RewriteBase %FOLDER%

@@ -12,7 +12,7 @@
 </script>
 <script type='text/javascript'>
 	$(document).ready(function(){
-		$('#sendMsg').autosubmit('.msg','<i class="fa fa-spin fa-spinner"></i> جار إرسال الرسالة ...');
+		$('#sendMsg').autosubmit('.msg','<i class="fa fa-spin fa-spinner"></i> Sending ...');
 	});
 </script>
 <div class='container'>

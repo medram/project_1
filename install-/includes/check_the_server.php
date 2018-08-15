@@ -15,11 +15,19 @@ if (version_compare(PHP_VERSION,'5.6') < 0)
 }
 
 /*=============== Check if the mod_rewrite is enabled ====================*/
-if (!in_array('mod_rewrite',apache_get_modules()))
+if (function_exists('apache_get_modules'))
 {
-	$err[] = 'You must enable <b>mod_rewrite</b> on your server.';
+	if (!in_array('mod_rewrite', apache_get_modules()))
+	{
+		$err[] = 'You must enable <b>mod_rewrite</b> on your server.';
+	}
 }
+/*else
+{
 
+	die("The 'apache_get_modules' function is undefined!");
+}
+*/
 /*=============== Check if the file_get_contents() exists ====================*/
 
 if (!function_exists('file_get_contents'))
