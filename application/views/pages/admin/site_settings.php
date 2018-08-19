@@ -430,6 +430,10 @@
         									</select>
         								</td>
         							</tr>
+                                    <tr>
+                                        <td><label>Allow Insecure SSL Certificates</label></td>
+                                        <td><label><input type='checkbox' name='allow_SSL_Insecure_mode' value='1' <?php echo (get_config_item('allow_SSL_Insecure_mode') == 1)? 'checked': '' ?>> Enable</label></td>
+                                    </tr>
         							<tr>
         								<td><label>Email templates :</label></td>
         								<td>

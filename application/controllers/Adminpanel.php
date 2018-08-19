@@ -975,6 +975,7 @@ class Adminpanel extends MY_controller
 				$a['SMTP_User'] 		= trim(strip_tags($this->input->post('SMTP_User',TRUE)));
 				$a['SMTP_Pass'] 		= trim(strip_tags($this->input->post('SMTP_Pass',TRUE)));
 				$a['mail_encription'] 	= trim(strip_tags($this->input->post('mail_encription',TRUE)));
+				$a['allow_SSL_Insecure_mode'] 	= intval($this->input->post('allow_SSL_Insecure_mode',TRUE));
 			}
 			else if ($this->input->post('tab') == 10)
 			{

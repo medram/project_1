@@ -130,25 +130,26 @@ INSERT INTO `{DBP}settings` (`option_id`, `option_name`, `option_value`, `autolo
 (33, 'SMTP_User', '', 'no'),
 (34, 'SMTP_Pass', '', 'no'),
 (35, 'mail_encription', 'tls', 'no'),
-(36, 'ad_728x90', '728 x 90', 'no'),
-(37, 'ad_300x250', '300 x 250', 'no'),
-(38, 'ad_300x600', '300 x 600', 'no'),
-(39, 'ad_autosize', 'autosize ads', 'no'),
-(40, 'ads_status', '0', 'yes'),
-(41, 'ads_status_on_accounts', '0', 'yes'),
-(42, 'notes_delete_account', 'you can delete (block) your account from here.<br>', 'no'),
-(43, 'countdown', '15', 'no'),
-(44, 'admin_pub', '', 'no'),
-(45, 'admin_channel', '0', 'no'),
-(46, 'just_show_admin_ads', '0', 'no'),
-(47, 'just_show_users_ads', '0', 'no'),
-(48, 'bad_urls', 'gsurl.in\r\nlinkshrink.net\r\nadf.ly', 'no'),
-(49, 'go_head_code', '', 'no'),
-(50, 'showFakeNumbers', '1', 'no'),
-(51, 'fakeViews', '314802', 'no'),
-(52, 'fakeUsers', '568', 'no'),
-(53, 'fakeLinks', '1350', 'no'),
-(54, 'packages_domains', '', 'no');
+(36, 'allow_SSL_Insecure_mode', '0', 'no'),
+(37, 'ad_728x90', '728 x 90', 'no'),
+(38, 'ad_300x250', '300 x 250', 'no'),
+(39, 'ad_300x600', '300 x 600', 'no'),
+(40, 'ad_autosize', 'autosize ads', 'no'),
+(41, 'ads_status', '0', 'yes'),
+(42, 'ads_status_on_accounts', '0', 'yes'),
+(43, 'notes_delete_account', 'you can delete (block) your account from here.<br>', 'no'),
+(44, 'countdown', '15', 'no'),
+(45, 'admin_pub', '', 'no'),
+(46, 'admin_channel', '0', 'no'),
+(47, 'just_show_admin_ads', '0', 'no'),
+(48, 'just_show_users_ads', '0', 'no'),
+(49, 'bad_urls', 'gsurl.in\r\nlinkshrink.net\r\nadf.ly', 'no'),
+(50, 'go_head_code', '', 'no'),
+(51, 'showFakeNumbers', '1', 'no'),
+(52, 'fakeViews', '314802', 'no'),
+(53, 'fakeUsers', '568', 'no'),
+(54, 'fakeLinks', '1350', 'no'),
+(55, 'packages_domains', '', 'no');
 
 {BR}
 
@@ -244,7 +245,7 @@ ALTER TABLE `{DBP}pages`
 {BR}
 
 ALTER TABLE `{DBP}settings`
-  MODIFY `option_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `option_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 {BR}
 

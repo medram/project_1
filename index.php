@@ -45,6 +45,10 @@ if (is_dir('./install/'))
 	die('you should to delete or rename the "install" folder!');
 }
 
+/*----------- Autoload Composer ----------*/
+//require_once './vendor/autoload.php';
+
+
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT

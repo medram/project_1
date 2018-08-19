@@ -289,7 +289,75 @@ function email_tpls_load_and_replace($tpl_path, $consts, $load_header_footer = F
     return $template;
 }
 
-function sendEmail($to, $subject, $msg, $from=array(), $priority=3, $mailtype='html')
+function sendEmail($to, $subject, $msg, array $from, $priority=3, $mailtype='html')
+{
+    $mail = new PHPMailer\PHPMailer\PHPMailer();
+
+    try {
+
+        if (get_config_item('email_method') == 'smtp')
+        {
+            $mail->IsSMTP();
+            $mail->Host = get_config_item('SMTP_Host');
+            $mail->Port = get_config_item('SMTP_Port');
+            $mail->Username = get_config_item('SMTP_User');
+            $mail->Password = get_config_item('SMTP_Pass');
+            $mail->SMTPAuth = TRUE;
+            $mail->SMTPSecure = get_config_item('mail_encription'); // ssl or tls
+            //$mail->SMTPSecure = 'none';
+            $mail->SMTPAutoTLS = false;
+
+            if (get_config_item('allow_SSL_Insecure_mode') == 1)
+            {
+                $mail->SMTPOptions = array(
+                        'ssl' => [
+                            'verify_peer'       => false,
+                            'verify_peer_name'  => false,
+                            'allow_self_signed' => true
+                        ]
+                    );
+            }
+
+        }
+
+        if(count($from) == 0)
+            $mail->SetFrom(get_config_item('email_from'), config_item('sitename'));
+        else
+            $mail->SetFrom($from[0], $from[1]);
+        
+        
+        if ($mailtype == 'html')        
+        {
+            $mail->IsHTML(TRUE);
+            $mail->Body = $msg;
+        }   
+        else
+        {
+            $mail->IsHTML(FALSE);
+            $mail->AltBody = $msg;
+        }
+
+        $mail->AddAddress($to);
+        //$mail->addReplyTo("test@moaks.ws");
+
+        $mail->Subject = $subject;
+        if ($mail->Send())
+            return true;
+
+
+    } catch (PHPMailer\PHPMailer\Exception $e) {
+
+        /*
+        echo "<pre>";      
+        echo $e->errorMessage();
+        //print($mail->ErrorInfo);
+        echo "</pre>";
+        */
+        return false;      
+    }
+}
+
+/*function sendEmail($to, $subject, $msg, $from=array(), $priority=3, $mailtype='html')
 {
     global $CI;
 
@@ -328,7 +396,7 @@ function sendEmail($to, $subject, $msg, $from=array(), $priority=3, $mailtype='h
 
     //return mail($to, $subject, $msg);
 }
-
+*/
 
 function pagination($all_items,$num_per_page,$url,$lg='en')
 {
