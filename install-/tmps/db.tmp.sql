@@ -1,10 +1,12 @@
+-- Date: 21/08/2018
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 
-{BR}
 
+-- Time Zone
 SET time_zone = "+00:00";
 
-{BR}
+
 
 CREATE TABLE `{DBP}contact` (
   `id` int(255) NOT NULL,
@@ -16,7 +18,7 @@ CREATE TABLE `{DBP}contact` (
   `date` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-{BR}
+
 
 CREATE TABLE `{DBP}languages` (
   `id` int(11) NOT NULL,
@@ -27,13 +29,13 @@ CREATE TABLE `{DBP}languages` (
   `active` int(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-{BR}
+
 
 INSERT INTO `{DBP}languages` (`id`, `name`, `symbol`, `isRTL`, `undeletable`, `active`) VALUES
 (1, 'english', 'en', 0, 1, 1),
 (2, 'arabic', 'ar', 1, 1, 1);
 
-{BR}
+
 
 CREATE TABLE `{DBP}links` (
   `id` int(255) NOT NULL,
@@ -49,7 +51,7 @@ CREATE TABLE `{DBP}links` (
   `created` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-{BR}
+
 
 CREATE TABLE `{DBP}online` (
   `ip` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -58,7 +60,7 @@ CREATE TABLE `{DBP}online` (
   `time` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-{BR}
+
 
 CREATE TABLE `{DBP}pages` (
   `id` int(255) NOT NULL,
@@ -76,7 +78,7 @@ CREATE TABLE `{DBP}pages` (
   `modified` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-{BR}
+
 
 INSERT INTO `{DBP}pages` (`id`, `title`, `slug`, `lang_id`, `keywords`, `description`, `published`, `show_header`, `show_footer`, `content`, `uneditable`, `created`, `modified`) VALUES
 (1, 'contact', 'contact', 0, 'contact,contact us,support', '', '1', '1', '1', '', 1, '1474631403', '1532733916'),
@@ -84,7 +86,7 @@ INSERT INTO `{DBP}pages` (`id`, `title`, `slug`, `lang_id`, `keywords`, `descrip
 (3, 'شروط الإستخدام', 'terms', 2, 'terms,my site', 'nothing here', '1', '0', '1', '', 0, '1469443321', '1531871193'),
 (4, 'سياسة الخصوصية', 'privacy', 2, '', '', '1', '0', '1', '', 0, '1469443321', '1531868254');
 
-{BR}
+
 
 CREATE TABLE `{DBP}settings` (
   `option_id` int(255) NOT NULL,
@@ -93,7 +95,7 @@ CREATE TABLE `{DBP}settings` (
   `autoload` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-{BR}
+
 
 INSERT INTO `{DBP}settings` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES
 (1, 'sitename', '', 'yes'),
@@ -151,7 +153,7 @@ INSERT INTO `{DBP}settings` (`option_id`, `option_name`, `option_value`, `autolo
 (54, 'fakeLinks', '1350', 'no'),
 (55, 'packages_domains', '', 'no');
 
-{BR}
+
 
 CREATE TABLE `{DBP}statistics` (
   `id` int(255) NOT NULL,
@@ -160,7 +162,7 @@ CREATE TABLE `{DBP}statistics` (
   `views` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-{BR}
+
 
 CREATE TABLE `{DBP}users` (
   `id` int(255) NOT NULL,
@@ -175,7 +177,7 @@ CREATE TABLE `{DBP}users` (
   `account_status` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-{BR}
+
 
 CREATE TABLE `{DBP}usersmeta` (
   `user_id` int(11) NOT NULL,
@@ -183,76 +185,76 @@ CREATE TABLE `{DBP}usersmeta` (
   `user_value` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-{BR}
+
 ALTER TABLE `{DBP}contact`
   ADD PRIMARY KEY (`id`);
-{BR}
+
 ALTER TABLE `{DBP}languages`
   ADD PRIMARY KEY (`id`);
-{BR}
+
 ALTER TABLE `{DBP}links`
   ADD PRIMARY KEY (`id`);
-{BR}
+
 ALTER TABLE `{DBP}links` ADD FULLTEXT KEY `title` (`title`);
-{BR}
+
 ALTER TABLE `{DBP}links` ADD FULLTEXT KEY `slug` (`slug`);
-{BR}
+
 ALTER TABLE `{DBP}links` ADD FULLTEXT KEY `title_2` (`title`,`slug`);
-{BR}
+
 
 ALTER TABLE `{DBP}pages`
   ADD PRIMARY KEY (`id`);
 
-{BR}
+
 
 ALTER TABLE `{DBP}settings`
   ADD PRIMARY KEY (`option_id`);
 
-{BR}
+
 
 ALTER TABLE `{DBP}statistics`
   ADD PRIMARY KEY (`id`);
 
-{BR}
+
 
 ALTER TABLE `{DBP}users`
   ADD PRIMARY KEY (`id`);
 
-{BR}
+
   
 ALTER TABLE `{DBP}users` ADD FULLTEXT KEY `username` (`username`,`email`,`user_token`);
 
-{BR}
+
 
 ALTER TABLE `{DBP}contact`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
-{BR}
+
 
 ALTER TABLE `{DBP}languages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
-{BR}
+
 
 ALTER TABLE `{DBP}links`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
-{BR}
+
 
 ALTER TABLE `{DBP}pages`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
-{BR}
+
 
 ALTER TABLE `{DBP}settings`
   MODIFY `option_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
-{BR}
+
 
 ALTER TABLE `{DBP}statistics`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
-{BR}
+
 
 ALTER TABLE `{DBP}users`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;

@@ -38,6 +38,17 @@
 
 //date_default_timezone_set("Etc/GMT+0");
 
+/*----------- check the installation script ----------*/
+
+if (is_dir('./install/'))
+{
+	die('Please delete or rename the "install" folder to continue!');
+}
+
+/*----------- Autoload Composer ----------*/
+//require_once './vendor/autoload.php';
+
+
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT

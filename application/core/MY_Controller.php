@@ -5,7 +5,8 @@ class MY_controller extends CI_controller
 	public function __construct()
 	{
 		define('MICROTIME',microtime(TRUE));
-		//$this->check_the_server_is_ready();
+
+		$this->check_the_server_is_ready();
 		parent::__construct();
 		$this->load->model('cms_model');
 		$this->cms_model->site_config(); // get the configuration of my site :D
@@ -19,7 +20,7 @@ class MY_controller extends CI_controller
 		$this->cms_model->test_login_using_cookie();
 	}
 
-	
+
 	private function check_the_server_is_ready ()
 	{
 		$path = __DIR__.'..\..\..\install'; // the path of instalation folder.

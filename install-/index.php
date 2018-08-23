@@ -1,5 +1,14 @@
 <?php
-@date_default_timezone_set('Africa/Casablanca');
+ob_start();
+session_start();
+//@date_default_timezone_set('Africa/Casablanca');
+
+
+if (!isset($_GET['step']))
+{
+	header("location: index.php?step=1");
+	exit;
+}
 
 /*==================== folder ====================*/
 $ex = explode('/',$_SERVER['REQUEST_URI']);
@@ -42,206 +51,290 @@ require_once 'includes/functions.php';
 /*================= 1 - test if the server is ready ==================*/
 require_once 'includes/check_the_server.php';
 
-/*================= 2 - insert database data =========================*/
+/*================= 2 - Check Purchase Code =========================*/
 
-if (isset($_POST['submit']) && $_POST['submit'] == 'install')
+$msg = array();
+
+if (isset($_GET['step']) && $_GET['step'] == 1)
 {
-	$sitename 		= trim(_addslashes(strip_tags($_POST['sitename'])));
-	$support 		= trim(strtolower(_addslashes(strip_tags($_POST['support']))));
-	$folder 		= $folder;
-	$db_hostname 	= trim(_addslashes(strip_tags($_POST['db_hostname'])));
-	$db_username 	= trim(_addslashes(strip_tags($_POST['db_username'])));
-	$db_password 	= trim(_addslashes(strip_tags($_POST['db_password'])));
-	$database 		= trim(_addslashes(strip_tags($_POST['db_name'])));
-	$db_prefix 		= trim(strtolower(_addslashes(strip_tags($_POST['db_prefix']))));
-	$admin_name 	= trim(_addslashes(strip_tags($_POST['admin_name'])));
-	$admin_email 	= trim(strtolower(_addslashes(strip_tags($_POST['admin_email']))));
-	$admin_pass 	= trim(_addslashes(strip_tags($_POST['admin_pass'])));
+	if (isset($_SESSION['purchase_code']) && $_SESSION['purchase_code'] != '')
+	{
+		header("location: index.php?step=2");
+		exit;
+	}
 
-	$time 			= time();
-	$msg 			= array();
-	
-	/*
-	echo '<pre>';
-	echo $sitename.'<br>';
-	echo $support.'<br>';
-	echo $folder.'<br>';
-	echo $db_hostname.'<br>';
-	echo $db_username.'<br>';
-	echo $db_password.'<br>';
-	echo $database.'<br>';
-	echo $db_prefix.'<br>';
-	echo $admin_name.'<br>';
-	echo $admin_email.'<br>';
-	echo $admin_pass.'<br>';
-	echo '</pre>';
-	*/
-	
-	if (empty($sitename) || empty($support) || empty($folder) || 
-		empty($admin_name) || empty($admin_email) || empty($admin_pass) ||
-		empty($db_hostname) || empty($db_username) || empty($db_password) || empty($database) || empty($db_prefix))
+	if (isset($_POST['submit']))
 	{
-		$msg[]['er'] = 'Sorry, Please insert all informations !';
-	}
-	else if (!filter_var($support,FILTER_VALIDATE_EMAIL))
-	{
-		$msg[]['er'] = 'Sorry, the <b>support email</b> isn\'t correct !';
-	}
-	else if (!filter_var($admin_email,FILTER_VALIDATE_EMAIL))
-	{
-		$msg[]['er'] = 'Sorry, the <b>admin email</b> isn\'t correct !';
-	}
-	else
-	{
-		$db = @new mysqli($db_hostname,$db_username,$db_password);
+		// check the license & redirect to step 2
+		// else try again.
+		$purchase_code 	= _addslashes(trim($_POST['code']));
 
-		if ($db->connect_errno)
+		if ($purchase_code == '')
 		{
-			$msg[]['er'] = 'Sorry, the <b>informations of database</b> wasn\'t correct !';
-		}
-		else if (!$db->select_db($database))
-		{
-			$msg[]['er'] = 'Sorry, the <b>database</b> isn\'t correct or isn\'t exists !';
+			$msg[]['er'] = "Please enter your Envato Purchase Code.";
 		}
 		else
 		{
-			$msg[]['ok'] = 'Connection to database was done successfully.';
+			$res = verify_purchase($purchase_code);
 
-			@$db->set_charset('utf8');
-			/*============== creations of the database tables ===============*/
-			$sqls = explode("{BR}",@file_get_contents('tmps/db.tmp.sql'));
-
-			$e = array();
-			//echo "<pre>";
-			foreach ($sqls as $sql)
+			if ($res == false)
 			{
-				$sql = str_replace("{DBP}",$db_prefix,$sql);
-				$insert = @$db->query($sql);
-				if (!$insert)
-				{
-					echo $sql."<br>";
-					$e[] = 0;
-					break;
-				}
-			}
-			//echo "</pre>";
-
-			if (count($e) > 0)
-			{
-				$msg[]['er'] = 'Sorry, Something was wrong ! <b>( Note:</b> You should to clear your old database tables first ! <b>)</b>';
+				$msg[]['er'] = "Oops, the Purchase Code is invalid!";
 			}
 			else
 			{
-				/*===================== insert admin date & site data ====================*/
-				$admin_pass 	= password_hash($admin_pass,PASSWORD_DEFAULT);
-				$user_token 	= sha1(md5(time()));
+				// send the data to my server about the customer (BUT not now).
+				$_SESSION['purchase_code'] = $purchase_code;
+				//$_SESSION['username'] = $username;
+				//$_SESSION['email'] = $email;
+				header("location: index.php?step=2");
+				exit;
+			}
+		}
+	}
+}
 
-				$in_admin = $db->query("INSERT INTO `".$db_prefix."users` 
-					(id,username,email,password,gender,user_joined,user_status,user_token,user_verified,account_status) 
-					VALUES (1,'$admin_name','$admin_email','$admin_pass',0,'$time',1,'$user_token','1',0)");
 
-				$up['sitename'] = $sitename;
-				$up['email_from'] = $support;
+/*================= 3 - insert database data =========================*/
 
-				foreach ($up as $k => $v)
+else if (isset($_GET['step']) && $_GET['step'] == 2)
+{
+	if (!isset($_SESSION['purchase_code']) || $_SESSION['purchase_code'] == '' || !verify_purchase($_SESSION['purchase_code']))
+	{
+		unset($_SESSION['purchase_code']);
+		header("location: index.php?step=1");
+		exit;
+	}
+
+	if (isset($_POST['submit']) && $_POST['submit'] == 'install')
+	{
+		$sitename 		= trim(_addslashes(strip_tags($_POST['sitename'])));
+		$support 		= trim(strtolower(_addslashes(strip_tags($_POST['support']))));
+		$folder 		= $folder;
+		$db_hostname 	= trim(_addslashes(strip_tags($_POST['db_hostname'])));
+		$db_username 	= trim(_addslashes(strip_tags($_POST['db_username'])));
+		$db_password 	= trim(_addslashes(strip_tags($_POST['db_password'])));
+		$database 		= trim(_addslashes(strip_tags($_POST['db_name'])));
+		$db_prefix 		= trim(strtolower(_addslashes(strip_tags($_POST['db_prefix']))));
+		$admin_name 	= trim(_addslashes(strip_tags($_POST['admin_name'])));
+		$admin_email 	= trim(strtolower(_addslashes(strip_tags($_POST['admin_email']))));
+		$admin_pass 	= trim(_addslashes(strip_tags($_POST['admin_pass'])));
+
+		$time 			= time();
+		
+		/*
+		echo '<pre>';
+		echo $sitename.'<br>';
+		echo $support.'<br>';
+		echo $folder.'<br>';
+		echo $db_hostname.'<br>';
+		echo $db_username.'<br>';
+		echo $db_password.'<br>';
+		echo $database.'<br>';
+		echo $db_prefix.'<br>';
+		echo $admin_name.'<br>';
+		echo $admin_email.'<br>';
+		echo $admin_pass.'<br>';
+		echo '</pre>';
+		*/
+		
+		if (empty($sitename) || empty($support) || empty($folder) || 
+			empty($admin_name) || empty($admin_email) || empty($admin_pass) ||
+			empty($db_hostname) || empty($db_username) || empty($db_password) || empty($database) || empty($db_prefix))
+		{
+			$msg[]['er'] = 'Sorry, Please insert all informations !';
+		}
+		else if (!filter_var($support,FILTER_VALIDATE_EMAIL))
+		{
+			$msg[]['er'] = 'Sorry, the <b>support email</b> isn\'t correct !';
+		}
+		else if (!filter_var($admin_email,FILTER_VALIDATE_EMAIL))
+		{
+			$msg[]['er'] = 'Sorry, the <b>admin email</b> isn\'t correct !';
+		}
+		else
+		{
+			$db = @new mysqli($db_hostname,$db_username,$db_password);
+
+			if ($db->connect_errno)
+			{
+				$msg[]['er'] = 'Sorry, the <b>informations of database</b> wasn\'t correct !';
+			}
+			else if (!$db->select_db($database))
+			{
+				$msg[]['er'] = 'Sorry, the <b>database</b> isn\'t correct or isn\'t exists !';
+			}
+			else
+			{
+				$msg[]['ok'] = 'Connection to database was done successfully.';
+
+				@$db->set_charset('utf8');
+				/*============== creations of the database tables ===============*/
+				$lines = file('tmps/db.tmp.sql');
+
+				$e = array();
+				$tmp_line = '';
+
+				foreach ($lines as $line)
 				{
-					$up_site = $db->query("UPDATE `".$db_prefix."settings` SET option_value='$v' WHERE option_name='$k'");	
+					$start = substr(trim($line), 0, 2);
+					$end = substr(trim($line), -1, 1);
+
+					if ($start == '--' || $start == ' ')
+						continue;
+					else
+						$tmp_line .= $line;
+
+					if ($end == ';')
+					{
+						$tmp_line = str_replace("{DBP}", $db_prefix, $tmp_line);
+						// execute the SQL query
+						if (! @$db->query($tmp_line))
+						{
+							echo $tmp_line."<br>";
+							$e[] = 0;
+							break;
+						}						
+
+						// clear tmp_line
+						$tmp_line = '';
+					}
 				}
 
-				if ($in_admin && $up_site)
+	/*			$sqls = explode("{BR}",@file_get_contents('tmps/db.tmp.sql'));
+
+				//echo "<pre>";
+				foreach ($sqls as $sql)
 				{
-					$msg[]['ok'] = 'The database data was installed successfully.';
+					$sql = str_replace("{DBP}",$db_prefix,$sql);
+					$insert = @$db->query($sql);
+					if (!$insert)
+					{
+						echo $sql."<br>";
+						$e[] = 0;
+						break;
+					}
+				}*/
+				//echo "</pre>";
+
+				if (count($e) > 0)
+				{
+					$msg[]['er'] = 'Sorry, Something was wrong ! <b>( Note:</b> You should to clear your old database tables first ! <b>)</b>';
 				}
 				else
 				{
-					$msg[]['er'] = 'The database data wasn\'t installed !';
+					/*===================== insert admin date & site data ====================*/
+					$admin_pass 	= password_hash($admin_pass,PASSWORD_DEFAULT);
+					$user_token 	= sha1(md5(time()));
+
+					$in_admin = $db->query("INSERT INTO `".$db_prefix."users` 
+						(id,username,email,password,gender,user_joined,user_status,user_token,user_verified,account_status) 
+						VALUES (1,'$admin_name','$admin_email','$admin_pass',0,'$time',1,'$user_token','1',0)");
+
+					$up['sitename'] = $sitename;
+					$up['email_from'] = $support;
+
+					foreach ($up as $k => $v)
+					{
+						$up_site = $db->query("UPDATE `".$db_prefix."settings` SET option_value='$v' WHERE option_name='$k'");	
+					}
+
+					if ($in_admin && $up_site)
+					{
+						$msg[]['ok'] = 'The database data was installed successfully.';
+					}
+					else
+					{
+						$msg[]['er'] = 'The database data wasn\'t installed !';
+					}
+
+					/*========= update (edit) config file & .htaccess & database file =======*/
+
+					$file1 	= 'tmps/tmp.htaccess';
+					$content1 	= @file_get_contents($file1);
+					$content1 	= @str_replace("%FOLDER%",($folder=='')?'/':$folder,$content1);
+					$creat1 	= @file_put_contents('../.htaccess',$content1);
+									
+					$file2 	= 'tmps/config.tmp.php';
+					$content2 	= @file_get_contents($file2);
+					$content2 	= @str_replace("%FOLDER%",$folder,$content2);
+					$content2 	= @str_replace("%ENC_KEY%", sha1(time()),$content2);
+					$creat2 	= @file_put_contents('../application/config/config.php',$content2);
+
+					$file3 	= 'tmps/database.tmp.php';
+					$content3 	= @file_get_contents($file3);
+					$content3 	= @str_replace("%DB_HOST%",$db_hostname,$content3);
+					$content3 	= @str_replace("%DB_USERNAME%",$db_username,$content3);
+					$content3 	= @str_replace("%DB_PASSWORD%",$db_password,$content3);
+					$content3 	= @str_replace("%DB%",$database,$content3);
+					$content3 	= @str_replace("%PREFIX%",$db_prefix,$content3);
+					$creat3  	= @file_put_contents('../application/config/database.php',$content3);
+
+					$file4 = 'tmps/index.tmp.php';
+					$content4	= @file_get_contents($file4);
+					$creat4		= @file_put_contents('../index.php', $content4);
+
+					/*
+					if ($creat1)
+					{
+						$msg[]['ok'] = 'The <b>.htaccess</b> file was created successfully.';
+					}
+					else
+					{
+						$msg[]['er'] = 'The <b>.htaccess</b> file wasn\'t created.';
+					}
+
+					if ($creat2)
+					{
+						$msg[]['ok'] = 'The <b>config.php</b> file was created successfully.';
+					}
+					else
+					{
+						$msg[]['er'] = 'The <b>config.php</b> file wasn\'t created.';
+					}
+
+					if ($creat3)
+					{
+						$msg[]['ok'] = 'The <b>database.php</b> file was created successfully.';
+					}
+					else
+					{
+						$msg[]['er'] = 'The <b>database.php</b> file wasn\'t created.';
+					}
+					*/
+
+					if ($creat1 && $creat2 && $creat3)
+					{
+						$msg[]['ok'] = "The files <b>.htaccess , config.php and database.php</b> were created successfully.";
+						$is_error = 'no';
+					}
+					else
+					{
+						$msg[]['er'] = "The files <b>.htaccess , config.php and database.php</b> were not created !";
+					}
 				}
 
-				/*========= update (edit) config file & .htaccess & database file =======*/
-
-				$file1 	= 'tmps/tmp.htaccess';
-				$content1 	= @file_get_contents($file1);
-				$content1 	= @str_replace("%FOLDER%",($folder=='')?'/':$folder,$content1);
-				$creat1 	= @file_put_contents('../.htaccess',$content1);
-								
-				$file2 	= 'tmps/config.tmp.php';
-				$content2 	= @file_get_contents($file2);
-				$content2 	= @str_replace("%FOLDER%",$folder,$content2);
-				$content2 	= @str_replace("%ENC_KEY%", sha1(time()),$content2);
-				$creat2 	= @file_put_contents('../application/config/config.php',$content2);
-
-				$file3 	= 'tmps/database.tmp.php';
-				$content3 	= @file_get_contents($file3);
-				$content3 	= @str_replace("%DB_HOST%",$db_hostname,$content3);
-				$content3 	= @str_replace("%DB_USERNAME%",$db_username,$content3);
-				$content3 	= @str_replace("%DB_PASSWORD%",$db_password,$content3);
-				$content3 	= @str_replace("%DB%",$database,$content3);
-				$content3 	= @str_replace("%PREFIX%",$db_prefix,$content3);
-				$creat3  	= @file_put_contents('../application/config/database.php',$content3);
-
-				$file4 = 'tmps/index.tmp.php';
-				$content4	= @file_get_contents($file4);
-				$creat4		= @file_put_contents('../index.php', $content4);
-
-				/*
-				if ($creat1)
-				{
-					$msg[]['ok'] = 'The <b>.htaccess</b> file was created successfully.';
-				}
-				else
-				{
-					$msg[]['er'] = 'The <b>.htaccess</b> file wasn\'t created.';
-				}
-
-				if ($creat2)
-				{
-					$msg[]['ok'] = 'The <b>config.php</b> file was created successfully.';
-				}
-				else
-				{
-					$msg[]['er'] = 'The <b>config.php</b> file wasn\'t created.';
-				}
-
-				if ($creat3)
-				{
-					$msg[]['ok'] = 'The <b>database.php</b> file was created successfully.';
-				}
-				else
-				{
-					$msg[]['er'] = 'The <b>database.php</b> file wasn\'t created.';
-				}
-				*/
-
-				if ($creat1 && $creat2 && $creat3)
-				{
-					$msg[]['ok'] = "The files <b>.htaccess , config.php and database.php</b> were created successfully.";
-					$is_error = 'no';
-				}
-				else
-				{
-					$msg[]['er'] = "The files <b>.htaccess , config.php and database.php</b> were not created !";
-				}
+				@$db->close();
 			}
 
-			@$db->close();
 		}
 
 	}
+} // end step 2
 
-	$m = '';
-	if (count($msg) > 0)
+$m = '';
+if (count($msg) > 0)
+{
+	foreach ($msg as $k => $v)
 	{
-		foreach ($msg as $k => $v)
+		if (isset($v['er']))
 		{
-			if (isset($v['er']))
-			{
-				$m .= "<div class='alert alert-warning'><i class='glyphicon glyphicon-remove'></i> ".$v['er']."</div>";
-				$is_error = 'yes';
-			}
-			else if (isset($v['ok']))
-			{
-				$m .= "<div class='alert alert-success'><i class='glyphicon glyphicon-ok'></i> ".$v['ok']."</div>";
-			}
+			$m .= "<div class='alert alert-warning'><i class='glyphicon glyphicon-remove'></i> ".$v['er']."</div>";
+			$is_error = 'yes';
+		}
+		else if (isset($v['ok']))
+		{
+			$m .= "<div class='alert alert-success'><i class='glyphicon glyphicon-ok'></i> ".$v['ok']."</div>";
 		}
 	}
 }
@@ -267,7 +360,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 			<div class='row text-center'>
 				<br><br><br>
 				<div class='col-lg-12 text-left'>
-					<div>
+					<div class="col-md-12">
 						<?php
 						if (isset($m) && !empty($m) && $is_error == 'yes')
 						{
@@ -280,14 +373,40 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 						}
 						?>
 					</div>
+					<?php if (isset($_GET['step']) && $_GET['step'] == 1){ ?>
+					<div class="col-md-12">
+						<div class="panel panel-info" style="width: 50%; margin: 50px auto;">
+							<div class="panel-heading">
+								<h3>Purchase Code Verification:</h3>
+							</div>
+							<div class="panel-body">
+								<form action="index.php?step=1" method="POST">
+									<p>Please enter the Envato Perchase code.</p>
+									<div class="from-group">
+										<label>Purchase Code:</label>
+										<input type="text" name="code" class="form-control" >
+										<br>
+										<button type="submit" name="submit" class="btn btn-success btn-lg btn-block">Activate</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+
+					<?php } else if (isset($_GET['step']) && $_GET['step'] == 2){ ?>
+
 					<div class="panel panel-info">
-						<div class="panel-heading"><h1><i class='glyphicon glyphicon-save'></i> Welcome to the instalation page :</h1></div>
+						<div class="panel-heading">
+							<h3>
+								<i class='glyphicon glyphicon-save'></i> Welcome to the instalation page :
+							</h3>
+						</div>
 						<div class="panel-body">
 							<?php
 							if ($is_error == '' || $is_error == 'yes')
 							{
 							?>
-							<form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method='post'>
+							<form action="index.php?step=2" method='post'>
 								<h2><i class='glyphicon glyphicon-cog'></i> Site information :</h2>
 								<div class='form-group'>
 									<label>Site name :</label>
@@ -374,11 +493,12 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 							?>
 						</div>
 					</div>
+					<?php } ?>
 				</div>
 			</div>
 			<div class='row text-center'>
 				<div class='col-lg-12'>
-					<copy>&copy; Powered by <b>MOHAMMED RAMOUCHY</b></copy><br><br>
+					<copy>&copy; Powered by <b>MrMed</b></copy><br><br>
 				</div>
 			</div>
 		</div>

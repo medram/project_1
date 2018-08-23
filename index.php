@@ -42,7 +42,7 @@
 
 if (is_dir('./install/'))
 {
-	die('you should to delete or rename the "install" folder!');
+	die('Please delete or rename the "install" folder to continue!');
 }
 
 /*----------- Autoload Composer ----------*/
