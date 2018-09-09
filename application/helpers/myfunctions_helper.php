@@ -289,7 +289,7 @@ function email_tpls_load_and_replace($tpl_path, $consts, $load_header_footer = F
     return $template;
 }
 
-function sendEmail($to, $subject, $msg, array $from, $priority=3, $mailtype='html')
+function sendEmail($to, $subject, $msg, $from = array(), $priority=3, $mailtype='html')
 {
     $mail = new PHPMailer\PHPMailer\PHPMailer();
 
@@ -318,6 +318,11 @@ function sendEmail($to, $subject, $msg, array $from, $priority=3, $mailtype='htm
                     );
             }
 
+        }
+        else
+        {
+            //$mail->IsMail();
+            $mail->IsSendmail();
         }
 
         if(count($from) == 0)
@@ -1216,8 +1221,7 @@ function get_google_ad ($pub='',$channel='',$type='')
             $code .= 'data-ad-channel="'.$channel.'"';
         }
 
-        $code .= '
-            ></ins>
+        $code .= ' data-full-width-responsive="true"></ins>
             <script>
             (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
@@ -1254,7 +1258,9 @@ function get_google_ad ($pub='',$channel='',$type='')
 
     =============== auto size ==================
     */
-
+/*    echo '<pre class="text-left">';
+    echo htmlentities($code);
+    echo '</pre>';*/
     return $code;
 
 }

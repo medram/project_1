@@ -12,6 +12,7 @@
 				You can search about any links by :<br>
 				- link title.<br>
 				- link slug.<br>
+				- User token.<br>
 			</div>
 			<div class='form-group'>
 				<form action='<?php echo base_url($page_path); ?>/links' method='get'>
@@ -30,9 +31,8 @@
 					</div>
 				</form>
 			</div>
-			<br>
 			<?php
-				echo "<i>Results : ".$all_items."</i><hr>";
+				echo "<i>Results : ".$all_items."</i>";
 			?>
 		</div>
 	</div>
@@ -45,7 +45,7 @@
 	    		{
 
 	    	?>
-				<div class="panel panel-info">
+				<div class="panel panel-default">
 				    <div class="panel-heading">
 				        <div class="row">
 				            <div class="col-xs-10">
@@ -76,7 +76,6 @@
 								}
 								?>
 							</div>
-							<br><br>
 						</div>
 						<div class='row'>
 							<div class="col-lg-6">
