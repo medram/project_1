@@ -14,7 +14,8 @@ class MY_controller extends CI_controller
 		
 		// language
 		$this->check_language();
-
+		// check the license.
+		$this->check_license();
 		$this->cms_model->onlineVisitors();
 		$this->cms_model->is_closed();
 		$this->cms_model->test_login_using_cookie();
@@ -62,6 +63,12 @@ class MY_controller extends CI_controller
 		$language = $langs[$lang_id-1];
 		$this->config->set_item('validLang', $language);
 		$this->config->set_item('languages', $langs);
+	}
+
+	private function check_license()
+	{
+		$MR = $this->load->library('MR4Web', '', 'MR');
+		$this->MR->checkLicense();
 	}
 
 } // end class

@@ -287,6 +287,14 @@ class Adminpanel extends MY_controller
 		$this->index();
 	}
 
+	public function license ()
+	{
+		$this->data['title'] = 'License checker!';
+		$this->load->view('templates/admin_header',$this->data);
+		$this->load->view('pages/admin/license', $this->data);
+		$this->load->view('templates/admin_footer',$this->data);
+	}
+
 	public function settings ()
 	{
 		$this->data['title'] = 'Site settings';
