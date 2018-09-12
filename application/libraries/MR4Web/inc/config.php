@@ -1,15 +1,22 @@
 <?php
 
 return [
-	'urls'	=> array(
-		'license' 	=> 'https://api.mr4web.com/license.php',
+	'URLs'	=> [
+		'license' 	=> 'http://localhost/test/api/v1/license.php',
 		'update'	=> 'https://api.mr4web.com/update.php',
 		'news'		=> 'https://api.mr4web.com/news.php' 
-	),
-	'product'	=> array(
+	],
+
+	'cache'	=> [
+		// expire time in seconds
+		'expire'	=> 24*3600 // 1 days
+	],
+	
+	'product'	=> [
 		'name'	=> 'ADLinker'
-	),
-	'license_page' => 'license', // the license checker page 
+	],
+	
+	'license_page' => 'license', // the license checker page name
 ];
 
 ?>

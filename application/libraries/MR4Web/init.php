@@ -1,7 +1,7 @@
 <?php
 
 define('DEBUG', true);
-define('DEBUG_SHOW_OPERATIONS', false);
+define('DEBUG_SHOW_OPERATIONS', true);
 
 define('ROOT', str_replace('\\', '/', dirname(__FILE__)).'/');
 define('INC', ROOT.'inc/');

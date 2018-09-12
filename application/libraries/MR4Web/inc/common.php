@@ -1,5 +1,6 @@
 <?php
 
+use MR4Web\Utils\Config;
 
 function _addslashes ($str)
 {
@@ -16,7 +17,7 @@ function _addslashes ($str)
 function logger($string)
 {
     if (DEBUG_SHOW_OPERATIONS)
-        echo $string;
+        echo '<pre>'.$string.'</pre>';
 }
 
 function get_client_ip() {
@@ -54,5 +55,16 @@ function getHash($path)
     return NULL;
 }
 
+function redirectToLicensePage()
+{
+    $CI = &get_instance();
+    $deniedPages = [Config::get('license_page'), 'login'];
+    
+    if (!in_array($CI->uri->segment(2), $deniedPages))
+    {
+        header("location: ".config_item('base_url').$CI->uri->segment(1).'/'.Config::get('license_page'));
+        exit;
+    }
+}
 
 ?>

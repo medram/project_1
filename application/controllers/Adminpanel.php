@@ -289,6 +289,55 @@ class Adminpanel extends MY_controller
 
 	public function license ()
 	{
+		$msg = '';
+		$err = '';
+		
+		if (isset($_POST['license-go']))
+		{
+			$this->load->library('MR4Web', '', 'MR');
+			
+			$puchaseCode = $this->input->post('license-code');
+			$action = intval($this->input->post('license-action'));
+			
+			if ($puchaseCode == '')
+			{
+				$err = 'Please Enter a License Code (Purchase Code)!';
+			}
+			else if ($action == 0)
+			{	
+				if ($this->MR->activate($puchaseCode))
+				{
+
+					$set['option_value'] = $puchaseCode;
+					$where['option_name'] = 'purchase_code';
+
+					$up = $this->cms_model->update('settings',$set,$where);
+					if ($up)
+					{
+						if (DEBUG_SHOW_OPERATIONS)
+							$msg = $this->MR->getResMessage();
+						else
+						{
+							header("location: ".$CI->uri->segment(1));
+							exit;
+						}
+					}
+				}
+				else
+					$err = $this->MR->getResMessage();
+			}
+			else
+				if ($this->MR->deactivate($puchaseCode))
+					$msg = $this->MR->getResMessage();
+				else
+					$err = $this->MR->getResMessage();
+		}
+
+		if (isset($msg) && $msg != '')
+			$this->data['msg'] = "<div class='alert alert-success'>{$msg}</div>";
+		else if ($err != '')
+			$this->data['msg'] = "<div class='alert alert-warning'>{$err}</div>";
+
 		$this->data['title'] = 'License checker!';
 		$this->load->view('templates/admin_header',$this->data);
 		$this->load->view('pages/admin/license', $this->data);
