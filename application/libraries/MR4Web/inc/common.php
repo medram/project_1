@@ -67,4 +67,33 @@ function redirectToLicensePage()
     }
 }
 
+function MyCURL($URL, array $fields = array())
+{
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $URL);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    //curl_setopt($ch, CURLOPT_NOBODY, false);
+
+    if (count($fields))
+    {
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+    }
+
+    $res = json_decode(curl_exec($ch), true);
+    //$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    
+    if ($res == false)
+        $res = curl_error($ch);
+    curl_close($ch);
+
+    return $res;
+}
+
 ?>

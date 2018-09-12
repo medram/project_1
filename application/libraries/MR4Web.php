@@ -49,38 +49,9 @@ class MR4Web {
 		$stm->free_result();
 	}
 
-	private function curl($URL, array $fields = array())
-	{
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $URL);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		//curl_setopt($ch, CURLOPT_NOBODY, false);
-
-		if (count($fields))
-		{
-			curl_setopt($ch, CURLOPT_POST, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
-		}
-
-		$res = json_decode(curl_exec($ch), true);
-		//$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		
-		if ($res == false)
-			$res = curl_error($ch);
-		curl_close($ch);
-
-		return $res;
-	}
-
 	public function activate($purchaseCode = NULL)
 	{
-		logger('activating from a server...');
+		logger('Activating from a server...');
 		// get URL
 		// build post fields
 		$params = array(
@@ -94,16 +65,18 @@ class MR4Web {
 			'p_version'	=> $this->_product->get('version')
 			);
 
-		echo '<pre>';
+/*		echo '<pre>';
 		print_r($params);
 		echo '</pre>';
+*/
 
 		// connect to the server
-		$this->_response = $this->curl(Config::get('URLs')['license'], $params);
+		$this->_response = MyCURL(Config::get('URLs')['license'], $params);
 
-		echo '<pre>';
+/*		echo '<pre>';
 		print_r($this->_response);
 		echo '</pre>';
+*/
 		// return results
 		if (isset($this->_response['response']['activate']) && $this->_response['response']['activate'] == 1)
 		{
@@ -117,9 +90,38 @@ class MR4Web {
 		return false;
 	}
 
-	public function deactivate()
+	public function deactivate($purchaseCode = NULL)
 	{
+		logger('Deactivating from a server...');
+		// get URL
+		// build post fields
+		$params = array(
+			'action'	=> 'deactivate',
+			'code' 		=> $purchaseCode != NULL ? $purchaseCode : $this->_license->getPurchaseCode(),
+			'ip'		=> $_SERVER['SERVER_ADDR']
+			);
 
+/*		echo '<pre>';
+		print_r($params);
+		echo '</pre>';
+*/
+
+		// connect to the server
+		$this->_response = MyCURL(Config::get('URLs')['license'], $params);
+
+/*		echo '<pre>';
+		print_r($this->_response);
+		echo '</pre>';
+*/		// return results
+		if (isset($this->_response['response']['deactivate']) && $this->_response['response']['deactivate'] == 1)
+		{
+			logger('license is <b>OFF</b>.');
+			if ($purchaseCode == $this->_license->getPurchaseCode())
+				$this->_cache->erase();
+			return true;
+		}
+
+		logger('license is <b>Not OFF</b>.');
 		return false;
 	}
 
@@ -171,6 +173,11 @@ class MR4Web {
 	public function checkNews()
 	{
 
+	}
+
+	public function debugStatus()
+	{
+		return (bool)DEBUG;
 	}
 
 }

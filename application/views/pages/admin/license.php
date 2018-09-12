@@ -14,6 +14,8 @@
         			{
         				echo $msg;
         			}
+
+                    if ($showForm) {
         			?>
         			<form action='<?php echo base_url($page_path); ?>/license' method='post'>
         				<div class='form-group'>
@@ -31,6 +33,7 @@
         					<input type='submit' name='license-go' class='btn btn-primary' value='Go !'>
         				</div>
         			</form>
+                    <?php } ?>
         		</div>
         	</div>
         </div>

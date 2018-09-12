@@ -291,12 +291,13 @@ class Adminpanel extends MY_controller
 	{
 		$msg = '';
 		$err = '';
-		
+		$this->data['showForm'] = 1;
+
 		if (isset($_POST['license-go']))
 		{
 			$this->load->library('MR4Web', '', 'MR');
 			
-			$puchaseCode = $this->input->post('license-code');
+			$puchaseCode = strip_tags($this->input->post('license-code', true));
 			$action = intval($this->input->post('license-action'));
 			
 			if ($puchaseCode == '')
@@ -304,7 +305,10 @@ class Adminpanel extends MY_controller
 				$err = 'Please Enter a License Code (Purchase Code)!';
 			}
 			else if ($action == 0)
-			{	
+			{
+				if ($puchaseCode != config_item('purchase_code') && config_item('purchase_code') != '')
+					$this->MR->deactivate(config_item('purchase_code'));
+
 				if ($this->MR->activate($puchaseCode))
 				{
 
@@ -314,23 +318,33 @@ class Adminpanel extends MY_controller
 					$up = $this->cms_model->update('settings',$set,$where);
 					if ($up)
 					{
-						if (DEBUG_SHOW_OPERATIONS)
-							$msg = $this->MR->getResMessage();
-						else
+						$msg = $this->MR->getResMessage();
+						if (!$this->MR->debugStatus())
 						{
-							header("location: ".$CI->uri->segment(1));
-							exit;
+							$msg .= " Redirecting... <script>setTimeout(function (){
+								window.location.href='dashboard';
+							}, 7000);</script>";
 						}
+						$this->data['showForm'] = 0;
 					}
 				}
 				else
 					$err = $this->MR->getResMessage();
 			}
 			else
+			{	
 				if ($this->MR->deactivate($puchaseCode))
-					$msg = $this->MR->getResMessage();
+				{
+					$set['option_value'] = '';
+					$where['option_name'] = 'purchase_code';
+
+					$up = $this->cms_model->update('settings',$set,$where);
+					if ($up)
+						$msg = $this->MR->getResMessage();
+				}
 				else
 					$err = $this->MR->getResMessage();
+			}
 		}
 
 		if (isset($msg) && $msg != '')

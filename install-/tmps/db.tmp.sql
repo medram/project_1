@@ -151,7 +151,8 @@ INSERT INTO `{DBP}settings` (`option_id`, `option_name`, `option_value`, `autolo
 (52, 'fakeViews', '314802', 'no'),
 (53, 'fakeUsers', '568', 'no'),
 (54, 'fakeLinks', '1350', 'no'),
-(55, 'packages_domains', '', 'no');
+(55, 'packages_domains', '', 'no'),
+(56, 'purchase_code', '', 'yes');
 
 
 
@@ -247,7 +248,7 @@ ALTER TABLE `{DBP}pages`
 
 
 ALTER TABLE `{DBP}settings`
-  MODIFY `option_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `option_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 
 

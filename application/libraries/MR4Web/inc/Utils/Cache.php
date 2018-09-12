@@ -26,10 +26,12 @@ class Cache {
 			logger('Cache was found.');
 			$data = $this->load();
 			$this->_data = is_array($data)? $data : [] ;
+			/*
 			echo '<pre>';
-			echo 'cache data<br>';
+			echo 'Cache data: <br>';
 			print_r($this->_data);
 			echo '</pre>';
+			*/
 		}
 	}
 
@@ -75,7 +77,7 @@ class Cache {
 
 	public function isExpired()
 	{
-		if ($this->get('expire') > time())
+		if ($this->get('expire') > time() && $this->get('expire') < time() + Config::get('cache')['expire'])
 			return false;
 		return true;
 	}
