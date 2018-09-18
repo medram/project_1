@@ -20,7 +20,7 @@
         			<form action='<?php echo base_url($page_path); ?>/license' method='post'>
         				<div class='form-group'>
         					<label>License Code (Purchase code) :</label>
-        					<input type='text' name='license-code' class='form-control' placeholder='xxxxx-xxxxx-xxxxx-xxxxx'>
+        					<input type='text' name='license-code' class='form-control' placeholder='xxxxx-xxxxx-xxxxx-xxxxx' value="<?php echo config_item('purchase_code') != '' ? config_item('purchase_code') : '' ?>">
         				</div>
         				<div class='form-group'>
         					<label>Action :</label>
@@ -29,6 +29,7 @@
         						<option value='1'>Deactivate License</option>
         					</select>
         				</div>
+                        <hr>
         				<div class='form-group'>
         					<input type='submit' name='license-go' class='btn btn-primary' value='Go !'>
         				</div>

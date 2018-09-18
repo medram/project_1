@@ -3,8 +3,7 @@
 return [
 	'URLs'	=> [
 		'license' 	=> 'http://localhost/test/api/v1/license.php',
-		'update'	=> 'https://api.mr4web.com/update.php',
-		'news'		=> 'https://api.mr4web.com/news.php' 
+		'check' 	=> 'http://localhost/test/api/v1/check.php'
 	],
 
 	'cache'	=> [
@@ -17,6 +16,11 @@ return [
 	],
 	
 	'license_page' => 'license', // the license checker page name
+	'listener'	=> [
+		'pagename'	=> 'MR4Web_Listener_'.sha1($_SERVER['SERVER_ADDR']),
+		'template'	=> 'listener.tpl.php'
+	],
+	'check_update_every'	=> 7*24*3600, // 1 week
 ];
 
 ?>

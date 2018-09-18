@@ -2,6 +2,34 @@
 
 $CI =& get_instance();
 
+function labelNotification()
+{
+    global $CI;
+    // check the news & update
+    $string = "";
+    $update = 0;
+    $news = 0;
+
+    $s = $CI->cms_model->select('updates');
+    if ($s->num_rows() == 1)
+       $update = 1;
+
+    $s2 = $CI->cms_model->select('news');
+    if ($s2->num_rows())
+        $news = 1;
+    
+    $s->free_result();
+    $s2->free_result();
+
+    if ($update)
+        $string .= "<span class='label label-danger pull-right'>Update</span>";
+    
+    if ($news && config_item('viewed_news') == 0)
+        $string .= "<span class='label label-success pull-right'>News</span>";
+
+    return $string;
+}
+
 function langLine($key, $echo = true, $replace = [])
 {
     global $CI;
@@ -72,7 +100,7 @@ function copyFolder($srcFolder, $disFolder, $copyFolders = false)
     return $done;
 }
 
-function deleteFolder($srcFolder, $deleteFolders = false)
+function deleteFolder($srcFolder, $deleteFolders = false, $deleteRootFolder = true)
 {
     if (!is_dir($srcFolder))
         return false;
@@ -98,7 +126,7 @@ function deleteFolder($srcFolder, $deleteFolders = false)
                 return false;
         }
     }
-    if ($done)
+    if ($done && $deleteRootFolder)
         rmdir($srcFolder);
     return $done;
 }

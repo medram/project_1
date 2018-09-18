@@ -287,6 +287,33 @@ class Adminpanel extends MY_controller
 		$this->index();
 	}
 
+	public function updates()
+	{
+		$s = $this->cms_model->select('updates');
+		if ($s->num_rows() == 1)
+			$this->data['update'] = $s->row_array();
+		else
+			$this->data['update'] = "<b>ADLinker is Up To Date!</b>"; // No Update Available Right Now!
+
+		$s2 = $this->cms_model->select('news', '', ['news_ID', 'DESC']);
+		if ($s2->num_rows())
+			$this->data['news'] = $s2->result_array();
+		else
+			$this->data['news'] = [];
+
+		$s->free_result();
+		$s2->free_result();
+
+		// auto show notification "News" label
+		$this->cms_model->update('settings', ['option_value' => '1'],['option_name' => 'viewed_news']);
+		//-------------------
+
+		$this->data['title'] = 'Updates & News';
+		$this->load->view('templates/admin_header',$this->data);
+		$this->load->view('pages/admin/updates', $this->data);
+		$this->load->view('templates/admin_footer',$this->data);		
+	}
+
 	public function license ()
 	{
 		$msg = '';

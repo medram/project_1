@@ -96,4 +96,12 @@ function MyCURL($URL, array $fields = array())
     return $res;
 }
 
+function ping($host, $port=80, $timeout=10)
+{
+    $fsock = fsockopen($host, $port, $errno, $errstr, $timeout);
+    if ($fsock)
+        return true;
+    return false;
+}
+
 ?>

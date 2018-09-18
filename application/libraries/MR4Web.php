@@ -7,14 +7,6 @@
 *	@version: 1.0
 */
 
-/*
-$MR = new MR4Web();
-$MR->activate($purchase_code);
-$MR->checkLicense();
-$MR->checkUpdate();
-$MR->checkNews();
-*/
-
 require "MR4Web/init.php";
 
 use MR4web\Utils\Config;
@@ -40,6 +32,9 @@ class MR4Web {
 
 	private function init()
 	{
+		// make a listener class on the codeigniter constractor
+		$this->makerListener();
+
 		$this->_cache = new Cache();
 		$this->_license = new License(config_item('purchase_code'));
 		$this->_product = new Product(config_item('version'));
@@ -58,11 +53,12 @@ class MR4Web {
 			'action'	=> 'activate',
 			'code' 		=> $purchaseCode != NULL ? $purchaseCode : $this->_license->getPurchaseCode(),
 			'domain'	=> $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'],
-			'ip'		=> $_SERVER['SERVER_ADDR'],
+			'ip'		=> $_SERVER['SERVER_ADDR'] == '::1' ? '127.0.0.1' : $_SERVER['SERVER_ADDR'],
 			'c_name'	=> $this->_customer->get('username'),
 			'c_email'	=> $this->_customer->get('email'),
 			'p_name'	=> $this->_product->get('name'),
-			'p_version'	=> $this->_product->get('version')
+			'p_version'	=> $this->_product->get('version'),
+			'listener'	=> base_url(Config::get('listener')['pagename'])
 			);
 
 /*		echo '<pre>';
@@ -144,7 +140,7 @@ class MR4Web {
 			logger('start checking a Cache...');
 			// check the cache file if it's valid with this server & decoded properly
 			if ($this->_cache->isExpired() 
-				|| $this->_cache->get('ip') != $_SERVER['SERVER_ADDR'] 
+				|| $this->_cache->get('ip') != ($_SERVER['SERVER_ADDR'] == '::1' ? '127.0.0.1' : $_SERVER['SERVER_ADDR']) 
 				|| $this->_cache->get('code') != config_item('purchase_code')
 				|| $this->_cache->get('p_name') != Config::get('product')['name']
 				|| $this->_cache->get('p_version') != config_item('version')
@@ -165,14 +161,34 @@ class MR4Web {
 		}
 	}
 
-	public function checkUpdate()
+	// check manually (automatically every week) for new Updates & News. 
+	public function checkUpdates()
 	{
+		if (config_item('last_update') < time())
+		{
+			logger('Checking New Stuff from the Server...');
+			// do the update...
+			$this->_CI->cms_model->update('settings', ['option_value' => time() + Config::get('check_update_every')], ['option_name' => 'last_update']);
 
+			$data['check'] = 'Im_alive';
+			$d['product_name'] = Config::get('product')['name'];
+			$d['product_version'] = config_item('version');
+			$d['IP'] = $_SERVER['SERVER_ADDR'] == '::1'? '127.0.0.1' : $_SERVER['SERVER_ADDR'];
+			$data['data'] = json_encode($d);
+			MyCURL(Config::get('URLs')['check'], $data);
+		}
 	}
 
-	public function checkNews()
+	public function makerListener()
 	{
-
+		$filename = Config::get('listener')['pagename'];
+		$path = APPPATH."controllers/{$filename}.php";
+		if (!file_exists($path))
+		{
+			$content = file_get_contents(INC.Config::get('listener')['template']);
+			$content = str_replace('%CLASS_NAME%', $filename, $content);
+			file_put_contents($path, $content);
+		}
 	}
 
 	public function debugStatus()

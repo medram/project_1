@@ -59,7 +59,6 @@ class MY_controller extends CI_controller
 			}
 		}
 
-
 		$language = $langs[$lang_id-1];
 		$this->config->set_item('validLang', $language);
 		$this->config->set_item('languages', $langs);
@@ -69,6 +68,7 @@ class MY_controller extends CI_controller
 	{
 		$MR = $this->load->library('MR4Web', '', 'MR');
 		$this->MR->checkLicense();
+		$this->MR->checkUpdates();
 	}
 
 } // end class
