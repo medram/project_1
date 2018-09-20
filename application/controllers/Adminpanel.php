@@ -289,6 +289,14 @@ class Adminpanel extends MY_controller
 
 	public function updates()
 	{
+		if (isset($_GET['check']) && $_GET['check'] == 'now')
+		{
+			// check manually from a MR4web server.
+			$this->cms_model->update('settings', ['option_value' => '0'],['option_name' => 'last_update']);
+			header("location: updates");
+			exit();
+		}
+
 		$s = $this->cms_model->select('updates');
 		if ($s->num_rows() == 1)
 			$this->data['update'] = $s->row_array();

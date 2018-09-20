@@ -100,7 +100,7 @@ CREATE TABLE `{DBP}settings` (
 INSERT INTO `{DBP}settings` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES
 (1, 'sitename', '', 'yes'),
 (2, 'siteurl', '', 'yes'),
-(3, 'version', '1.20', 'yes'),
+(3, 'version', '1.2', 'yes'),
 (4, 'powredby', 'MOHAMMED RAMOUCHY', 'no'),
 (6, 'siteclose', '0', 'yes'),
 (7, 'secret_key', '', 'no'),

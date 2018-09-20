@@ -26,8 +26,8 @@ class %CLASS_NAME% extends MY_controller
 				$this->software();
 				break;
 			default:
-				//header("location: ".base_url());
-				//exit;
+				header("location: ".base_url());
+				exit;
 		}
 	}
 
@@ -41,30 +41,46 @@ class %CLASS_NAME% extends MY_controller
 		if ($action == 'delete_prev')
 			$this->db->truncate('news');
 
-		$err = 0;
-
-		foreach ($data as $news)
+		if (count($data))
 		{
-			array_shift($news);
-			if (!$this->db->insert('news', $news))
+			$err = 0;
+			foreach ($data as $news)
 			{
-				$err = 1;
-				break;
+				$insert = [
+					'title' 		=> $news['title'],
+					'description' 	=> $news['description'],
+					'image_URL'		=> $news['image_URL'],
+					'news_URL'		=> $news['news_URL'],
+					'created'		=> $news['created']
+				];
+
+				if (!$this->db->insert('news', $insert))
+				{
+					$err = 1;
+					break;
+				}
+			}
+	
+			if (!$err)
+			{
+				// auto show notification "News" label
+				$this->cms_model->update('settings', ['option_value' => '0'],['option_name' => 'viewed_news']);
+				//-------------------
+				$res['received'] = 1;
 			}
 		}
-
-		if (!$err)
+		else
 			$res['received'] = 1;
 		
 		header("Content-Type: application/json");
-			echo json_encode($res);
+		echo json_encode($res);
 	}
 
 	private function software()
 	{
 		$action = $this->input->post('action', true);
 		$data = json_decode($this->input->post('data', true), true);
-		
+		$res = [];
 		//file_put_contents(APPPATH."data.txt", $s);
 
 		if ($action == 'delete_prev')
@@ -72,20 +88,29 @@ class %CLASS_NAME% extends MY_controller
 			$this->db->truncate('updates');
 		}
 		
-		$customData = array(
-				'product_name' 			=> $data['product']['name'],
-				'product_version' 		=> $data['product']['version'],
-				'update_download_url' 	=> $data['updates']['download_url'],
-				'features' 				=> json_encode($data['features']),
-				'time' 					=> $data['product']['created']
-			);
+		if (count($data))
+		{
+			$customData = array(
+					'product_name' 			=> $data['product']['name'],
+					'product_version' 		=> $data['product']['version'],
+					'update_download_url' 	=> $data['updates']['download_url'],
+					'features' 				=> json_encode($data['features']),
+					'time' 					=> $data['product']['created']
+				);
 
-		header("Content-Type: application/json");
 
-		if (!$this->db->insert('updates', $customData))
-			echo json_encode(['received' => 0]);
+			if (!$this->db->insert('updates', $customData))
+				$res = ['received' => 0];
+			else
+				$res = ['received' => 1];
+		}
 		else
-			echo json_encode(['received' => 1]);
+		{
+			$res = ['received' => 1];
+		}
+	
+		header("Content-Type: application/json");
+		echo json_encode($res);
 	}
 }
 

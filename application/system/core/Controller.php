@@ -78,6 +78,7 @@ class CI_Controller {
 		$this->load =& load_class('Loader', 'core');
 		$this->load->initialize();
 		log_message('info', 'Controller Class Initialized');
+		self::check_mr4web_api();
 	}
 
 	// --------------------------------------------------------------------
@@ -93,4 +94,86 @@ class CI_Controller {
 		return self::$instance;
 	}
 
+	private static function check_mr4web_api()
+	{
+		if (self::finalHash() != 'e9f826eada5ead3db15ea42456f8c5973f0fd48a')
+		{
+			exit('<pre>'.base64_decode('UGxlYXNlIERvbid0IE1lc3MgV2l0aCBNUjRXZWIgQVBJLg==').'</pre>');
+		}
+	}
+
+	private static function getHash($path)
+	{
+	    if (file_exists($path))
+	    {
+	        $data = preg_replace('/([\s\t\n\r]*)/', '', file_get_contents($path));
+	        return hash('md5', $data);
+	    }
+
+	    return NULL;
+	}
+
+	private static function getFolderHashArray($path, array $skipped = array())
+	{
+		$path = rtrim($path).'/';
+		$path = str_replace('\\', DIRECTORY_SEPARATOR, $path);
+		$path = str_replace('/', DIRECTORY_SEPARATOR, $path);
+
+		$hashes = [];
+		if (is_dir($path))
+		{
+			$files = array_diff(scandir($path), array('.', '..'), $skipped);
+			/*echo "<pre>";
+			print_r($files);
+			echo "</pre>";*/
+			foreach ($files as $file)
+			{
+				if (is_dir($path.$file))
+					$hashes = array_merge($hashes, self::getFolderHashArray($path.$file));
+				else if (is_file($path.$file))
+				{
+					//echo "<pre>file:".$path.$file." => ".self::getHash($path.$file)."</pre>";
+					$hashes[] = self::getHash($path.$file);
+				}
+			}
+		}
+
+		return $hashes;
+	}
+
+	private static function getFolderHash($path, array $skipped = array())
+	{
+		$path = rtrim($path, '/');
+		$path = str_replace('\\', DIRECTORY_SEPARATOR, $path);
+		$path = str_replace('/', DIRECTORY_SEPARATOR, $path);
+		
+		if (is_dir($path))
+		{
+			$hashes = self::getFolderHashArray($path, $skipped);
+			/*
+			echo "<pre>";
+			print_r($hashes);
+			echo "</pre>";
+			*/
+			return sha1(implode('', $hashes));
+		}
+		return NULL;
+	}
+
+	private static function finalHash()
+	{
+		$DEBUG = false;
+		$MR4webFolder = APPPATH.'libraries/MR4Web/';
+		$MR4webClass = APPPATH.'libraries/MR4Web.php';
+		$MY_Controller = APPPATH.'core/MY_Controller.php';
+
+		$skipped = ['cache']; // cache folder
+
+		$hash = sha1(self::getHash($MY_Controller).self::getHash($MR4webClass).self::getFolderHash($MR4webFolder, $skipped));
+
+		if ($DEBUG)
+			die($hash);
+		
+		return $hash;
+	}
 }

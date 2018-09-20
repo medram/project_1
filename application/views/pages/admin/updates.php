@@ -21,7 +21,7 @@
                         <hr>
                     </div>
                     <div>
-                    <h3><i class="fa fa-fw fa-wrench"></i> ADLinker Updates:</h3>
+                    <h3><i class="fa fa-fw fa-wrench"></i> ADLinker Updates:<a href="?check=now" class="btn btn-info">Check for Update.</a></h3>
                     <?php
                     if (!is_array($update))
                     {

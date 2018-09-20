@@ -2,8 +2,10 @@
 
 return [
 	'URLs'	=> [
-		'license' 	=> 'http://localhost/test/api/v1/license.php',
-		'check' 	=> 'http://localhost/test/api/v1/check.php'
+		//'license' => 'http://localhost/test/api/v1/license.php',
+		//'check' 	=> 'http://localhost/test/api/v1/check.php'
+		'license' 	=> 'https://server.mr4web.com/v1/license.php',
+		'check' 	=> 'https://server.mr4web.com/v1/check.php'
 	],
 
 	'cache'	=> [
