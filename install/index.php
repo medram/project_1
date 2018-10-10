@@ -258,6 +258,11 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 				$content4	= @file_get_contents($file4);
 				$creat4		= @file_put_contents('../index.php', $content4);
 
+				// send mail to admin.
+				$message = "Hi {$admin_name}!\nYou can login to {$sitename} Dashboard by using this informations:\nPath: {$base_url}\nEmail: {$admin_email}\nPassword: {$admin_pass}\n\nif you need any help please feel free to contact us.";
+
+				@mail($admin_email, "{$sitename}: Dashboard Informations", $message);
+
 				/*
 				if ($creat1)
 				{

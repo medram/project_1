@@ -253,7 +253,11 @@
         					</form>
         				</div>
         				<div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
-        					<br><br>
+        					<br>
+                            <div class="alert alert-info"><b>INFO</b>: <br>
+                            - All of these ads below will show up on the whole entire site except "GO" page.<br>
+                            - the "GO" page is just using your google adsense PUB code to generate ads.
+                            </div>
         					<form class="optionForm" action='<?php echo base_url($page_path); ?>/ajax' method='post'>
         						<table class='table table-striped'>
         							<tr>
@@ -497,7 +501,7 @@
         							<tr>
         								<td>
         									<label>PUB Code of your Google Adsense account:</label><br>
-        									<small style='color: red'><i><b>Important note:</b> Your google adsense account should be <b>Not hosted</b>.</i></small>
+        									<small style='color: red'><i><b>Important note:</b> Your google adsense account <b>shouldn't be hosted</b>.</i></small>
         								</td>
         								<td>
         									<input type='text' name='pub' placeholder='pub-xxxxxxxxxxxxxx'class='form-control' value='<?php echo get_config_item("admin_pub"); ?>'>
