@@ -42,7 +42,7 @@
                                     <b><?php echo "<b>".$update['product_name']." v".$update['product_version'].'</b> is Available Now.<br>'; ?></b>
                                 </div>
                                 <div class="col-xs-2 text-right">
-                                    <a href="#" target="_blank" class="btn btn-xs btn-primary"><i class="fa fa-link"></i> Update Now</a>
+                                    <a href="<?php echo $update['update_download_url'] ?>" target="_blank" class="btn btn-xs btn-primary"><i class="fa fa-link"></i> Update Now</a>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +119,7 @@
                         <div>
                             <p>feel free to contact us:</p>
                             <b>support:</b> <a href="mailto:support-adlinker@mr4web.com">support-adlinker@mr4web.com</a><br>
-                            <b>contact:</b> <a href="mailto:contact@mr4web.com">contact@mr4web.com</a>
+                            <b>contact:</b> <a href="mailto:contact-adlinker@mr4web.com">Contact-adlinker@mr4web.com</a>
                         </div>
                         <br>
                     </div>

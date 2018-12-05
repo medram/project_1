@@ -96,7 +96,7 @@ class CI_Controller {
 
 	private static function check_mr4web_api()
 	{
-		if (self::finalHash() != 'e9f826eada5ead3db15ea42456f8c5973f0fd48a')
+		if (self::finalHash() != '07e2d14c0687d6e0ba362d89c455ceb5168c0fc6')
 		{
 			exit('<pre>'.base64_decode('UGxlYXNlIERvbid0IE1lc3MgV2l0aCBNUjRXZWIgQVBJLg==').'</pre>');
 		}
