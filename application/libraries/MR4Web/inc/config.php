@@ -2,8 +2,8 @@
 
 return [
 	'URLs'	=> [
-		'license' 	=> 'http://localhost/test/gateway/api/v1/license.php',
-		'update' 	=> 'http://localhost/test/gateway/api/v1/update.php'
+		'license' 	=> 'https://checkout.mr4web.com/api/v1/license.php',
+		'update' 	=> 'https://checkout.mr4web.com/api/v1/update.php'
 	],
 
 	'cache'	=> [

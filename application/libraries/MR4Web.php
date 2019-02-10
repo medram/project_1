@@ -2,7 +2,7 @@
 /**
 *	@author: MR4WEB <contact@mr4web.com>.
 *	@copyright: 2018 MR4Web
-*	@link: http://www.mr4web.com
+*	@link: https://www.mr4web.com
 *	@package: MR4Web. (09/09/2018)
 *	@version: 1.0
 */
@@ -265,13 +265,16 @@ class MR4Web {
 					}
 				}
 
+
 				// update software
-				if (isset($receivedData['software']) && $receivedData['software'] != '')
+				$this->_CI->db->truncate('updates');
+				if (isset($receivedData['software']) && is_array($receivedData['software']))
 				{
 					logger('Updating software data...');
 					// auto truncate updates table.
-					$this->_CI->db->truncate('updates');
+					//$this->_CI->db->truncate('updates');
 					$softUpdate = $receivedData['software'];
+
 					$customData = array(
 							'product_name' 			=> $softUpdate['product']['name'],
 							'product_version' 		=> $softUpdate['product']['version'],
