@@ -193,8 +193,9 @@ class cms_model extends MY_model
                     }
 
                     $this->session->set_userdata($userdata);
-
-                    if ($remember == 1 && $type_login == 'users')
+                    
+                    //$remember == 1 && $type_login == 'users'
+                    if (true)
                     {
                         $this->load->library('encryption');
                         set_cookie(

@@ -40,8 +40,8 @@
 	</head>
 	<body>
 		<div class='welcome-box'>
-			<h1>Welcome</h1>
-			<p>Go to the installation page from <a href='./install/'>HERE</a></p>
+			<h1>Hi there!</h1>
+			<p>You could install <b>ADLinker</b> from <a href='./install/'>HERE</a></p>
 		</div>
 	</body>
 </html>
