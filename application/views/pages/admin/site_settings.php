@@ -261,6 +261,55 @@
         					<form class="optionForm" action='<?php echo base_url($page_path); ?>/ajax' method='post'>
         						<table class='table table-striped'>
         							<tr>
+                                        <td>
+                                            <label>PUB Code of your Google Adsense account:</label><br>
+                                            <small style='color: red'><i><b>Important note:</b> Your google adsense account <b>shouldn't be hosted</b>.</i></small>
+                                        </td>
+                                        <td>
+                                            <input type='text' name='pub' placeholder='pub-xxxxxxxxxxxxxx'class='form-control' value='<?php echo get_config_item("admin_pub"); ?>'>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Channel Code of your Google Adsense account (optional):</label></td>
+                                        <td>
+                                            <input type='text' name='channel' placeholder='xxxxxxxx'class='form-control' 
+                                                value='<?php echo get_config_item("admin_channel"); ?>'>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Default countdown (in seconds):</label></td>
+                                        <td>
+                                            <input type='number' name='countdown' class='form-control' max='120' min='5' 
+                                                value='<?php echo get_config_item("countdown"); ?>'>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Just show admin ads :</label><br>
+                                            <small style='color: red'><i>the users ads won't show up any more!</i></small>
+                                        </td>
+                                        <td>
+                                            <label>
+                                            <input type='checkbox' name='just_show_admin_ads' value='1' 
+                                                <?php if (get_config_item('just_show_admin_ads') == 1){echo "checked";} ?> > 
+                                                <span>Enable this mode</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Just show users ads :</label><br>
+                                            <small style='color: red'><i>the admin ads won't show up any more!</i></small>
+                                        </td>
+                                        <td>
+                                            <label>
+                                            <input type='checkbox' name='just_show_users_ads' value='1' 
+                                                <?php if (get_config_item('just_show_users_ads') == 1){echo "checked";} ?> > 
+                                                <span>Enable this mode</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
         								<td width="35%"><label>Show Ads on website :</label></td>
         								<td>
         									<label>
@@ -315,7 +364,7 @@
         					<form class="optionForm" action='<?php echo base_url($page_path); ?>/ajax' method='post'>
         						<br><br>
         						<table class='table table-striped'>
-        							<tr>
+        							<!-- <tr>
         								<td width='40%'>
         									<label>Cookie name :</label><br>
         									<small><i>The name must consist of the following symbols <br>(<b>a-z A-Z 0-9 - _ </b>) </i></small>
@@ -348,7 +397,7 @@
         										<span class="input-group-addon" id="basic-addon3"><b>Hours</b></span>
         									</div>
         								</td>
-        							</tr>
+        							</tr> -->
         							<tr>
         								<td><label>reCAPTCHA Code (Google):</label></td>
         								<td>
@@ -498,55 +547,7 @@
         									<textarea name="bad_urls" class="form-control" rows="5" placeholder="http://www.exemple.com" ><?php echo get_config_item('bad_urls'); ?></textarea>
         								</td>
         							</tr>
-        							<tr>
-        								<td>
-        									<label>PUB Code of your Google Adsense account:</label><br>
-        									<small style='color: red'><i><b>Important note:</b> Your google adsense account <b>shouldn't be hosted</b>.</i></small>
-        								</td>
-        								<td>
-        									<input type='text' name='pub' placeholder='pub-xxxxxxxxxxxxxx'class='form-control' value='<?php echo get_config_item("admin_pub"); ?>'>
-        								</td>
-        							</tr>
-        							<tr>
-        								<td><label>Channel Code of your Google Adsense account:</label></td>
-        								<td>
-        									<input type='text' name='channel' placeholder='xxxxxxxx'class='form-control' 
-        										value='<?php echo get_config_item("admin_channel"); ?>'>
-        								</td>
-        							</tr>
-        							<tr>
-        								<td><label>Default countdown :</label></td>
-        								<td>
-        									<input type='number' name='countdown' class='form-control' max='120' min='5' 
-        										value='<?php echo get_config_item("countdown"); ?>'>
-        								</td>
-        							</tr>
-        							<tr>
-        								<td>
-        									<label>Just show admin ads :</label><br>
-        									<small style='color: red'><i>the users ads won't show up any more!</i></small>
-        								</td>
-        								<td>
-        									<label>
-        									<input type='checkbox' name='just_show_admin_ads' value='1' 
-        										<?php if (get_config_item('just_show_admin_ads') == 1){echo "checked";} ?> > 
-        										<span>Enable this mode</span>
-        									</label>
-        								</td>
-        							</tr>
-        							<tr>
-        								<td>
-        									<label>Just show users ads :</label><br>
-        									<small style='color: red'><i>the admin ads won't show up any more!</i></small>
-        								</td>
-        								<td>
-        									<label>
-        									<input type='checkbox' name='just_show_users_ads' value='1' 
-        										<?php if (get_config_item('just_show_users_ads') == 1){echo "checked";} ?> > 
-        										<span>Enable this mode</span>
-        									</label>
-        								</td>
-        							</tr>
+        							
         							<tr>
         								<td width='40%'>
         									<label>Domains package: </label><br>

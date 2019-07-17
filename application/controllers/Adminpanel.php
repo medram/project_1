@@ -1062,6 +1062,11 @@ class Adminpanel extends MY_controller
 				$a['ad_autosize'] 			= $this->input->post('ad_autosize',FALSE);
 				$a['ads_status_on_accounts'] = abs(intval($this->input->post('ads_status_on_accounts',TRUE)));
 				$a['ads_status'] 			= abs(intval($this->input->post('ads_status',TRUE)));
+				$a['admin_pub'] 			= strip_tags($this->input->post('pub',TRUE));
+				$a['admin_channel'] 		= trim(intval($this->input->post('channel',TRUE)));
+				$a['countdown'] 			= trim(abs(intval($this->input->post('countdown',TRUE))));
+				$a['just_show_admin_ads'] 	= abs(intval($this->input->post('just_show_admin_ads',TRUE)));
+				$a['just_show_users_ads'] 	= abs(intval($this->input->post('just_show_users_ads',TRUE)));
 			}
 			else if ($this->input->post('tab') == 4)
 			{
@@ -1091,11 +1096,6 @@ class Adminpanel extends MY_controller
 				$a['fakeLinks'] 			= trim(abs(intval($this->input->post('fakeLinks',TRUE))));
 				$a['bad_urls'] 				= trim(strip_tags($this->input->post('bad_urls',TRUE)));
 				$a['packages_domains'] 		= trim(strip_tags($this->input->post('packages_domains',TRUE)));
-				$a['admin_pub'] 			= strip_tags($this->input->post('pub',TRUE));
-				$a['admin_channel'] 		= trim(intval($this->input->post('channel',TRUE)));
-				$a['countdown'] 			= trim(abs(intval($this->input->post('countdown',TRUE))));
-				$a['just_show_admin_ads'] 	= abs(intval($this->input->post('just_show_admin_ads',TRUE)));
-				$a['just_show_users_ads'] 	= abs(intval($this->input->post('just_show_users_ads',TRUE)));
 			}
 
 
