@@ -4,7 +4,7 @@ class MY_controller extends CI_controller
 {
 	public function __construct()
 	{
-		define('MICROTIME',microtime(TRUE));
+		define('MICROTIME', microtime(TRUE));
 
 		$this->check_the_server_is_ready();
 		parent::__construct();

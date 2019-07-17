@@ -14,7 +14,7 @@
 	#Options +FollowSymLinks -MultiViews
 
 	RewriteEngine On
-	RewriteBase /ci-copy/
+	RewriteBase /adlinker/
 	
 	#RewriteCond $1 !^(js|css|img|rebots\.txt)
 	RewriteCond %{REQUEST_FILENAME} !-f
