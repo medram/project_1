@@ -1,6 +1,6 @@
 <?php
 
-class cms_model extends MY_model
+class Cms_model extends MY_model
 {
 	// protected $CI =& get_instance();
 
