@@ -1,9 +1,12 @@
 ci_sessions/*
+!ci_sessions/index.html
 
 application/cache/*
+!application/cache/.htaccess
+!application/cache/index.html
 
 application/libraries/MR4Web/cache/*
+!application/libraries/MR4Web/cache/index.html
 
 #application/config/config.php
-
 #application/config/database.php
