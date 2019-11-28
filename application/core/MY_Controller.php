@@ -6,7 +6,7 @@ class MY_controller extends CI_controller
 	{
 		define('MICROTIME', microtime(TRUE));
 
-		$this->check_the_server_is_ready();
+		//$this->check_the_server_is_ready();
 		parent::__construct();
 		$this->load->model('cms_model');
 		$this->cms_model->site_config(); // get the configuration of my site :D

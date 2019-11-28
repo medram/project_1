@@ -1,0 +1,5 @@
+ci_sessions/*
+application/cache/*
+application/libraries/MR4Web/cache/*
+application/config/config.php
+application/config/database.php

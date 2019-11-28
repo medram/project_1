@@ -40,10 +40,10 @@
 
 /*----------- check the installation script ----------*/
 
-if (is_dir('./install/'))
+/*if (is_dir('./install/'))
 {
 	die('<pre>Please <b>Delete</b> the "<b>install</b>" folder to continue!</pre>');
-}
+}*/
 
 /*----------- Autoload Composer ----------*/
 //require_once './vendor/autoload.php';

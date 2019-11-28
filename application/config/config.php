@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/adlinker/';
+$config['base_url'] = 'http://'.$_SERVER['HTTP_HOST'].'/';
 
 /*
 |--------------------------------------------------------------------------
@@ -314,7 +314,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = "eb545d90431639124f28814e80494af7329415fb";
+$config['encryption_key'] = "d156474bc2be1374f77aafdcbf1518381eb9c113";
 
 /*
 |--------------------------------------------------------------------------

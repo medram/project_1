@@ -13,7 +13,7 @@ return [
 	
 	'license_page' => 'license', // the license checker page name
 	'listener'	=> [
-		'pagename'	=> 'MR4Web_Listener_'.sha1($_SERVER['SERVER_ADDR'].'/'.$_SERVER['SERVER_NAME']),
+		'pagename'	=> 'MR4Web_Listener_'.sha1($_SERVER['REMOTE_ADDR'].'/'.$_SERVER['SERVER_NAME']),
 		'template'	=> 'listener.tpl.php'
 	],
 	'check_update_every'	=> 24*3600, // 1 day

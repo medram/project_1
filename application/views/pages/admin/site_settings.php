@@ -256,7 +256,8 @@
         					<br>
                             <div class="alert alert-info"><b>INFO</b>: <br>
                             - All of these ads below will show up on the whole entire site except "GO" page.<br>
-                            - the "GO" page is just using your google adsense PUB code to generate ads.
+                            - the "GO" page is just using your google adsense PUB code to generate ads.<br>
+                            - After putting the PUB code, it may take up to 24 hours to make the ads show up.
                             </div>
         					<form class="optionForm" action='<?php echo base_url($page_path); ?>/ajax' method='post'>
         						<table class='table table-striped'>

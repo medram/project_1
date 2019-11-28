@@ -75,8 +75,12 @@
 			<!-- Navbar Right Menu -->
 			<div class="navbar-custom-menu">
 				<ul class="nav navbar-nav">
+					<li class="dropdown user user-menu">
+						<a href="<?php echo base_url('account'); ?>" target="_blank" class="btn btn-warning" ><i class="fa fa-fw fa-user"></i> User area</a>
+					</li>
 					<!-- User Account: style can be found in dropdown.less -->
 					<li class="dropdown user user-menu">
+
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<img src="<?php echo get_profile_img($userdata['user_token']) ?>" class="user-image" alt="User Image">
 							<span class="hidden-xs">Welcome <b><?php echo $userdata['username']; ?></b></span>

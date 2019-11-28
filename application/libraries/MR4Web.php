@@ -30,10 +30,17 @@ class MR4Web {
 		$this->init();
 	}
 
+	private function _getHostIP()
+	{
+		if (isset($_SERVER['SERVER_ADDR']))
+			return $_SERVER['SERVER_ADDR'];
+		return '127.0.0.1';
+	}
+
 	private function init()
 	{
 		// make a listener class on the codeigniter constractor
-		$this->makerListener();
+		#$this->makerListener();
 
 		$this->_cache = new Cache();
 		$this->_license = new License(config_item('purchase_code'));
@@ -52,8 +59,8 @@ class MR4Web {
 		$params = array(
 			'action'	=> 'activate',
 			'code' 		=> $purchaseCode != NULL ? $purchaseCode : $this->_license->getPurchaseCode(),
-			'domain'	=> $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'],
-			'ip'		=> $_SERVER['SERVER_ADDR'] == '::1' ? '127.0.0.1' : $_SERVER['SERVER_ADDR'],
+			'domain'	=> 'http://'.$_SERVER['HTTP_HOST'],
+			'ip'		=> $this->_getHostIP(),
 			'c_name'	=> $this->_customer->get('username'),
 			'c_email'	=> $this->_customer->get('email'),
 			'p_name'	=> $this->_product->get('name'),
@@ -63,16 +70,16 @@ class MR4Web {
 
 /*		echo '<pre>';
 		print_r($params);
-		echo '</pre>';
-*/
+		echo '</pre>';*/
+
 
 		// connect to the server
 		$this->_response = MyCURL(Config::get('URLs')['license'], $params);
 
 /*		echo '<pre>';
 		print_r($this->_response);
-		echo '</pre>';
-*/
+		echo '</pre>';*/
+
 		// return results
 		if (isset($this->_response['response']['activate']) && $this->_response['response']['activate'] == 1)
 		{
@@ -94,22 +101,22 @@ class MR4Web {
 		$params = array(
 			'action'	=> 'deactivate',
 			'code' 		=> $purchaseCode != NULL ? $purchaseCode : $this->_license->getPurchaseCode(),
-			'ip'		=> $_SERVER['SERVER_ADDR'],
-			'domain'	=> $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME']
+			'ip'		=> $this->_getHostIP(),
+			'domain'	=> 'http://'.$_SERVER['HTTP_HOST']
 			);
 
 /*		echo '<pre>';
 		print_r($params);
-		echo '</pre>';
-*/
+		echo '</pre>';*/
+
 
 		// connect to the server
 		$this->_response = MyCURL(Config::get('URLs')['license'], $params);
 
 /*		echo '<pre>';
 		print_r($this->_response);
-		echo '</pre>';
-*/		// return results
+		echo '</pre>';*/
+		// return results
 		if (isset($this->_response['response']['deactivate']) && $this->_response['response']['deactivate'] == 1)
 		{
 			logger('license is <b>OFF</b>.');
@@ -141,7 +148,7 @@ class MR4Web {
 			logger('start checking a Cache...');
 			// check the cache file if it's valid with this server & decoded properly
 			if ($this->_cache->isExpired() 
-				|| $this->_cache->get('ip') != ($_SERVER['SERVER_ADDR'] == '::1' ? '127.0.0.1' : $_SERVER['SERVER_ADDR']) 
+				|| $this->_cache->get('ip') != $this->_getHostIP() 
 				|| $this->_cache->get('code') != config_item('purchase_code')
 				|| $this->_cache->get('p_name') != Config::get('product')['name']
 				|| $this->_cache->get('p_version') != config_item('version')
@@ -174,7 +181,7 @@ class MR4Web {
 			$data['check'] = $type;
 			$data['license'] = config_item('purchase_code');
 			$data['p_version'] = config_item('version');
-			$data['IP'] = $_SERVER['SERVER_ADDR'] == '::1'? '127.0.0.1' : $_SERVER['SERVER_ADDR'];
+			$data['IP'] = $this->_getHostIP();
 			$receivedData = MyCURL(Config::get('URLs')['update'], $data);
 			
 			/*

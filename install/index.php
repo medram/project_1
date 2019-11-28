@@ -2,6 +2,8 @@
 //ob_start();
 //session_start();
 //@date_default_timezone_set('Africa/Casablanca');
+ini_set('display_errors', 0);
+error_reporting(E_ALL);
 
 /*==================== folder ====================*/
 $ex = explode('/',$_SERVER['REQUEST_URI']);
@@ -31,7 +33,8 @@ else
 
 /*================================================*/
 //echo phpinfo();
-$base_url = $_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'].$folder;
+//$base_url = $_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'].$folder;
+$base_url = "http://".$_SERVER['HTTP_HOST'].$folder;
 $is_error = '';
 /*
 1 - test if the server is ready
@@ -126,15 +129,15 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 		empty($admin_name) || empty($admin_email) || empty($admin_pass) ||
 		empty($db_hostname) || empty($db_username) || empty($db_password) || empty($database) || empty($db_prefix))
 	{
-		$msg[]['er'] = 'Sorry, Please insert all informations !';
+		$msg[]['er'] = 'Oops!, Please fill the all fields.';
 	}
 	else if (!filter_var($support,FILTER_VALIDATE_EMAIL))
 	{
-		$msg[]['er'] = 'Sorry, the <b>support email</b> isn\'t correct !';
+		$msg[]['er'] = 'Oops!, the <b>support email</b> isn\'t valid.';
 	}
 	else if (!filter_var($admin_email,FILTER_VALIDATE_EMAIL))
 	{
-		$msg[]['er'] = 'Sorry, the <b>admin email</b> isn\'t correct !';
+		$msg[]['er'] = 'Oops!, the <b>admin email</b> isn\'t valid.';
 	}
 	else
 	{
@@ -142,15 +145,15 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 
 		if ($db->connect_errno)
 		{
-			$msg[]['er'] = 'Sorry, the <b>informations of database</b> wasn\'t correct !';
+			$msg[]['er'] = 'Oops!, the <b>database information</b> wasn\'t correct.';
 		}
 		else if (!$db->select_db($database))
 		{
-			$msg[]['er'] = 'Sorry, the <b>database</b> isn\'t correct or isn\'t exists !';
+			$msg[]['er'] = 'Oops!, the <b>database</b> not found.';
 		}
 		else
 		{
-			$msg[]['ok'] = 'Connection to database was done successfully.';
+			$msg[]['ok'] = 'Connection to database has been done successfully.';
 
 			@$db->set_charset('utf8');
 			/*============== creations of the database tables ===============*/
@@ -203,7 +206,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 
 			if (count($e) > 0)
 			{
-				$msg[]['er'] = 'Sorry, Something was wrong ! <b>( Note:</b> You should to clear your old database tables first ! <b>)</b>';
+				$msg[]['er'] = 'Oops!, Something went wrong ! <b>( Note:</b> You should to drop your old database tables first or change tables prefix in the field below! <b>)</b>';
 			}
 			else
 			{
@@ -225,11 +228,11 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 
 				if ($in_admin && $up_site)
 				{
-					$msg[]['ok'] = 'The database data was installed successfully.';
+					$msg[]['ok'] = 'The database data has been installed successfully.';
 				}
 				else
 				{
-					$msg[]['er'] = 'The database data wasn\'t installed !';
+					$msg[]['er'] = 'Oops!, The database data hasn\'t been installed !';
 				}
 
 				/*========= update (edit) config file & .htaccess & database file =======*/
@@ -259,7 +262,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 				$creat4		= @file_put_contents('../index.php', $content4);
 
 				// send mail to admin.
-				$message = "Hi {$admin_name}!\nYou can login to {$sitename} Dashboard by using this informations:\nPath: {$base_url}\nEmail: {$admin_email}\nPassword: {$admin_pass}\n\nif you need any help please feel free to contact us.";
+				$message = "Hi {$admin_name}!\nYou can login to {$sitename} Dashboard by using this information:\nPath: {$base_url}\nEmail: {$admin_email}\nPassword: {$admin_pass}\n\nif you need any help please feel free to contact us.";
 
 				@mail($admin_email, "{$sitename}: Dashboard Informations", $message);
 
@@ -294,12 +297,12 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'install')
 
 				if ($creat1 && $creat2 && $creat3)
 				{
-					$msg[]['ok'] = "The files <b>.htaccess , config.php and database.php</b> were created successfully.";
+					$msg[]['ok'] = "The files <b>.htaccess , config.php and database.php</b> have been created successfully.";
 					$is_error = 'no';
 				}
 				else
 				{
-					$msg[]['er'] = "The files <b>.htaccess , config.php and database.php</b> were not created !";
+					$msg[]['er'] = "The files <b>.htaccess , config.php and database.php</b> weren\'t created !";
 				}
 			}
 
@@ -346,22 +349,23 @@ if (count($msg) > 0)
 	</head>
 	<body>
 		<div class='container'>
+			<br><br>
+			<div class="col-md-12">
+				<?php
+				if (isset($m) && !empty($m) && $is_error == 'yes')
+				{
+					/*
+					echo "<pre>";
+					print_r($msg);
+					echo "</pre>";
+					*/
+					echo $m;
+				}
+				?>
+			</div>
 			<div class='row text-center'>
-				<br><br><br>
+				<br><br>
 				<div class='col-lg-12 text-left'>
-					<div class="col-md-12">
-						<?php
-						if (isset($m) && !empty($m) && $is_error == 'yes')
-						{
-							/*
-							echo "<pre>";
-							print_r($msg);
-							echo "</pre>";
-							*/
-							echo $m;
-						}
-						?>
-					</div>
 					<div class="panel panel-info">
 						<div class="panel-heading">
 							<h3>
@@ -373,12 +377,13 @@ if (count($msg) > 0)
 							if ($is_error == '' || $is_error == 'yes')
 							{
 							?>
-							<form action="index.php?step=2" method='post'>
+							<form action="" method='post'>
 								<h2><i class='glyphicon glyphicon-cog'></i> Site information :</h2>
 								<div class='form-group'>
 									<label>Site name :</label>
-									<?php $sitename = ucfirst(str_ireplace("www.", "", $_SERVER['HTTP_HOST'])); ?>
-									<input type='text' name='sitename' class='form-control' value='<?php echo $sitename; ?>' >
+									<?php
+										//$sitename = ucfirst(str_ireplace("www.", "", $_SERVER['HTTP_HOST'])); ?>
+									<input type='text' name='sitename' class='form-control'>
 								</div>
 								<div class='form-group'>
 									<label>Support email :</label>
@@ -403,7 +408,7 @@ if (count($msg) > 0)
 									<input type='password' name='db_password' class='form-control' >
 								</div>
 								<div class='form-group'>
-									<label>Database name :</label>
+									<label>Database name <small>(Note: Create an empty database then enter it's name in the field below)</small>:</label>
 									<input type='text' name='db_name' class='form-control' >
 								</div>
 								<div class='form-group'>
@@ -427,6 +432,7 @@ if (count($msg) > 0)
 								<hr>
 								<div class='form-group'>
 									<input type='submit' name='submit' value='install' class='btn btn-primary' >
+									<span>Note: the instalation takes from 10 to 20 seconds to complete.</span>
 								</div>
 							</form>
 							<?php

@@ -40,10 +40,10 @@
 
 /*----------- check the installation script ----------*/
 
-if (is_dir('./install/'))
+/*if (is_dir('./install/'))
 {
 	die('<pre>Please <b>Delete</b> the "<b>install</b>" folder to continue!</pre>');
-}
+}*/
 
 /*----------- Autoload Composer ----------*/
 //require_once './vendor/autoload.php';
@@ -67,7 +67,7 @@ if (is_dir('./install/'))
  * NOTE: If you change these, also change the error_reporting() code below
  */
 	//define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
-	define('ENVIRONMENT', 'development');
+	define('ENVIRONMENT', 'production');
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
