@@ -55,7 +55,7 @@ class Ajax extends MY_controller
 				$agent 		= $this->input->user_agent();
 				$platform 	= $this->agent->platform();
 				$date 		= date(config_item('time_format'),time());
-				$to 		= get_config_item('email_from');
+				$to 		= get_config_item('SMTP_User');
 				$from 		= array($email,config_item('sitename').': '.$type);
 
 				/*$content .= "
