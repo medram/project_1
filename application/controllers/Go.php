@@ -14,7 +14,7 @@ class Go extends MY_controller
 	{
 		$slug = (preg_match("/^([a-zA-Z0-9_-]{1,50})$/",$slug))? trim(strip_tags($slug)) : '' ;
 
-		if ($this->input->get('t'))
+/*		if ($this->input->get('t'))
 		{
 			$t = intval($this->input->get('t',TRUE));
 			
@@ -27,7 +27,7 @@ class Go extends MY_controller
 				redirect(base_url($this->data['page_path'].'/'.$slug));
 			}
 		}
-
+*/
 		
 
 		if ($slug != '')
@@ -73,6 +73,8 @@ class Go extends MY_controller
 					}
 				}
 
+				$linkdata['showReCaptcha'] = ($this->uri->segment(1) == 'link');
+
 				$this->data['linkdata'] = $linkdata;
 				$this->data['meta']['keywords'] = implode(",",explode(" ",$linkdata['title']));
 				$this->data['meta']['description'] = $linkdata['title'];
@@ -115,6 +117,7 @@ class Go extends MY_controller
 				/*============= statistics link ===========*/
 
 
+				
 				if (get_config_item('just_show_users_ads') == 1)
 				{
 					$user_id = $linkdata['user_id'];
@@ -202,7 +205,7 @@ class Go extends MY_controller
 				{
 					$row = $s->row_array();
 
-					$ok = "<a style='text-decoration: none;' href='".decode($row['url'])."' target='_blank' ><button class='btn btn-success btn-block' style='text-align: center;height: 70px;font-size: 20px;'><i class='fa fa-link'></i> ".langLine('notifAccount.go.span.2', false)."</button></a>";
+					$ok = "<a style='text-decoration: none;' href='".decode($row['url'])."' ><button class='btn btn-success btn-block' style='text-align: center;height: 70px;font-size: 20px;'><i class='fa fa-link'></i> ".langLine('notifAccount.go.span.2', false)."</button></a>";
 				}
 				else
 				{

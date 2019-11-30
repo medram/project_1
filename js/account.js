@@ -2,7 +2,7 @@ var ajaxStr = {}; // this is Global variable
 
 /*======================== Get ajax strings ====================================*/
 $.ajax({
-	url: $.url()+'/../../ajax/jsAjaxStrings',
+	url: window.location.origin+'/ajax/jsAjaxStrings',
 	type: 'GET',
 	success: function (r, s, xhr){
 		if (s == 'success')
@@ -90,7 +90,7 @@ $.ajax({
 					if (confirm(ajaxStr['ajax.str.4']))
 					{
 						$.ajax({
-							url: $.url()+'/../../../ajax',
+							url: window.location.origin+'/account/ajax',
 							type: 'POST',
 							data: 'id='+id+'&deleteLink=yes',
 							success: function(r,s,xhr)
@@ -155,7 +155,7 @@ $.ajax({
 						if (pass)
 						{
 							$.ajax({
-								url: $.url()+'/../ajax',
+								url: window.location.origin+'/account/ajax',
 								type: 'POST',
 								data: 'pass='+pass+'&blockAccount=yes',
 								beforeSend: function ()

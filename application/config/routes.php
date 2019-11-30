@@ -55,7 +55,7 @@ $route['p/([a-zA-Z0-9_-]+)'] = 'p/index/$1';
 
 $route['go/ajax'] = 'go/ajax';
 $route['go/([a-zA-Z0-9_-]+)'] = 'go/index/$1';
-
+$route['link/([a-zA-Z0-9_-]+)'] = 'go/index/$1';
 
 //$route['([a-zA-Z0-9_-]+)'] 	 = 'go/index/$1';
 

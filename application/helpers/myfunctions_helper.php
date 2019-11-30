@@ -1183,28 +1183,37 @@ function get_slug ()
 function get_google_ad ($pub='',$channel='',$type='')
 {
     global $CI;
-    
+
     if (config_item('ads_status') == 0)
         return;
     
     if (get_config_item('just_show_users_ads') == 0)
     {
         if (get_config_item('just_show_admin_ads') == 1)
-        {    
-            // show admin ads
-            $pub = get_config_item('admin_pub');
-            $channel = get_config_item('admin_channel');
-        }
-        else if ($pub == '' or $CI->input->get('t'))
         {
             // show admin ads
-            $pub = get_config_item('admin_pub');
-            $channel = get_config_item('admin_channel');
+            /*$pub = get_config_item('admin_pub');
+            $channel = get_config_item('admin_channel');*/
+            if ($type == '')
+                return get_config_item('ad_autosize');
+            else
+                return get_config_item('ad_'.$type);
+        }
+        else if ($pub == '' or $CI->uri->segment(1) == 'link')
+        {
+            // show admin ads
+/*            $pub = get_config_item('admin_pub');
+            $channel = get_config_item('admin_channel');*/
+            if ($type == '')
+                return get_config_item('ad_autosize');
+            else
+                return get_config_item('ad_'.$type);
         }
     }
-
  
-    //echo $pub;
+/*    echo $pub.'<br>';
+    echo 'Channel: '.$channel.'<br>';*/
+
     $code = '';
     if ($type != '')
     {

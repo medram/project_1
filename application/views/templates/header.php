@@ -30,7 +30,7 @@
 	?>    
 
 	<!-- fonts -->
-	<link href="http://fonts.googleapis.com/earlyaccess/droidarabickufi.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/earlyaccess/droidarabickufi.css" rel="stylesheet">
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url(); ?>css/bootstrap/css/bootstrap.css" rel="stylesheet">

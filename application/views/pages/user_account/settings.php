@@ -18,11 +18,11 @@
 						<input type='text' name='user_channel' class='form-control'  
 							value='<?php if (isset($userdata["user_channel"])){echo $userdata["user_channel"];} ?>' >
 					</div>
-					<div class='form-group'>
+					<!-- <div class='form-group'>
 						<label><?php echo langLine('account.settings.span.3'); ?> :</label>
 						<input type='number' name='user_countdown' min='10' max='60' class='form-control'
 							value='<?php if (isset($userdata["countdown"])){echo $userdata["countdown"];}else{echo get_config_item("countdown");} ?>' >
-					</div>
+					</div> -->
 					<div class='form-group'>
 						<label><?php echo langLine('account.settings.span.4'); ?> :</label>
 						<input dir='ltr' type='text' name='user_url' class='form-control' placeholder='http://www.example.com' 

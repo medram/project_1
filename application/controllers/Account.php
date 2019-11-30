@@ -333,7 +333,7 @@ class Account extends MY_controller
 			}
 		} // end repass
 
-		/*======================= Uplade profile image ===========================*/
+		/*======================= Upload profile image ===========================*/
 		if ($this->input->post('tab') == 'img')
 		{
 	        $config['upload_path']          = './uploads/users/profile-images';
@@ -631,7 +631,7 @@ class Account extends MY_controller
 		{
 			$pub 		= strip_tags($this->input->post('user_pub',TRUE));
 			$channel 	= $this->input->post('user_channel',TRUE);
-			$count 		= abs(intval($this->input->post('user_countdown',TRUE)));
+			#$count 		= abs(intval($this->input->post('user_countdown',TRUE)));
 			$url 		= trim(strip_tags($this->input->post('user_url',TRUE)));
 			$user_id 	= $this->data['userdata']['id'];
 
@@ -651,10 +651,6 @@ class Account extends MY_controller
 			{
 				$err = langLine('notifAccount.settings.span.4', false);
 			}
-			else if ($count < 10 or $count > 60)
-			{
-				$err = langLine('notifAccount.settings.span.5', false);
-			}
 			else if ($url != '' && !filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED))
 			{
 				$err = langLine('notifAccount.settings.span.6', false);
@@ -664,7 +660,7 @@ class Account extends MY_controller
 				$a = array();
 				$a['user_pub']		= $pub;
 				$a['user_channel']	= $channel;
-				$a['countdown'] 	= $count;
+				#$a['countdown'] 	= $count;
 				$a['user_url'] 		= $url;
 				foreach ($a as $k => $v)
 				{

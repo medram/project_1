@@ -254,14 +254,11 @@
         				</div>
         				<div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
         					<br>
-                            <div class="alert alert-info"><b>INFO</b>: <br>
-                            - All of these ads below will show up on the whole entire site except "GO" page.<br>
-                            - the "GO" page is just using your google adsense PUB code to generate ads.<br>
-                            - After putting the PUB code, it may take up to 24 hours to make the ads show up.
+                            <div class="alert alert-info"><i class="fa fa-info fa-fw"></i> Once you setup your Google Adsense ads' codes, it may takes up to 24 hours to take effect to show up.
                             </div>
         					<form class="optionForm" action='<?php echo base_url($page_path); ?>/ajax' method='post'>
         						<table class='table table-striped'>
-        							<tr>
+<!--         							<tr>
                                         <td>
                                             <label>PUB Code of your Google Adsense account:</label><br>
                                             <small style='color: red'><i><b>Important note:</b> Your google adsense account <b>shouldn't be hosted</b>.</i></small>
@@ -269,16 +266,12 @@
                                         <td>
                                             <input type='text' name='pub' placeholder='pub-xxxxxxxxxxxxxx'class='form-control' value='<?php echo get_config_item("admin_pub"); ?>'>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                     <tr>
-                                        <td><label>Channel Code of your Google Adsense account (optional):</label></td>
                                         <td>
-                                            <input type='text' name='channel' placeholder='xxxxxxxx'class='form-control' 
-                                                value='<?php echo get_config_item("admin_channel"); ?>'>
+                                            <label>Default countdown (in seconds):</label><br>
+                                            <small style='color: red'><i>For your Google Adsense account Safety, the countdown should be higher than 10 seconds.</i></small>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label>Default countdown (in seconds):</label></td>
                                         <td>
                                             <input type='number' name='countdown' class='form-control' max='120' min='5' 
                                                 value='<?php echo get_config_item("countdown"); ?>'>

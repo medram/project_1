@@ -12,26 +12,26 @@
 </script>
 
 <?php
-if ($linkdata['status'] != 0 && isset($linkdata['countdown']) && $linkdata['countdown'] != '')
+/*if ($linkdata['status'] != 0 && isset($linkdata['countdown']) && $linkdata['countdown'] != '')
 {
 	$count = $linkdata['countdown'];
 }
 else
 {
 	$count = get_config_item('countdown');
-}
+}*/
 ?>
 
 
 <?php
-if (!isset($t))
+if (!$linkdata['showReCaptcha'])
 {
 
 ?>
 <script type='text/javascript'>
 $(document).ready(function (){
 	var set;
-	var count = '<?php echo $count; ?>';
+	var count = '<?php echo get_config_item('countdown'); ?>';
 
 	set = setInterval(function (){
 
@@ -39,17 +39,18 @@ $(document).ready(function (){
 		{
 			clearInterval(set);
 			// إنتظر من فضلك ...
-			$('#stp1 .btn').html(' <?php langLine('theme.go.span.1') ?> <a style="color: #F6BB42;" href="'+$.url()+'?t=<?php echo time(); ?>'+'"><?php langLine('theme.go.span.2') ?></a>');
-			setTimeout(function (){
-				window.location.href = $.url()+'?t=<?php echo time(); ?>';
-			},1000);
+			$('#stp1 .btn').html(` <a style="color: #FFF;" href="${window.location.origin}/link/${window.location.pathname.split('/')[2]}">Click to Continue!</a>`);
+/*			setTimeout(function (){
+				//window.location.href = `${window.location.href}?t=<?php echo time(); ?>`;
+				window.location.href = `${window.location.origin}/link/${window.location.pathname.split('/')[2]}`;
+			},1300);*/
 		}
 		else
 		{
 			$('#stp1 .btn').html(count + '<br> <?php langLine('theme.go.span.3') ?>');
 			count--;
 		}
-	},1300);
+	},1000);
 });
 </script>
 <?php
@@ -163,7 +164,7 @@ else
 						
 						if ($linkdata['status'] == 1)
 						{
-							if (isset($t))
+							if ($linkdata['showReCaptcha'])
 							{
 						?>
 						<div class='msg'></div>
@@ -314,7 +315,7 @@ else
 if (config_item('ads_status') == 1)
 {
 ?>
-<script type='text/javascript'>
+<!-- <script type='text/javascript'>
 	$(document).ready(function (){
 		var i = 0;
 		$('.boxAds').each(function (){
@@ -332,7 +333,7 @@ if (config_item('ads_status') == 1)
 		}
 
 	});
-</script>
+</script> -->
 <?php
 }
 ?>
