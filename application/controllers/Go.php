@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING );
+@session_start();
 
 class Go extends MY_controller
 {
@@ -12,23 +14,48 @@ class Go extends MY_controller
 
 	public function index ($slug='')
 	{
+		$this->load->library('session');
 		$slug = (preg_match("/^([a-zA-Z0-9_-]{1,50})$/",$slug))? trim(strip_tags($slug)) : '' ;
 
-/*		if ($this->input->get('t'))
+		$page = $this->uri->segment(1);
+
+		//========================= Deny access to (link) page ===========================
+		if ($page == 'go')
 		{
-			$t = intval($this->input->get('t',TRUE));
-			
-			if (abs(time() - $t) < 5*60)
+			$userdata = [
+				'done' 	=> true,
+				'slug' 	=> $slug
+			];
+
+			//$this->session->set_userdata('go_page', $userdata);
+			$_SESSION['go_page'] = $userdata;
+		}
+		
+		$go_page = isset($_SESSION['go_page'])? $_SESSION['go_page'] : [];
+		//$go_page = $this->session->has_userdata('go_page')? $this->session->userdata('go_page') : [];
+
+		if ($page == 'link')
+		{
+			unset($_SESSION['go_page']);
+			if (!$go_page['done'])
 			{
-				$this->data['t'] = $t;
+				//$this->session->unset_userdata('go_page');
+				redirect(base_url($this->data['page_path'].'/'.$slug));
 			}
-			else
+			else if ($go_page['done'] && $go_page['slug'] != $slug)
 			{
+				#$sent_slug = strip_tags($this->input->post('slug',TRUE));
+				#$sent_slug = strip_tags($this->input->post('slug',TRUE));
+				//$this->session->unset_userdata('go_page');
+				//unset($_SESSION['go_page']);
 				redirect(base_url($this->data['page_path'].'/'.$slug));
 			}
 		}
-*/
 		
+
+
+
+
 
 		if ($slug != '')
 		{
