@@ -154,8 +154,8 @@ CREATE TABLE `{DBP}settings` (
 INSERT INTO `{DBP}settings` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES
 (1, 'sitename', '', 'yes'),
 (2, 'siteurl', '', 'yes'),
-(3, 'version', '1.2.0', 'yes'),
-(4, 'powredby', 'MOHAMMED RAMOUCHY', 'no'),
+(3, 'version', '1.3.6', 'yes'),
+(4, 'powredby', 'Mohammed Ramouchy from MR4Web.com', 'no'),
 (6, 'siteclose', '0', 'yes'),
 (7, 'secret_key', '', 'no'),
 (8, 'public_key', '', 'no'),
