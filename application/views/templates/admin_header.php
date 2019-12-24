@@ -152,9 +152,9 @@
 				<li>
 					<a href="<?php echo base_url().$page_path; ?>/languages"><i class="fa fa-language"></i> <span>Languages</span></a>
 				</li>
-				<li>
+<!-- 				<li>
 					<a href="<?php echo base_url().$page_path; ?>/updates"><i class="fa fa-calendar"></i> <span>Updates & News <?php echo labelNotification() ?></span></a>
-				</li>
+				</li> -->
 			</ul>
 		</section>
 		<!-- /.sidebar -->
