@@ -1,6 +1,9 @@
 <?php
 
 return [
+	'product' => [
+		'name' => 'ADLinker'
+	],
 	'URLs'	=> [
 		'license' 	=> 'https://checkout.mr4web.com/api/v1/license.php',
 		'update' 	=> 'https://checkout.mr4web.com/api/v1/update.php'
