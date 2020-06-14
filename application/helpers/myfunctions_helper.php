@@ -375,9 +375,13 @@ function sendEmail($to, $subject, $msg, $from = array(), $priority=3, $mailtype=
         //$mail->addReplyTo("test@moaks.ws");
 
         $mail->Subject = $subject;
-        if ($mail->Send())
-            return true;
-
+        /*if ($mail->Send())
+            return true;*/
+        try {
+            return $mail->Send();
+        } catch (\Exception $e) {
+            return false;
+        }
 
     } catch (PHPMailer\PHPMailer\Exception $e) {
 

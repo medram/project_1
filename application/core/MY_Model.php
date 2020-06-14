@@ -99,7 +99,15 @@ class MY_model extends CI_model
                 $this->db->where($where);
             }
             $this->db->group_start();
-                $imploded = implode(',', $col);
+                if (version_compare(PHP_VERSION, '7.4', '>='))
+                {
+                    $imploded = implode(',', $col);
+                }
+                else 
+                {
+                    $imploded = implode($col, ',');
+                }
+
                 $this->db->where("MATCH(".$imploded.") AGAINST('$str' IN BOOLEAN MODE)", NULL, FALSE);
 
                 foreach ($tbl_array as $key => $value)
