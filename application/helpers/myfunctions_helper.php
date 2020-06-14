@@ -30,6 +30,7 @@ function labelNotification()
     return $string;
 }
 
+
 function langLine($key, $echo = true, $replace = [])
 {
     global $CI;

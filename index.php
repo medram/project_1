@@ -40,6 +40,12 @@
 
 /*----------- check the installation script ----------*/
 
+define('INSTALL_PATH', 'install');
+
+/*if (is_dir(INSTALL_PATH))
+{
+	die('<pre>Please <b>Delete or Rename</b> the "<b>install</b>" folder to continue!</pre>');
+}*/
 
 /*----------- Autoload Composer ----------*/
 require_once './vendor/autoload.php';
