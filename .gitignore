@@ -8,5 +8,9 @@ application/cache/*
 application/libraries/MR4Web/cache/*
 !application/libraries/MR4Web/cache/index.html
 
+uploads/users/profile-images/*
+!uploads/users/profile-images/default-boy.png
+!uploads/users/profile-images/index.html
+
 #application/config/config.php
 #application/config/database.php
