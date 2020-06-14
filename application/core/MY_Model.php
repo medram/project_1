@@ -99,7 +99,8 @@ class MY_model extends CI_model
                 $this->db->where($where);
             }
             $this->db->group_start();
-                $this->db->where("MATCH(".implode($col, ',').") AGAINST('$str' IN BOOLEAN MODE)", NULL, FALSE);
+                $imploded = implode(',', $col);
+                $this->db->where("MATCH(".$imploded.") AGAINST('$str' IN BOOLEAN MODE)", NULL, FALSE);
 
                 foreach ($tbl_array as $key => $value)
                 {
