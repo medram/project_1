@@ -37,7 +37,7 @@
  */
 
 //date_default_timezone_set("Etc/GMT+0");
-
+define('APP_DEMO', true);
 /*----------- check the installation script ----------*/
 
 if (is_dir('./install/'))

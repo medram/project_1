@@ -324,6 +324,12 @@ class Adminpanel extends MY_controller
 
 	public function license ()
 	{
+		if (APP_DEMO)
+		{
+			echo "<pre>Oops, You don't have permission to this page on the Demo mode!</pre>";
+			exit;
+		}
+
 		$msg = '';
 		$err = '';
 		$this->data['showForm'] = 1;
@@ -405,90 +411,99 @@ class Adminpanel extends MY_controller
 
 	public function profile ()
 	{
+
 		$this->data['title'] = 'Profile';
 
 		/*======================== Update admin profile ============================*/
 		if ($this->input->post('edit-profile'))
 		{
 			$msg = "msg1";
-
-			$username 		= trim(strip_tags($this->input->post('username',TRUE)));
-			$email 			= trim(strip_tags($this->input->post('email',TRUE)));
-			$birth_date 	= trim(strip_tags($this->input->post('date-birth',TRUE)));
-			$sec_ques 		= trim(strip_tags($this->input->post('security-question',TRUE)));
-			$ans_ques 		= trim(strip_tags($this->input->post('answer-question',TRUE)));
-
-			if (empty($username) or empty($email))
+			
+			if (APP_DEMO)
 			{
-				$err = "please fill the all fields !";
-			}
-			else if (!filter_var($email,FILTER_VALIDATE_EMAIL))
-			{
-				$err = "Your email is not correct !";
-			}
-			else if (!preg_match("/^((0?[13578]|10|12)(-|\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[01]?))(-|\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1}))|(0?[2469]|11)(-|\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[0]?))(-|\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1})))$/m",$birth_date))
-			{
-				$err = "Your birth date is not correct!";
+				$ok = "Oops, This Action is not allowed on the Demo !";
 			}
 			else
 			{
-				// update data of admin
-				$admin_id = $this->data['userdata']['id'];
-				$set['username'] = $username;
-				$set['email'] = $email;
-				$where = array('id'=>$admin_id,'user_status'=>1);
-				/*
-				echo "<pre>";
-				print_r($this->data);
-				echo "</pre>";
-				*/
-				$up = $this->cms_model->update('users',$set,$where);
 
-				
-				
-				$a['birth_date'] = $birth_date;
-				$a['sec_ques'] = $sec_ques;
-				$a['ans_ques'] = $ans_ques;
 
-				// delete all information from database by user_id
-				foreach ($a as $k => $v) {
-					
-					$w['user_id'] = $admin_id;
-					$w['user_option'] = $k;
+				$username 		= trim(strip_tags($this->input->post('username',TRUE)));
+				$email 			= trim(strip_tags($this->input->post('email',TRUE)));
+				$birth_date 	= trim(strip_tags($this->input->post('date-birth',TRUE)));
+				$sec_ques 		= trim(strip_tags($this->input->post('security-question',TRUE)));
+				$ans_ques 		= trim(strip_tags($this->input->post('answer-question',TRUE)));
 
-					$del = $this->cms_model->delete('usersmeta',$w);
-				}
-
-				// insert all information to database
-				$s = array();
-				foreach ($a as $k => $v)
+				if (empty($username) or empty($email))
 				{
-					$d['user_id'] = $admin_id;
-					$d['user_option'] = $k;
-					$d['user_value'] = $v;
-
-					$sel = $this->cms_model->insert('usersmeta',$d);
-					if ($sel)
-					{
-						array_push($s,1);
-					}
-					else
-					{
-						array_push($s,0);	
-					}
+					$err = "please fill the all fields !";
 				}
-				
-				if (in_array(0,$s))
+				else if (!filter_var($email,FILTER_VALIDATE_EMAIL))
 				{
-					$err = "Error, something was wrong !";
+					$err = "Your email is not correct !";
+				}
+				else if (!preg_match("/^((0?[13578]|10|12)(-|\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[01]?))(-|\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1}))|(0?[2469]|11)(-|\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[0]?))(-|\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1})))$/m",$birth_date))
+				{
+					$err = "Your birth date is not correct!";
 				}
 				else
 				{
-					$ok = "Updated successfully";
-				}
-				
-			}
+					// update data of admin
+					$admin_id = $this->data['userdata']['id'];
+					$set['username'] = $username;
+					$set['email'] = $email;
+					$where = array('id'=>$admin_id,'user_status'=>1);
+					/*
+					echo "<pre>";
+					print_r($this->data);
+					echo "</pre>";
+					*/
+					$up = $this->cms_model->update('users',$set,$where);
 
+					
+					
+					$a['birth_date'] = $birth_date;
+					$a['sec_ques'] = $sec_ques;
+					$a['ans_ques'] = $ans_ques;
+
+					// delete all information from database by user_id
+					foreach ($a as $k => $v) {
+						
+						$w['user_id'] = $admin_id;
+						$w['user_option'] = $k;
+
+						$del = $this->cms_model->delete('usersmeta',$w);
+					}
+
+					// insert all information to database
+					$s = array();
+					foreach ($a as $k => $v)
+					{
+						$d['user_id'] = $admin_id;
+						$d['user_option'] = $k;
+						$d['user_value'] = $v;
+
+						$sel = $this->cms_model->insert('usersmeta',$d);
+						if ($sel)
+						{
+							array_push($s,1);
+						}
+						else
+						{
+							array_push($s,0);	
+						}
+					}
+					
+					if (in_array(0,$s))
+					{
+						$err = "Error, something was wrong !";
+					}
+					else
+					{
+						$ok = "Updated successfully";
+					}
+					
+				}
+			}
 
 		} // end if
 
@@ -497,36 +512,43 @@ class Adminpanel extends MY_controller
 		{
 			$msg = "msg2";
 			
-			$old_pass 	= trim(strip_tags($this->input->post('old-pass',TRUE)));
-			$new_pass 	= trim(strip_tags($this->input->post('new-pass',TRUE)));
-			$conf_pass 	= trim(strip_tags($this->input->post('conf-new-pass',TRUE)));
-
-			if ($old_pass == '' or $new_pass == '' or $conf_pass == '')
+			if (APP_DEMO)
 			{
-				$err = "Please insert all information !";
-			}
-			else if (!password_verify($old_pass,$this->data['userdata']['password']))
-			{
-				$err = "The <b>old password</b> isn't correct !";
-			}
-			else if ($new_pass != $conf_pass)
-			{
-				$err = "The two passwords aren't matched.";
+				$ok = "Oops, This Action is not allowed on the Demo !";
 			}
 			else
-			{
-				$set['password'] = password_hash($new_pass,PASSWORD_DEFAULT);
-				$where = array('user_token'=>$this->data['userdata']['user_token']);
-				
-				$up = $this->cms_model->update('users',$set,$where);
+			{	
+				$old_pass 	= trim(strip_tags($this->input->post('old-pass',TRUE)));
+				$new_pass 	= trim(strip_tags($this->input->post('new-pass',TRUE)));
+				$conf_pass 	= trim(strip_tags($this->input->post('conf-new-pass',TRUE)));
 
-				if ($up)
+				if ($old_pass == '' or $new_pass == '' or $conf_pass == '')
 				{
-					$ok = "The password changed successfully.";
+					$err = "Please insert all information !";
+				}
+				else if (!password_verify($old_pass,$this->data['userdata']['password']))
+				{
+					$err = "The <b>old password</b> isn't correct !";
+				}
+				else if ($new_pass != $conf_pass)
+				{
+					$err = "The two passwords aren't matched.";
 				}
 				else
 				{
-					$err = "Error , something was wrong !!";
+					$set['password'] = password_hash($new_pass,PASSWORD_DEFAULT);
+					$where = array('user_token'=>$this->data['userdata']['user_token']);
+					
+					$up = $this->cms_model->update('users',$set,$where);
+
+					if ($up)
+					{
+						$ok = "The password changed successfully.";
+					}
+					else
+					{
+						$err = "Error , something was wrong !!";
+					}
 				}
 			}
 
@@ -752,6 +774,10 @@ class Adminpanel extends MY_controller
 					{
 						$err = 'Oops, this language is already used, please try another language.';
 					}
+					else if (APP_DEMO)
+					{
+						$ok = "Oops, This Action is not allowed on the Demo !";	
+					}
 					else
 					{
 						$langData['name'] = $name;
@@ -796,6 +822,10 @@ class Adminpanel extends MY_controller
 				else if (!preg_match("/^([a-zA-Z0-9_\-.]+)$/", $symbol))
 				{
 					$err = 'Oops, the language symbol is invalid, it\'s should be consists of these (a-z, A-Z, 0-9, -, _) characters';
+				}
+				else if (APP_DEMO)
+				{
+					$ok = "Oops, This Action is not allowed on the Demo !";
 				}
 				else
 				{
@@ -930,27 +960,35 @@ class Adminpanel extends MY_controller
 					}
 					else
 					{
-						$d['title'] 		= $title;
-						$d['slug'] 			= $slug;
-						$d['lang_id'] 		= $lang_id;
-						$d['keywords']		= $keywords;
-						$d['description']	= $desc;
-						$d['published'] 	= $published;
-						$d['show_header']	= $header;
-						$d['show_footer']	= $footer;
-						$d['content'] 		= $content;
-						$d['created']		= time();
-						$d['modified']		= time();
-						
-						$insert = $this->cms_model->insert('pages',$d);
-
-						if ($insert)
+						if (APP_DEMO)
 						{
-							$s->free_result();
-							header('location: '.base_url($this->data['page_path'].'/pages'));
-							//$ok = "the page was added successfully";
-							exit();
+							$ok = "Oops, This Action is not allowed on the Demo !";
 						}
+						else
+						{
+							$d['title'] 		= $title;
+							$d['slug'] 			= $slug;
+							$d['lang_id'] 		= $lang_id;
+							$d['keywords']		= $keywords;
+							$d['description']	= $desc;
+							$d['published'] 	= $published;
+							$d['show_header']	= $header;
+							$d['show_footer']	= $footer;
+							$d['content'] 		= $content;
+							$d['created']		= time();
+							$d['modified']		= time();
+							
+							$insert = $this->cms_model->insert('pages',$d);
+
+							if ($insert)
+							{
+								$s->free_result();
+								header('location: '.base_url($this->data['page_path'].'/pages'));
+								//$ok = "the page was added successfully";
+								exit();
+							}
+						}
+						
 					}
 
 					$s->free_result();
@@ -960,23 +998,31 @@ class Adminpanel extends MY_controller
 		}
 		else if ($action == 'edit')
 		{
-			$pagename = "Edit page";
-			$page = "edit_pages";
-
-			$id = intval($var);
-
-			$w['id'] = $id;
-			$s = $this->cms_model->select('pages',$w);
-
-			if ($s->num_rows() == 1)
+			if (APP_DEMO)
 			{
-				$this->data['pagedata'] = $s->row_array();
+				$ok = "Oops, This Action is not allowed on the Demo !";
 			}
 			else
 			{
-				$err = "Page not Found!";
+				$pagename = "Edit page";
+				$page = "edit_pages";
+
+				$id = intval($var);
+
+				$w['id'] = $id;
+				$s = $this->cms_model->select('pages',$w);
+
+				if ($s->num_rows() == 1)
+				{
+					$this->data['pagedata'] = $s->row_array();
+				}
+				else
+				{
+					$err = "Page not Found!";
+				}
+				$s->free_result();
 			}
-			$s->free_result();
+
 		}
 
 		if (isset($err) && $err != '')
@@ -1029,112 +1075,119 @@ class Adminpanel extends MY_controller
 
 		if ($this->input->post('tab'))
 		{
-			$a =  array();
-
-			if ($this->input->post('tab') == 1)
+			if (APP_DEMO)
 			{
-				$a['show_logo'] 			= intval($this->input->post('show_logo',TRUE));
-				$a['sitename'] 				= trim(strip_tags($this->input->post('site_name',TRUE)));
-				$a['keywords'] 				= trim(strip_tags($this->input->post('keywords',TRUE)));
-				$a['description'] 			= trim(strip_tags($this->input->post('desc',TRUE)));
-				$a['default_language'] 			= trim(intval($this->input->post('default_lang',TRUE)));
-				$a['siteemail'] 			= trim(strip_tags($this->input->post('support-email',TRUE)));
-				$a['siteclose'] 			= trim(intval($this->input->post('status_site',TRUE)));
-				$a['shutdown_msg'] 			= $this->input->post('msg_closed_site',TRUE);
-				$a['tracking_code'] 		= $this->input->post('analytics_code',FALSE);
-				$a['go_head_code'] 			= $this->input->post('go_head_code',FALSE);
-				$a['default_timezone'] 		= trim(strip_tags($this->input->post('default_timezone',TRUE)));
-				$a['time_format'] 			= strip_tags($this->input->post('time_format',TRUE));
-
+				$ok = "Oops, This Action is not allowed on the Demo !";
 			}
-			else if ($this->input->post('tab') == 2)
-			{
-				$a['registration_status'] 	= intval($this->input->post('registration_status',TRUE));
-				$a['shutdown_msg_register'] = strip_tags($this->input->post('shutdown_msg_register',TRUE));
-				$a['user_delete_account'] 	= intval($this->input->post('account_status',TRUE));
-				$a['notes_delete_account'] 	= trim($this->input->post('notes_delete_account',TRUE));
-			}
-			else if ($this->input->post('tab') == 3)
-			{
-				$a['ad_728x90'] 			= $this->input->post('ad_728x90',FALSE);
-				$a['ad_300x250'] 			= $this->input->post('ad_300x250',FALSE);
-				$a['ad_300x600'] 			= $this->input->post('ad_300x600',FALSE);
-				$a['ad_autosize'] 			= $this->input->post('ad_autosize',FALSE);
-				$a['ads_status_on_accounts'] = abs(intval($this->input->post('ads_status_on_accounts',TRUE)));
-				$a['ads_status'] 			= abs(intval($this->input->post('ads_status',TRUE)));
-			}
-			else if ($this->input->post('tab') == 4)
-			{
-				$a['cookie_expire'] 		= (intval($this->input->post('expir_time',TRUE)) < 1)? 1*3600*24 : intval($this->input->post('expir_time',TRUE))*3600*24 ;
-				$a['cookie_name'] 			= (preg_match("/^([a-zA-Z0-9_-])+$/",$this->input->post('cookie_name',TRUE)))? mb_substr($this->input->post('cookie_name',TRUE),0,50,'UTF-8') : "ABC" ;
-				$a['restoration_time_account'] = (intval($this->input->post('rest_time',TRUE)) < 1)? 1 : intval($this->input->post('rest_time',TRUE)) ;
-				$a['secret_key'] 			= trim(strip_tags($this->input->post('secret_key',TRUE)));
-				$a['public_key'] 			= trim(strip_tags($this->input->post('public_key',TRUE)));
-				$a['recaptcha_status'] 		= intval($this->input->post('recaptcha_status',TRUE));
-			}
-			else if ($this->input->post('tab') == 5)
-			{
-				$a['email_method'] 		= trim(strip_tags($this->input->post('email_method',TRUE)));
-				$a['email_from'] 		= trim(strip_tags($this->input->post('email_from',TRUE)));
-				$a['SMTP_Host'] 		= trim(strip_tags($this->input->post('SMTP_Host',TRUE)));
-				$a['SMTP_Port'] 		= trim(strip_tags($this->input->post('SMTP_Port',TRUE)));
-				$a['SMTP_User'] 		= trim(strip_tags($this->input->post('SMTP_User',TRUE)));
-				$a['SMTP_Pass'] 		= trim(strip_tags($this->input->post('SMTP_Pass',TRUE)));
-				$a['mail_encription'] 	= trim(strip_tags($this->input->post('mail_encription',TRUE)));
-				$a['allow_SSL_Insecure_mode'] 	= intval($this->input->post('allow_SSL_Insecure_mode',TRUE));
-			}
-			else if ($this->input->post('tab') == 10)
-			{
-				$a['showFakeNumbers'] 		= trim(abs(intval($this->input->post('showFakeNumbers',TRUE))));
-				$a['fakeViews'] 			= trim(abs(intval($this->input->post('fakeViews',TRUE))));
-				$a['fakeUsers'] 			= trim(abs(intval($this->input->post('fakeUsers',TRUE))));
-				$a['fakeLinks'] 			= trim(abs(intval($this->input->post('fakeLinks',TRUE))));
-				$a['bad_urls'] 				= trim(strip_tags($this->input->post('bad_urls',TRUE)));
-				$a['packages_domains'] 		= trim(strip_tags($this->input->post('packages_domains',TRUE)));
-				$a['admin_pub'] 			= strip_tags($this->input->post('pub',TRUE));
-				$a['admin_channel'] 		= trim(intval($this->input->post('channel',TRUE)));
-				$a['countdown'] 			= trim(abs(intval($this->input->post('countdown',TRUE))));
-				$a['just_show_admin_ads'] 	= abs(intval($this->input->post('just_show_admin_ads',TRUE)));
-				$a['just_show_users_ads'] 	= abs(intval($this->input->post('just_show_users_ads',TRUE)));
-			}
+			else
+			{		
+				$a =  array();
 
-
-
-			$e = array();
-			foreach ($a as $k => $v)
-			{
-				$set['option_name'] = $k;
-				$set['option_value'] = $v;
-
-				$where = array(
-						'option_name' => $k
-					);
-
-				$up = $this->cms_model->update('settings',$set,$where);
-
-				if ($up)
+				if ($this->input->post('tab') == 1)
 				{
-					array_push($e,1);
+					$a['show_logo'] 			= intval($this->input->post('show_logo',TRUE));
+					$a['sitename'] 				= trim(strip_tags($this->input->post('site_name',TRUE)));
+					$a['keywords'] 				= trim(strip_tags($this->input->post('keywords',TRUE)));
+					$a['description'] 			= trim(strip_tags($this->input->post('desc',TRUE)));
+					$a['default_language'] 			= trim(intval($this->input->post('default_lang',TRUE)));
+					$a['siteemail'] 			= trim(strip_tags($this->input->post('support-email',TRUE)));
+					$a['siteclose'] 			= trim(intval($this->input->post('status_site',TRUE)));
+					$a['shutdown_msg'] 			= $this->input->post('msg_closed_site',TRUE);
+					$a['tracking_code'] 		= $this->input->post('analytics_code',FALSE);
+					$a['go_head_code'] 			= $this->input->post('go_head_code',FALSE);
+					$a['default_timezone'] 		= trim(strip_tags($this->input->post('default_timezone',TRUE)));
+					$a['time_format'] 			= strip_tags($this->input->post('time_format',TRUE));
+
+				}
+				else if ($this->input->post('tab') == 2)
+				{
+					$a['registration_status'] 	= intval($this->input->post('registration_status',TRUE));
+					$a['shutdown_msg_register'] = strip_tags($this->input->post('shutdown_msg_register',TRUE));
+					$a['user_delete_account'] 	= intval($this->input->post('account_status',TRUE));
+					$a['notes_delete_account'] 	= trim($this->input->post('notes_delete_account',TRUE));
+				}
+				else if ($this->input->post('tab') == 3)
+				{
+					$a['ad_728x90'] 			= $this->input->post('ad_728x90',FALSE);
+					$a['ad_300x250'] 			= $this->input->post('ad_300x250',FALSE);
+					$a['ad_300x600'] 			= $this->input->post('ad_300x600',FALSE);
+					$a['ad_autosize'] 			= $this->input->post('ad_autosize',FALSE);
+					$a['ads_status_on_accounts'] = abs(intval($this->input->post('ads_status_on_accounts',TRUE)));
+					$a['ads_status'] 			= abs(intval($this->input->post('ads_status',TRUE)));
+				}
+				else if ($this->input->post('tab') == 4)
+				{
+					$a['cookie_expire'] 		= (intval($this->input->post('expir_time',TRUE)) < 1)? 1*3600*24 : intval($this->input->post('expir_time',TRUE))*3600*24 ;
+					$a['cookie_name'] 			= (preg_match("/^([a-zA-Z0-9_-])+$/",$this->input->post('cookie_name',TRUE)))? mb_substr($this->input->post('cookie_name',TRUE),0,50,'UTF-8') : "ABC" ;
+					$a['restoration_time_account'] = (intval($this->input->post('rest_time',TRUE)) < 1)? 1 : intval($this->input->post('rest_time',TRUE)) ;
+					$a['secret_key'] 			= trim(strip_tags($this->input->post('secret_key',TRUE)));
+					$a['public_key'] 			= trim(strip_tags($this->input->post('public_key',TRUE)));
+					$a['recaptcha_status'] 		= intval($this->input->post('recaptcha_status',TRUE));
+				}
+				else if ($this->input->post('tab') == 5)
+				{
+					$a['email_method'] 		= trim(strip_tags($this->input->post('email_method',TRUE)));
+					$a['email_from'] 		= trim(strip_tags($this->input->post('email_from',TRUE)));
+					$a['SMTP_Host'] 		= trim(strip_tags($this->input->post('SMTP_Host',TRUE)));
+					$a['SMTP_Port'] 		= trim(strip_tags($this->input->post('SMTP_Port',TRUE)));
+					$a['SMTP_User'] 		= trim(strip_tags($this->input->post('SMTP_User',TRUE)));
+					$a['SMTP_Pass'] 		= trim(strip_tags($this->input->post('SMTP_Pass',TRUE)));
+					$a['mail_encription'] 	= trim(strip_tags($this->input->post('mail_encription',TRUE)));
+					$a['allow_SSL_Insecure_mode'] 	= intval($this->input->post('allow_SSL_Insecure_mode',TRUE));
+				}
+				else if ($this->input->post('tab') == 10)
+				{
+					$a['showFakeNumbers'] 		= trim(abs(intval($this->input->post('showFakeNumbers',TRUE))));
+					$a['fakeViews'] 			= trim(abs(intval($this->input->post('fakeViews',TRUE))));
+					$a['fakeUsers'] 			= trim(abs(intval($this->input->post('fakeUsers',TRUE))));
+					$a['fakeLinks'] 			= trim(abs(intval($this->input->post('fakeLinks',TRUE))));
+					$a['bad_urls'] 				= trim(strip_tags($this->input->post('bad_urls',TRUE)));
+					$a['packages_domains'] 		= trim(strip_tags($this->input->post('packages_domains',TRUE)));
+					$a['admin_pub'] 			= strip_tags($this->input->post('pub',TRUE));
+					$a['admin_channel'] 		= trim(intval($this->input->post('channel',TRUE)));
+					$a['countdown'] 			= trim(abs(intval($this->input->post('countdown',TRUE))));
+					$a['just_show_admin_ads'] 	= abs(intval($this->input->post('just_show_admin_ads',TRUE)));
+					$a['just_show_users_ads'] 	= abs(intval($this->input->post('just_show_users_ads',TRUE)));
+				}
+
+
+
+				$e = array();
+				foreach ($a as $k => $v)
+				{
+					$set['option_name'] = $k;
+					$set['option_value'] = $v;
+
+					$where = array(
+							'option_name' => $k
+						);
+
+					$up = $this->cms_model->update('settings',$set,$where);
+
+					if ($up)
+					{
+						array_push($e,1);
+					}
+					else
+					{
+						array_push($e,0);
+					}	
+				}
+				
+
+				if (!in_array(0,$e))
+				{
+					/*
+					echo '<pre>';
+					print_r($a);
+					echo '</pre>';
+					*/
+					$ok = 'Saved successfully.';
 				}
 				else
 				{
-					array_push($e,0);
-				}	
-			}
-			
-
-			if (!in_array(0,$e))
-			{
-				/*
-				echo '<pre>';
-				print_r($a);
-				echo '</pre>';
-				*/
-				$ok = 'Saved successfully.';
-			}
-			else
-			{
-				$err = 'Error update !';
+					$err = 'Error update !';
+				}
 			}
 		} // end post submit
 
@@ -1274,61 +1327,70 @@ class Adminpanel extends MY_controller
 			}
 	        else
 	        {
-	            $user_id = $userId;
+	        	if (APP_DEMO)
+	        	{
+	        		$ok = "Oops, This Action is not allowed on the Demo !";
+	        	}
+	        	else
+	        	{
 
-	            $set['username'] 		= $username;
-	            $set['email']		 	= $email;
-	            $set['gender']   		= $gender; // 1 = male ||| 2 = female
-	           	$set['account_status']	= $status;
+		            $user_id = $userId;
 
-	            $w['id'] = $user_id;
-	            $up = $this->cms_model->update('users',$set,$w);
+		            $set['username'] 		= $username;
+		            $set['email']		 	= $email;
+		            $set['gender']   		= $gender; // 1 = male ||| 2 = female
+		           	$set['account_status']	= $status;
 
-	            $a['user_pub'] 		= $pub;
-	            $a['user_channel'] 	= $channel;
-	            $a['country'] 		= $country;
-	            $a['birth_date'] 	= $birth_day;
-	            $a['sec_ques'] 		= $sec_ques;
-	            $a['ans_ques'] 		= $ans_ques;
-	            $a['banned_msg'] 	= $banned_msg;
+		            $w['id'] = $user_id;
+		            $up = $this->cms_model->update('users',$set,$w);
 
-	            // delete all information from database by user_id
-	            foreach ($a as $k => $v) {
-	                $w = array();
-	                $w['user_id'] = $user_id;
-	                $w['user_option'] = $k;
+		            $a['user_pub'] 		= $pub;
+		            $a['user_channel'] 	= $channel;
+		            $a['country'] 		= $country;
+		            $a['birth_date'] 	= $birth_day;
+		            $a['sec_ques'] 		= $sec_ques;
+		            $a['ans_ques'] 		= $ans_ques;
+		            $a['banned_msg'] 	= $banned_msg;
 
-	                $del = $this->cms_model->delete('usersmeta',$w);
-	            }
+		            // delete all information from database by user_id
+		            foreach ($a as $k => $v) {
+		                $w = array();
+		                $w['user_id'] = $user_id;
+		                $w['user_option'] = $k;
 
-	            // insert all information to database
-	            $s = array();
-	            foreach ($a as $k => $v)
-	            {
-	            	$d = array();
-	                $d['user_id'] = $user_id;
-	                $d['user_option'] = $k;
-	                $d['user_value'] = $v;
+		                $del = $this->cms_model->delete('usersmeta',$w);
+		            }
 
-	                $sel = $this->cms_model->insert('usersmeta',$d);
-	                if ($sel)
-	                {
-	                    array_push($s,1);
-	                }
-	                else
-	                {
-	                    array_push($s,0);   
-	                }
-	            }
-	            
-	            if (in_array(0,$s))
-	            {
-	                $err = "Sorry, Something was wrong !";
-	            }
-	            else
-	            {
-	                $ok = "Saved successfully.";
-	            }
+		            // insert all information to database
+		            $s = array();
+		            foreach ($a as $k => $v)
+		            {
+		            	$d = array();
+		                $d['user_id'] = $user_id;
+		                $d['user_option'] = $k;
+		                $d['user_value'] = $v;
+
+		                $sel = $this->cms_model->insert('usersmeta',$d);
+		                if ($sel)
+		                {
+		                    array_push($s,1);
+		                }
+		                else
+		                {
+		                    array_push($s,0);   
+		                }
+		            }
+		            
+		            if (in_array(0,$s))
+		            {
+		                $err = "Sorry, Something was wrong !";
+		            }
+		            else
+		            {
+		                $ok = "Saved successfully.";
+		            }
+	        	}
+
 	        }
 
 		} // end of edit profile
@@ -1337,6 +1399,12 @@ class Adminpanel extends MY_controller
 		
 		if ($this->input->post('deleteUser') == 1)
 		{
+			if (APP_DEMO)
+			{
+				echo "Oops, This Action is not allowed on the Demo !";
+				return NULL;
+			}
+
 			$id = intval($this->input->post('id',TRUE));
 
 			$where['id'] = $id;
@@ -1381,6 +1449,12 @@ class Adminpanel extends MY_controller
 		
 		if ($this->input->post('delete_image'))
 		{
+			if (APP_DEMO)
+			{
+				echo "Oops, This Action is not allowed on the Demo !";
+				return NULL;
+			}
+
 			$token = $this->input->post('token',TRUE);
 			
 			if (delete_profile_img($token))
@@ -1444,27 +1518,34 @@ class Adminpanel extends MY_controller
 					}
 					else
 					{
-						$set['title'] 		= $title;
-						$set['slug'] 		= $slug;
-						$set['lang_id']		= $lang_id;
-						$set['keywords'] 	= $keywords;
-						$set['description'] = $desc;
-						$set['published'] 	= $published;
-						$set['show_header'] = $header;
-						$set['show_footer'] = $footer;
-						$set['content'] 	= $content;
-						$set['modified']	= time();
-
-						$w['id'] = $id;
-						$update = $this->cms_model->update('pages',$set,$w);
-
-						if ($update)
+						if (APP_DEMO)
 						{
-							$ok = "Updated successfully.";
+							$ok = "Oops, This Action is not allowed on the Demo !";
 						}
 						else
 						{
-							$err = "Something was wrong!";
+							$set['title'] 		= $title;
+							$set['slug'] 		= $slug;
+							$set['lang_id']		= $lang_id;
+							$set['keywords'] 	= $keywords;
+							$set['description'] = $desc;
+							$set['published'] 	= $published;
+							$set['show_header'] = $header;
+							$set['show_footer'] = $footer;
+							$set['content'] 	= $content;
+							$set['modified']	= time();
+
+							$w['id'] = $id;
+							$update = $this->cms_model->update('pages',$set,$w);
+
+							if ($update)
+							{
+								$ok = "Updated successfully.";
+							}
+							else
+							{
+								$err = "Something was wrong!";
+							}
 						}
 					}
 					$s2->free_result();
@@ -1477,6 +1558,12 @@ class Adminpanel extends MY_controller
 		
 		if ($this->input->post('deletePage'))
 		{
+			if (APP_DEMO)
+			{
+				echo "Oops, This Action is not allowed on the Demo !";
+				return NULL;
+			}
+
 			$id = intval($this->input->post('id',TRUE));
 
 			$w['id'] = $id;
@@ -1538,6 +1625,12 @@ class Adminpanel extends MY_controller
 
 		if ($this->input->post('deleteLink') == 1)
 		{
+			if (APP_DEMO)
+			{
+				echo "Oops, This Action is not allowed on the Demo !";
+				return NULL;
+			}
+
 			$id = abs(intval($this->input->post('id')));
 			
 			$w['id'] = $id;
@@ -1557,6 +1650,12 @@ class Adminpanel extends MY_controller
 
 		if ($this->input->post('deleteLang') == 1)
 		{
+			if (APP_DEMO)
+			{
+				echo "Oops, This Action is not allowed on the Demo !";
+				return;
+			}
+
 			$id = abs(intval($this->input->post('id')));
 			
 			$w['id'] = $id;

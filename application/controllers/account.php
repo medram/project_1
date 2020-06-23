@@ -253,21 +253,28 @@ class Account extends MY_controller
 		/*======================== Change data of user =============================*/
 		if ($this->input->post('tab',TRUE) == 1)
 		{
-			$mess = $this->cms_model->userProfileUpdate();
-			if ($mess[0] == 'ok')
+			if (APP_DEMO)
 			{
-				$ok = $mess[1];
+				$ok = "Oops!, This Action is not allowed on the Demo!";
 			}
 			else
 			{
-				$err = $mess[1];
+				$mess = $this->cms_model->userProfileUpdate();
+				if ($mess[0] == 'ok')
+				{
+					$ok = $mess[1];
+				}
+				else
+				{
+					$err = $mess[1];
+				}				
 			}
-
 		} // end if of update data of user
 	
 		/*======================== Change password of user =============================*/
 		if ($this->input->post('tab',TRUE) == 2)
 		{
+
 			$old_pass 	= trim(strip_tags($this->input->post('old-pass',TRUE)));
 			$new_pass 	= trim(strip_tags($this->input->post('new-pass',TRUE)));
 			$conf_pass 	= trim(strip_tags($this->input->post('conf-new-pass',TRUE)));
@@ -287,6 +294,10 @@ class Account extends MY_controller
 			else if ($new_pass != $conf_pass)
 			{
 				$err = langLine('notifAccount.password.span.4', false);
+			}
+			else if (APP_DEMO)
+			{
+				$ok = "Oops!, This Action is not allowed on the Demo!";
 			}
 			else
 			{
@@ -629,62 +640,69 @@ class Account extends MY_controller
 
 		if ($this->input->post('update-Settings'))
 		{
-			$pub 		= strip_tags($this->input->post('user_pub',TRUE));
-			$channel 	= $this->input->post('user_channel',TRUE);
-			$count 		= abs(intval($this->input->post('user_countdown',TRUE)));
-			$url 		= trim(strip_tags($this->input->post('user_url',TRUE)));
-			$user_id 	= $this->data['userdata']['id'];
-
-			if ($pub == '')
+			if (APP_DEMO)
 			{
-				$err = langLine('notifAccount.settings.span.1', false);
-			}
-			else if (!preg_match("/^(pub-){1}([0-9]{16})$/",$pub))
-			{
-				$err = langLine('notifAccount.settings.span.2', false);
-			}
-			else if ($channel != '' && !is_numeric($channel))
-			{
-				$err = langLine('notifAccount.settings.span.3', false);
-			}
-			else if (mb_strlen($channel) > 10)
-			{
-				$err = langLine('notifAccount.settings.span.4', false);
-			}
-			else if ($count < 10 or $count > 60)
-			{
-				$err = langLine('notifAccount.settings.span.5', false);
-			}
-			else if ($url != '' && !filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED))
-			{
-				$err = langLine('notifAccount.settings.span.6', false);
+				$ok = "Oops!, This Action is not allowed ok the Demo!";
 			}
 			else
 			{
-				$a = array();
-				$a['user_pub']		= $pub;
-				$a['user_channel']	= $channel;
-				$a['countdown'] 	= $count;
-				$a['user_url'] 		= $url;
-				foreach ($a as $k => $v)
+				$pub 		= strip_tags($this->input->post('user_pub',TRUE));
+				$channel 	= $this->input->post('user_channel',TRUE);
+				$count 		= abs(intval($this->input->post('user_countdown',TRUE)));
+				$url 		= trim(strip_tags($this->input->post('user_url',TRUE)));
+				$user_id 	= $this->data['userdata']['id'];
+
+				if ($pub == '')
 				{
-					$w2['user_id'] = $user_id;
-					$w2['user_option'] = $k;
-					$del = $this->cms_model->delete('usersmeta',$w2);
-					
-					$da['user_id'] = $user_id;
-					$da['user_option'] = $k;
-					$da['user_value'] = $v;
-					$insert = $this->cms_model->insert('usersmeta',$da);
+					$err = langLine('notifAccount.settings.span.1', false);
 				}
-				
-				if ($del && $insert)
+				else if (!preg_match("/^(pub-){1}([0-9]{16})$/",$pub))
 				{
-					$ok = langLine('notifAccount.settings.span.7', false);
+					$err = langLine('notifAccount.settings.span.2', false);
+				}
+				else if ($channel != '' && !is_numeric($channel))
+				{
+					$err = langLine('notifAccount.settings.span.3', false);
+				}
+				else if (mb_strlen($channel) > 10)
+				{
+					$err = langLine('notifAccount.settings.span.4', false);
+				}
+				else if ($count < 10 or $count > 60)
+				{
+					$err = langLine('notifAccount.settings.span.5', false);
+				}
+				else if ($url != '' && !filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED))
+				{
+					$err = langLine('notifAccount.settings.span.6', false);
 				}
 				else
 				{
-					$err = langLine('notifAccount.settings.span.8', false);
+					$a = array();
+					$a['user_pub']		= $pub;
+					$a['user_channel']	= $channel;
+					$a['countdown'] 	= $count;
+					$a['user_url'] 		= $url;
+					foreach ($a as $k => $v)
+					{
+						$w2['user_id'] = $user_id;
+						$w2['user_option'] = $k;
+						$del = $this->cms_model->delete('usersmeta',$w2);
+						
+						$da['user_id'] = $user_id;
+						$da['user_option'] = $k;
+						$da['user_value'] = $v;
+						$insert = $this->cms_model->insert('usersmeta',$da);
+					}
+					
+					if ($del && $insert)
+					{
+						$ok = langLine('notifAccount.settings.span.7', false);
+					}
+					else
+					{
+						$err = langLine('notifAccount.settings.span.8', false);
+					}
 				}
 			}
 		}

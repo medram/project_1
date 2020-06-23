@@ -1,0 +1,17 @@
+ci_sessions/*
+!ci_sessions/index.html
+
+application/cache/*
+!application/cache/.htaccess
+!application/cache/index.html
+
+application/libraries/MR4Web/cache/*
+!application/libraries/MR4Web/cache/index.html
+
+uploads/users/profile-images/*
+!uploads/users/profile-images/default-boy.png
+!uploads/users/profile-images/index.html
+
+vendor/*
+#application/config/config.php
+#application/config/database.php

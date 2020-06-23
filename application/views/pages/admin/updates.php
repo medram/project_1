@@ -14,7 +14,7 @@
                         <h3><i class="fa fa-fw fa-check"></i> License Information: <small title="status"><?php echo $status; ?></small></h3>
                         <div><p><b>Note:</b> you can activate and deactivate your license (purchase code) easily from here.</p></div>
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" value="<?php echo config_item('purchase_code');?>" disabled>
+                            <input type="text" class="form-control" value="xxxx-xxxx-xxxx-xxxx" disabled>
                             <!-- <b><a href='license'>Active / Deactivate</a> License.</b> -->       
                             <span class="input-group-btn"><a href='license' class="btn btn-primary">Activate / Deactivate</a></span>
                         </div>
@@ -119,7 +119,7 @@
                         <div>
                             <p>feel free to contact us:</p>
                             <b>support:</b> <a href="mailto:support-adlinker@mr4web.com">support-adlinker@mr4web.com</a><br>
-                            <b>contact:</b> <a href="mailto:contact@mr4web.com">contact@mr4web.com</a>
+                            <b>contact:</b> <a href="mailto:contact-adlinker@mr4web.com">Contact-adlinker@mr4web.com</a>
                         </div>
                         <br>
                     </div>

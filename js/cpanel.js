@@ -1,6 +1,9 @@
 $(function (){
 
-
+	function getAjaxURL()
+	{
+		return location.href.split('adminpanel')[0] + "adminpanel/ajax"
+	}
 	/*=========================== auto copy the urls ==============================*/
 
 	$('.copy').click(function (){
@@ -42,7 +45,7 @@ $(function (){
 
 	    if(confirm("Are you sure you want to delete this user (id: "+id+") ?")){
 	       $.ajax({
-	       		url: $.url()+'/../ajax',
+	       		url: getAjaxURL(),
 	       		type: 'POST',
 	       		data: "deleteUser=1&id="+id,
 	       		success: function(r,s,xhr)
@@ -75,7 +78,7 @@ $(function (){
 		if (confirm("Are you sure to Delete this profile image ?"))
 		{
 			$.ajax({
-				url: $.url()+'/../../../ajax',
+				url: getAjaxURL(),
 				type: 'POST',
 				data: "delete_image=1&token="+token,
 				success: function (r,s,xhr)
@@ -109,7 +112,7 @@ $(function (){
 	    if(confirm("Are you sure you want to delete this Page (id: "+id+")?"))
 	    {
 	       $.ajax({
-	            url: $.url()+'/../ajax',
+	            url: getAjaxURL(),
 	            type: 'POST',
 	            data: "deletePage=1&id="+id,
 	            success: function(r,s,xhr)
@@ -188,7 +191,7 @@ $(function (){
 
 	    if(confirm("Are you sure you want to delete this link (id: "+id+") ?")){
 	       $.ajax({
-	       		url: $.url()+'/../ajax',
+	       		url: getAjaxURL(),
 	       		type: 'POST',
 	       		data: "deleteLink=1&id="+id,
 	       		success: function(r,s,xhr)
@@ -222,7 +225,7 @@ $(function (){
 	    if(confirm("Are you sure you want to delete this language (ID: "+id+")?\nremember, the translated files will be removed."))
 	    {
 	       $.ajax({
-	            url: $.url()+'/../ajax',
+	            url: getAjaxURL(),
 	            type: 'POST',
 	            data: "deleteLang=1&id="+id,
 	            success: function(r,s,xhr)
