@@ -201,13 +201,22 @@ INSERT INTO `{DBP}settings` (`option_id`, `option_name`, `option_value`, `autolo
 (49, 'bad_urls', 'gsurl.in\r\nlinkshrink.net\r\nadf.ly', 'no'),
 (50, 'go_head_code', '', 'no'),
 (51, 'showFakeNumbers', '1', 'no'),
-(52, 'fakeViews', '314802', 'no'),
-(53, 'fakeUsers', '568', 'no'),
-(54, 'fakeLinks', '1350', 'no'),
+(52, 'fakeViews', '35000', 'no'),
+(53, 'fakeUsers', '500', 'no'),
+(54, 'fakeLinks', '1400', 'no'),
 (55, 'packages_domains', '', 'no'),
 (56, 'purchase_code', '', 'yes'),
 (57, 'viewed_news', '1', 'yes'),
-(58, 'last_update', '0', 'yes');
+(58, 'last_update', '0', 'yes'),
+(59, 'social_media_facebook', '', 'no'),
+(60, 'social_media_twitter', '', 'no'),
+(61, 'social_media_youtube', '', 'no'),
+(62, 'social_media_github', '', 'no'),
+(63, 'social_media_linkedin', '', 'no'),
+(64, 'social_media_reddit', '', 'no'),
+(65, 'social_media_pinterest', '', 'no'),
+(66, 'social_media_tumblr', '', 'no'),
+(67, "social_media_instagram", "", "no");
 
 
 -- --------------------------------------------------------
@@ -357,7 +366,7 @@ ALTER TABLE `{DBP}pages`
 -- AUTO_INCREMENT for table `{DBP}settings`
 --
 ALTER TABLE `{DBP}settings`
-  MODIFY `option_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `option_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 --
 -- AUTO_INCREMENT for table `{DBP}statistics`
 --
