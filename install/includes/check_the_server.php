@@ -47,6 +47,13 @@ if (!in_array('curl', get_loaded_extensions()))
 	$err[] = 'You must enable <b>curl</b> extension on PHP.';
 }
 
+/*=============== Check for gd extension ====================*/
+
+if (!in_array('gd', get_loaded_extensions()))
+{
+	$err[] = 'You must enable <b>gd</b> extension on PHP.';
+}
+
 /*=============== Check for mysqli extension ====================*/
 
 if (!in_array('mysqli', get_loaded_extensions()))
