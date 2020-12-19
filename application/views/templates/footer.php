@@ -23,7 +23,7 @@
 	</div>
     <?php } ?>
 	<footer class='container-fluid'>
-		<div class='container' style="padding-top: 40px; padding-bottom: 40px;">
+		<div class='container' style="padding-top: 5em; padding-bottom: 5em;">
 			<div class='row'>
 		        <div class="col-xs-4 footer-links">
 		        	<div class="<?php if (config_item("show_logo") == 1){echo 'site-logo-img';} ?>">

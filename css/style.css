@@ -59,12 +59,13 @@ body > section
 
 .navbar .navbar-nav > li > a
 {
-	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 	transition: all .2s ease;
 	-webkit-transition: all .2s ease;
 	-moz-transition: all .2s ease;
 	-o-transition: all .2s ease;
+	margin-left: 0.4em;
 }
 
 .navbar .navbar-nav > li > a:hover
@@ -72,6 +73,16 @@ body > section
 	background-color: #8CC152;
 	color: #FFF;
 }
+
+.navbar .navbar-nav > li > a.active {
+	background-color: #394867;
+	color: #FFF;
+	border-radius: 3em;
+}
+.navbar .navbar-nav > li > a.active:hover {
+	background-color: #8CC152;
+}
+
 
 .navbar .navbar-nav .dropdown-toggle
 {
@@ -100,9 +111,10 @@ body > section
 {
 	background-color: #8CC152;
 	color: #FFF;
+	border-radius: 3em;
 }
 
-/*------------ default inverse ------------*/
+/*------------ default inverse ------------
 
 .navbar-inverse
 {
@@ -308,10 +320,17 @@ body > section
 /*--------------- footer ----------------*/
 footer
 {
-    color: #DDD;
+    color: #FFF;
 	background-color: #14274e;
 	/*padding-top: 30px;
     padding-bottom: 30px;*/
+}
+
+footer a {
+	color: #8cc152 !important;
+}
+footer a:hover {
+	color: #8cc152 !important;
 }
 
 footer .footer-links {
@@ -347,7 +366,8 @@ footer .copy select {
 
 .analytics-box
 {
-	background: url('../img/pexels-1.jpg') no-repeat;
+	/*background: url('../img/pexels-1.jpg') no-repeat;*/
+	background-image: linear-gradient(45deg, #3e7600, #aded66);
 	background-attachment: fixed;
 	background-size: cover;
 	font-size: 50px;
@@ -503,8 +523,8 @@ footer .copy select {
 
 .site-logo-img
 {
-	padding-top: 7px !important;
-    padding-bottom: 7px !important;
+	padding-top: 15px !important;
+    padding-bottom: 15px !important;
 }
 .site-logo-img img
 {
@@ -597,3 +617,29 @@ footer .copy select {
 	box-shadow: -1px 1px 3px rgba(0,0,0,0.2);
 }
 
+.contact-us-box {
+	padding-top: 2em;
+	padding-bottom: 2em;
+}
+
+.contact-us-box div.row {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.contact-us-box div.row div.text {
+
+}
+
+.page-header {
+	border-bottom: none;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+	padding-top: 17px;
+}
+
+.primary-color {
+	color: #8CC152 !important;
+}
