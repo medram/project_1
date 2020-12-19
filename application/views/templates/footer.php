@@ -10,7 +10,7 @@
 				<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-			
+
 			<?php
 			foreach (config_item('languages') as $k => $row)
 			{
@@ -23,42 +23,65 @@
 	</div>
     <?php } ?>
 	<footer class='container-fluid'>
-		<div class='container'>
+		<div class='container' style="padding-top: 40px; padding-bottom: 40px;">
 			<div class='row'>
-				<div class="col-xs-3 copy">
-					<span dir="ltr">&copy; <?php echo date('Y') .' '. config_item('sitename'); ?></span>
-					<?php
-						if (is_array(config_item('languages')) && count(config_item('languages')) > 1)
-						{
-							echo " - <select id='lang'>";
-							$selected = '';
-							foreach (config_item('languages') as $k => $row)
-							{
-								$selected = ($row['name'] == config_item('validLang')['name'])? 'selected' : '' ;
-								echo "<option value='".$row['symbol']."' ".$selected.">".ucfirst($row['name'])."</option>";
-							}
-							echo "</select> <span class='fa fa-fw fa-language'></span>";
-						}
-					?>
-					<br>
+		        <div class="col-xs-4 footer-links">
+		        	<div class="<?php if (config_item("show_logo") == 1){echo 'site-logo-img';} ?>">
+		        		<?php echo get_logo(); ?>
+		        	</div>
+		        	<p><?php echo get_config_item('description') ?></p>
 		        </div>
-		        <div class="col-xs-9 footer-links">
+		        <div class="col-xs-4 social_media">
+		        	<h3><?php langLine('footer.social_media') ?>:</h3>
+		        	<?php
+		        		if (get_config_item('social_media_facebook'))
+			        		echo "<a href='".get_config_item('social_media_facebook')."'><img src='img/social_media/facebook.png'></a>";
+
+		        		if (get_config_item('social_media_instagram'))
+			        		echo "<a href='".get_config_item('social_media_instagram')."'><img src='img/social_media/instagram.png'></a>";
+
+			        	if (get_config_item('social_media_twitter'))
+		        			echo "<a href='".get_config_item('social_media_twitter')."'><img src='img/social_media/twitter.png'></a>";
+
+		        		if (get_config_item('social_media_youtube'))
+			        		echo "<a href='".get_config_item('social_media_youtube')."'><img src='img/social_media/youtube.png'></a>";
+
+						if (get_config_item('social_media_github'))
+			        		echo "<a href='".get_config_item('social_media_github')."'><img src='img/social_media/github.png'></a>";
+
+			        	if (get_config_item('social_media_linkedin'))
+			        		echo "<a href='".get_config_item('social_media_linkedin')."'><img src='img/social_media/linkedin.png'></a>";
+
+		        		if (get_config_item('social_media_reddit'))
+			        		echo "<a href='".get_config_item('social_media_reddit')."'><img src='img/social_media/reddit.png'></a>";
+
+			        	if (get_config_item('social_media_pinterest'))
+			        		echo "<a href='".get_config_item('social_media_pinterest')."'><img src='img/social_media/pinterest.png'></a>";
+
+			        	if (get_config_item('social_media_tumblr'))
+			        		echo "<a href='".get_config_item('social_media_tumblr')."'><img src='img/social_media/tumblr.png'></a>";
+		        	?>
+		        </div>
+		        <div class="col-xs-4 footer-links">
+		        	<h3><?php langLine('footer.links_and_pages') ?>:</h3>
 		        	<?php
 		        	$s = $this->cms_model->getPages('footer');
 
 					if ($s->num_rows() != 0)
 					{
 						$num = count($s->result_array());
+						echo "<ul>";
 						foreach ($s->result_array() as $k => $row)
 						{
-							echo "<a href='".base_url("p/".$row['slug'])."'>".$row['title']."</a>";
-							
-							if ($k != $num - 1)
-							{
-								echo " | ";
-							}
+							echo "<li><a href='".base_url("p/".$row['slug'])."'>".ucfirst($row['title'])."</a></li>";
+
+							// if ($k != $num - 1)
+							// {
+							// 	echo " | ";
+							// }
 							//echo $k;
 						}
+						echo "</ul>";
 					}
 
 					$s->free_result();
@@ -66,6 +89,25 @@
 				</div>
 			</div>
 		</div>
+		<div class='row'>
+			<div class="col-xs-12 text-center copy">
+				<span dir="ltr">&copy; <?php echo date('Y') .' '. config_item('sitename'); ?></span>
+				<?php
+					if (is_array(config_item('languages')) && count(config_item('languages')) > 1)
+					{
+						echo " - <select id='lang'>";
+						$selected = '';
+						foreach (config_item('languages') as $k => $row)
+						{
+							$selected = ($row['name'] == config_item('validLang')['name'])? 'selected' : '' ;
+							echo "<option value='".$row['symbol']."' ".$selected.">".ucfirst($row['name'])."</option>";
+						}
+						echo "</select> <span class='fa fa-fw fa-language'></span>";
+					}
+				?>
+				<br>
+	        </div>
+	    </div>
 	</footer>
     <!-- Bootstrap core JavaScript -->
     <script src="<?php echo base_url(); ?>css/bootstrap/js/bootstrap.js"></script>

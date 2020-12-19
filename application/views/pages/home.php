@@ -25,7 +25,7 @@
                 </div>
                 <div class='col-xs-8 col-sm-12 text-sm-right'>
                     <h2><?php langLine('theme.home.h2.1') ?></h2>
-                    <p><?php langLine('theme.home.h2.p1') ?></p>                
+                    <p><?php langLine('theme.home.h2.p1') ?></p>
                 </div>
             </div>
         </div><!-- /.col-lg-4 -->
@@ -81,13 +81,13 @@ if (get_config_item('showFakeNumbers'))
 <div class='container-fluid analytics-box'>
     <div class='row text-center'>
         <div class='col-md-4'>
-            <i class='fa fa-fw fa-eye'></i> <?php echo get_config_item('fakeViews');?>
+            <i class='fa fa-fw fa-eye'></i> +<?php echo get_config_item('fakeViews');?>
         </div>
         <div class='col-md-4'>
-            <i class='fa fa-fw fa-users'></i> <?php echo get_config_item('fakeUsers');?>
+            <i class='fa fa-fw fa-users'></i> +<?php echo get_config_item('fakeUsers');?>
         </div>
         <div class='col-md-4'>
-            <i class='fa fa-fw fa-link'></i> <?php echo get_config_item('fakeLinks');?>
+            <i class='fa fa-fw fa-link'></i> +<?php echo get_config_item('fakeLinks');?>
         </div>
     </div>
 </div>

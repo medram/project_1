@@ -27,17 +27,18 @@
     {
     	echo "<script src='".base_url()."js/account.js?v=1.0' type='text/javascript'></script>";
     }
-	?>    
+	?>
 
 	<!-- fonts -->
 	<link href="https://fonts.googleapis.com/earlyaccess/droidarabickufi.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,600;0,800;1,200;1,400;1,600;1,800&display=swap" rel="stylesheet">
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url(); ?>css/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="<?php echo base_url(); ?>css/font-awesome/font-awesome.min.css" rel="stylesheet"> 
-    
+    <link href="<?php echo base_url(); ?>css/font-awesome/font-awesome.min.css" rel="stylesheet">
+
     <!-- Load the style of the site -->
-    <link href="<?php echo base_url(); ?>css/style.css?v=1.0" rel="stylesheet">    
+    <link href="<?php echo base_url(); ?>css/style.css?v=1.0" rel="stylesheet">
 
     <!-- for RTL theme -->
     <?php if (config_item('validLang')['isRTL']){ ?>
@@ -104,7 +105,7 @@
 		        <li class="dropdown">
 		        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 		        			<!--<i class='fa fa-fw fa-lg fa-user'></i>-->
-		        			<img src='<?php echo get_profile_img($userdata['user_token']); ?>' class='pro-img img-circle ' width='35px' height='35px' > 
+		        			<img src='<?php echo get_profile_img($userdata['user_token']); ?>' class='pro-img img-circle ' width='35px' height='35px' >
 		          			<b><?php echo $userdata['username'];?></b> <span class="caret"></span>
 		          	</a>
 		          <ul class="dropdown-menu">

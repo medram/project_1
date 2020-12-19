@@ -9,12 +9,12 @@ footer {
 }
 
 footer .footer-links {
-	text-align: left;
+	direction: rtl;
+	text-align: right;
 }
 
 footer .copy {
 	direction: ltr;
-	text-align: right;
 }
 
 /*--------------- account ---------------*/
