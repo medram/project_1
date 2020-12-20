@@ -11,7 +11,7 @@ class MY_controller extends CI_controller
 		$this->load->model('cms_model');
 		$this->cms_model->site_config(); // get the configuration of my site :D
 		date_default_timezone_set(config_item('default_timezone'));
-		
+
 		// language
 		$this->check_language();
 		// check the license.
@@ -25,7 +25,7 @@ class MY_controller extends CI_controller
 	private function check_the_server_is_ready ()
 	{
 		$path = __DIR__.'..\..\..\install'; // the path of instalation folder.
-		
+
 		if (file_exists($path))
 		{
 			header('location: ./install');
@@ -59,7 +59,17 @@ class MY_controller extends CI_controller
 			}
 		}
 
-		$language = $langs[$lang_id-1];
+
+		$language = $langs[0]; // set a first active language, in case of default lang is not active.
+		# get the default language.
+		foreach ($langs as $k => $lang)
+		{
+			if (intval($lang['id']) == intval($lang_id)){
+				$language = $lang;
+				break;
+			}
+		}
+
 		$this->config->set_item('validLang', $language);
 		$this->config->set_item('languages', $langs);
 	}
