@@ -30,6 +30,43 @@ body > section
 	margin-top: 60px;
 }
 
+/*-------------- bootstarp fixes -------------*/
+.container-fluid {
+	padding-right: 0;
+	padding-left: 0;
+}
+
+.row {
+	margin-right: 0;
+	margin-left: 0;
+}
+
+.form-control {
+	color: #555;
+	height: 40px;
+	border-radius: 8px;
+	border: 2px solid #ccc;
+	box-shadow: none;
+}
+
+.btn {
+	border-radius: 5rem;
+	border: 2px solid transparent;
+	/* set default btn as a large btn */
+	padding: 6px 16px;
+	font-size: 18px;
+    line-height: 1.3333333;
+}
+
+.btn-lg, .btn-group-lg > .btn {
+	padding: 6px 16px;
+}
+
+.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus {
+	outline: none;
+	outline-offset: none;
+}
+
 /*-------------- header -------------*/
 .navbar
 {
@@ -75,12 +112,12 @@ body > section
 }
 
 .navbar .navbar-nav > li > a.active {
-	background-color: #394867;
+	background-color: #6a29c6;
 	color: #FFF;
 	border-radius: 3em;
 }
 .navbar .navbar-nav > li > a.active:hover {
-	background-color: #8CC152;
+	background-color: #8138e8;
 }
 
 .navbar .navbar-nav > li > a.active-2 {
@@ -184,6 +221,13 @@ body > section
 	{
 		text-align: left;
 	}
+
+	.contact-us-box {
+		flex-direction: column;
+	}
+	.contact-us-box div.text {
+		text-align: center;
+	}
 }
 
 /* Medium Devices, Desktops (md) */
@@ -204,6 +248,26 @@ body > section
 		text-align: left;
 	}
 
+	.jumbotron .container {
+		flex-direction: column-reverse;
+		flex-wrap: wrap;
+	}
+
+	.jumbotron .container .left-box {
+		align-items: center;
+		text-align: center !important;
+		flex: 1;
+	}
+	.jumbotron .container .left-box h1 {
+		font-size: 3.5rem !important;
+	}
+	.jumbotron .container .right-box {
+		flex: 1;
+	}
+	.jumbotron .container .right-box img {
+		width: 450px;
+	}
+
 }
 
 
@@ -222,10 +286,18 @@ body > section
 
 .jumbotron
 {
-	background-color: rgba(0,0,0,0.6);
+	/*background-color: rgba(0,0,0,0.6);*/
 	height: 100%;
 	padding: 0px;
-	margin: 0px;
+	margin: 0;
+	background-image: linear-gradient(-28deg, #5003a5, transparent);
+	background-color: #5952c1;
+	color: #FFF;
+	border-bottom: 1px solid #DDD;
+}
+
+.jumbotron h1 {
+	font-size: 5rem !important;
 }
 
 .jumbotron-background
@@ -248,8 +320,24 @@ body > section
 
 .jumbotron .container
 {
-	padding-top: 100px;
-	line-height: 200px;
+/*	padding-top: 50px;
+	padding-bottom: 50px;
+	line-height: 200px;*/
+	display: flex;
+	height: 70vh;
+	min-height: 30em;
+}
+
+.jumbotron .container .left-box {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.jumbotron .container .right-box {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
 
 
@@ -261,7 +349,6 @@ body > section
 {
 	font-weight: lighter;
 	color: #FFF;
-	text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
 	border-radius: 1.5em;
 }
 
@@ -331,9 +418,8 @@ body > section
 footer
 {
     color: #FFF;
-	background-color: #14274e;
-	/*padding-top: 30px;
-    padding-bottom: 30px;*/
+	/*background-color: #14274e;*/
+	background-color: #5010ac;
 }
 
 footer a {
@@ -361,7 +447,8 @@ footer .copy {
     padding-top: 20px;
     padding-bottom: 20px;
     color: #DDD;
-    background-color: #394867;
+    /*background-color: #394867;*/
+    background-color: #6a29c6;
 }
 footer .copy select {
 	color: #575757;
@@ -377,9 +464,14 @@ footer .copy select {
 .analytics-box
 {
 	/*background: url('../img/pexels-1.jpg') no-repeat;*/
+/*	background-attachment: fixed;
+	background-size: cover;*/
 	background-image: linear-gradient(45deg, #3e7600, #aded66);
-	background-attachment: fixed;
-	background-size: cover;
+	background-image: -webkit-linear-gradient(45deg, #3e7600, #aded66);
+	background-image: -moz-linear-gradient(45deg, #3e7600, #aded66);
+	background-image: -ms-linear-gradient(45deg, #3e7600, #aded66);
+	background-image: -o-linear-gradient(45deg, #3e7600, #aded66);
+	background-color: #3e7600;
 	font-size: 50px;
 	font-weight: lighter;
 	color: #FFF;
@@ -623,24 +715,27 @@ footer .copy select {
 	top: 25%;
 	left: -5px;
 	width: 60px;
-	border-radius: 5px;
-	box-shadow: -1px 1px 3px rgba(0,0,0,0.2);
+	/*box-shadow: -1px 1px 3px rgba(0,0,0,0.2);*/
+}
+
+#lang-box button {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
 }
 /*====================================*/
 
 .contact-us-box {
 	padding-top: 2em;
 	padding-bottom: 2em;
-}
-
-.contact-us-box div.row {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
-
-.contact-us-box div.row div.text {
-
+.contact-us-box img {
+	flex: 1;
+}
+.contact-us-box div.text {
+	flex: 2;
 }
 
 .page-header {

@@ -25,13 +25,13 @@
 	<footer class='container-fluid'>
 		<div class='container' style="padding-top: 5em; padding-bottom: 5em;">
 			<div class='row'>
-		        <div class="col-xs-4 footer-links">
+		        <div class="col-md-4 footer-links">
 		        	<div class="<?php if (config_item("show_logo") == 1){echo 'site-logo-img';} ?>">
 		        		<?php echo get_logo(); ?>
 		        	</div>
 		        	<p><?php echo get_config_item('description') ?></p>
 		        </div>
-		        <div class="col-xs-4 social_media">
+		        <div class="col-md-4 social_media">
 		        	<h3><?php langLine('footer.social_media') ?>:</h3>
 		        	<?php
 		        		if (get_config_item('social_media_facebook'))
@@ -62,7 +62,7 @@
 			        		echo "<a href='".get_config_item('social_media_tumblr')."'><img src='".base_url("img/social_media/tumblr.png")."'></a>";
 		        	?>
 		        </div>
-		        <div class="col-xs-4 footer-links">
+		        <div class="col-md-4 footer-links">
 		        	<h3><?php langLine('footer.links_and_pages') ?>:</h3>
 		        	<?php
 		        	$s = $this->cms_model->getPages('footer');
@@ -111,6 +111,8 @@
 	</footer>
     <!-- Bootstrap core JavaScript -->
     <script src="<?php echo base_url(); ?>css/bootstrap/js/bootstrap.js"></script>
+    <!-- <script src="<?php echo base_url(); ?>css/bootstrap4/js/bootstrap.min.js"></script> -->
+    <script src="<?php echo base_url(); ?>css/bootstrap4/js/popper.min.js"></script>
     <script src="<?php echo base_url(); ?>js/main.js"></script>
 <?php
 //echo substr(microtime(TRUE) - MICROTIME,0,5)." ms";

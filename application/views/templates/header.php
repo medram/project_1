@@ -20,6 +20,7 @@
 
     <!-- Load jQuery library -->
     <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery-1.12.3.min.js"></script>
+    <!-- <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery-3.2.1.min.js"></script> -->
     <script type="text/javascript" src="<?php echo base_url(); ?>js/plugin.js"></script>
 
     <?php
@@ -35,6 +36,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url(); ?>css/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- <link href="<?php echo base_url(); ?>css/bootstrap4/css/bootstrap.min.css" rel="stylesheet"> -->
     <link href="<?php echo base_url(); ?>css/font-awesome/font-awesome.min.css" rel="stylesheet">
 
     <!-- Load the style of the site -->

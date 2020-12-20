@@ -2,6 +2,16 @@
 	right: -7px;
 }
 
+#lang-box button {
+	border-top-left-radius: 5rem;
+	border-bottom-left-radius: 5rem;
+}
+
+#lang-box .dropdown {
+	border-top-left-radius: 5rem;
+	border-bottom-left-radius: 5rem;
+}
+
 /*----------------- footer -----------------*/
 
 footer {
