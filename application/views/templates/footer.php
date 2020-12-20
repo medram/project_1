@@ -35,31 +35,31 @@
 		        	<h3><?php langLine('footer.social_media') ?>:</h3>
 		        	<?php
 		        		if (get_config_item('social_media_facebook'))
-			        		echo "<a href='".get_config_item('social_media_facebook')."'><img src='img/social_media/facebook.png'></a>";
+			        		echo "<a href='".get_config_item('social_media_facebook')."'><img src='".base_url("img/social_media/facebook.png")."'></a>";
 
 		        		if (get_config_item('social_media_instagram'))
-			        		echo "<a href='".get_config_item('social_media_instagram')."'><img src='img/social_media/instagram.png'></a>";
+			        		echo "<a href='".get_config_item('social_media_instagram')."'><img src='".base_url("img/social_media/instagram.png")."'></a>";
 
 			        	if (get_config_item('social_media_twitter'))
-		        			echo "<a href='".get_config_item('social_media_twitter')."'><img src='img/social_media/twitter.png'></a>";
+		        			echo "<a href='".get_config_item('social_media_twitter')."'><img src='".base_url("img/social_media/twitter.png")."'></a>";
 
 		        		if (get_config_item('social_media_youtube'))
-			        		echo "<a href='".get_config_item('social_media_youtube')."'><img src='img/social_media/youtube.png'></a>";
+			        		echo "<a href='".get_config_item('social_media_youtube')."'><img src='".base_url("img/social_media/youtube.png")."'></a>";
 
 						if (get_config_item('social_media_github'))
-			        		echo "<a href='".get_config_item('social_media_github')."'><img src='img/social_media/github.png'></a>";
+			        		echo "<a href='".get_config_item('social_media_github')."'><img src='".base_url("img/social_media/github.png")."'></a>";
 
 			        	if (get_config_item('social_media_linkedin'))
-			        		echo "<a href='".get_config_item('social_media_linkedin')."'><img src='img/social_media/linkedin.png'></a>";
+			        		echo "<a href='".get_config_item('social_media_linkedin')."'><img src='".base_url("img/social_media/linkedin.png")."'></a>";
 
 		        		if (get_config_item('social_media_reddit'))
-			        		echo "<a href='".get_config_item('social_media_reddit')."'><img src='img/social_media/reddit.png'></a>";
+			        		echo "<a href='".get_config_item('social_media_reddit')."'><img src='".base_url("img/social_media/reddit.png")."'></a>";
 
 			        	if (get_config_item('social_media_pinterest'))
-			        		echo "<a href='".get_config_item('social_media_pinterest')."'><img src='img/social_media/pinterest.png'></a>";
+			        		echo "<a href='".get_config_item('social_media_pinterest')."'><img src='".base_url("img/social_media/pinterest.png")."'></a>";
 
 			        	if (get_config_item('social_media_tumblr'))
-			        		echo "<a href='".get_config_item('social_media_tumblr')."'><img src='img/social_media/tumblr.png'></a>";
+			        		echo "<a href='".get_config_item('social_media_tumblr')."'><img src='".base_url("img/social_media/tumblr.png")."'></a>";
 		        	?>
 		        </div>
 		        <div class="col-xs-4 footer-links">
