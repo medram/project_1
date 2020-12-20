@@ -9,16 +9,18 @@ $lang['theme.header.profile'] = 'My profile';
 $lang['theme.header.logout'] = 'Logout';
 
 /*------------- home page -------------*/
-$lang['theme.home.jumbotron.title'] = 'Double your profits with shorten links with ease and security';
-$lang['theme.home.jumbotron.registerForFree'] = 'Register for free';
-$lang['theme.home.title2'] = 'All what you have to do is:';
-$lang['theme.home.h2.1'] = 'Short some good links';
-$lang['theme.home.h2.2'] = 'Share the links on network';
-$lang['theme.home.h2.3'] = 'Your profits will rise';
-$lang['theme.home.h2.p1'] = 'Register now and start to short some good links';
-$lang['theme.home.h2.p2'] = 'You can share your shorten links with your friends on the social media like facebook, twitter and so on.';
-$lang['theme.home.h2.p3'] = 'When your shorten links rise, your ads views rise and that will give you a good earnings (profits)';
-
+$lang['theme.home.jumbotron.title'] = 'Raise Your Google Adsense Revenues via URL Shortening,<br>Easy and Safe.';
+$lang['theme.home.jumbotron.registerForFree'] = 'Start Today';
+$lang['theme.home.title2'] = 'All What You Need to Do?';
+$lang['theme.home.h2.1'] = 'Short Some Good Links';
+$lang['theme.home.h2.2'] = 'Share Your Links on the Internet';
+$lang['theme.home.h2.3'] = 'See Your Profit Rising';
+$lang['theme.home.h2.p1'] = 'Register now and start creating some good links';
+$lang['theme.home.h2.p2'] = 'You can share your shorten links on the social media (e.g. facebook, twitter...) to get traffic as much as posible to your links.';
+$lang['theme.home.h2.p3'] = 'The more traffic you get, the more your ads impressions rise, the more revenues you get.';
+$lang['theme.home.h2.4'] = 'Need help? Contact us';
+$lang['theme.home.h2.p4'] = 'For any help or suggestions please feel free to contact us.';
+$lang['theme.home.h2.button'] = 'Send us a message!';
 
 /*------------- login page -------------*/
 $lang['theme.login.title'] = 'Login page';
