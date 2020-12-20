@@ -88,7 +88,7 @@
 		        		echo "<li><a href='".base_url()."'>".langLine('theme.header.home', false)."</a></li>";
 						foreach ($s->result_array() as $row)
 						{
-							echo "<li><a href='".base_url("p/".$row['slug'])."'>".$row['title']."</a></li>";
+							echo "<li><a href='".base_url("p/".$row['slug'])."'>".ucfirst($row['title'])."</a></li>";
 						}
 					}
 
