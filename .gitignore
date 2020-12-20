@@ -11,7 +11,7 @@ application/libraries/MR4Web/cache/*
 uploads/users/profile-images/*
 !uploads/users/profile-images/default-boy.png
 !uploads/users/profile-images/index.html
-
+install-/
 vendor/*
 #application/config/config.php
 #application/config/database.php
