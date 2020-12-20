@@ -103,7 +103,7 @@ if (get_config_item('showFakeNumbers'))
             <div class='text'>
                 <h2>Need help? Contact us</h2>
                 <p>For any help or suggestions please feel free to contact us.</p>
-                <a class="btn btn-success" href="p/contact">Contact us!</a>
+                <a class="btn btn-success" href="<?php echo base_url('p/contact') ?>">Contact us!</a>
             </div>
         </div>
     </div>
