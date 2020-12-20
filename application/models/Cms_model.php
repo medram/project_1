@@ -47,7 +47,7 @@ class Cms_model extends MY_model
             $set['time']        = $time;
 
             $w_up['ip']         = $ip;
-            
+
             $up = $this->update('online',$set,$w_up);
         }
         else
@@ -84,8 +84,8 @@ class Cms_model extends MY_model
             //$where['show_footer'] = 1;
             $where .= ' AND show_footer=1';
         }
-        
-        $where .= ' AND lang_id='.config_item('validLang')['id'].' OR lang_id=0';
+
+        $where .= ' AND lang_id='.intval(config_item('validLang')['id']).' OR lang_id=0';
         return $this->select('pages',$where);
     }
 
@@ -117,9 +117,9 @@ class Cms_model extends MY_model
 
     public function is_closed ()
     {
-    	if (config_item('siteclose') == 1 
-                && $this->uri->segment(1) != 'closed' 
-                && $this->uri->segment(1) != config_item('admin_page_path') 
+    	if (config_item('siteclose') == 1
+                && $this->uri->segment(1) != 'closed'
+                && $this->uri->segment(1) != config_item('admin_page_path')
                 && $this->uri->segment(1) != 'logout')
     	{
     		redirect(base_url().'closed');
@@ -170,9 +170,9 @@ class Cms_model extends MY_model
                 $w['user_verified'] = 1;
 
                 $q = $this->select('users',$w);
-                
+
                 $r = $q->result_array();
-                
+
                 if ($r[0]['account_status'] == 1)
                 {
                     $err = langLine('notifAccount.cms_model.span.6', false);
@@ -193,7 +193,7 @@ class Cms_model extends MY_model
                     }
 
                     $this->session->set_userdata($userdata);
-                    
+
                     //$remember == 1 && $type_login == 'users'
                     if (true)
                     {
@@ -218,8 +218,8 @@ class Cms_model extends MY_model
                     {
                         $goto = 'account';
                     }
-                    
-                    redirect(base_url($goto));  
+
+                    redirect(base_url($goto));
                     //$data['session'] = $this->session->userdata();
                 }
                 $q->free_result();
@@ -323,7 +323,7 @@ class Cms_model extends MY_model
 	public function is_login ($email,$pass)
 	{
 		$s = $this->select('users',array('email'=>$email,'user_verified'=>1));
-		
+
 		if ($s->num_rows() == 1)
 		{
             $r = $s->result_array();
@@ -349,21 +349,21 @@ class Cms_model extends MY_model
             $this->load->library('encryption');
             $cookie_token = get_cookie(config_item('cookie_name'));
             $cookie_token = $this->encryption->decrypt($cookie_token);
-            
+
             if ($cookie_token != "")
             {
                 $q = $this->select('users',array('user_token'=>$cookie_token,'user_verified'=>1));
                 if ($q->num_rows() == 1)
                 {
                     $r = $q->result_array();
-                    
+
                     if ($r[0]['user_status'] == 1)
                     {
                         $d['admin_token'] = $r[0]['user_token'];
                     }
-                    
-                    $d['token'] = $r[0]['user_token'];    
-                    
+
+                    $d['token'] = $r[0]['user_token'];
+
                     $this->session->set_userdata($d);
                 }
             }
@@ -397,21 +397,21 @@ class Cms_model extends MY_model
                     $w['user_status'] = 1;
                 }
                 $sel = $this->cms_model->select('users',$w);
-            
+
                 if ($sel->num_rows() == 1)
                 {
                     $row = $sel->row_array();
                     $code = encode($row['user_token']."--".time(),TRUE);
 
                     // send a msg to the email
-                    
+
                     $to = $row['email'];
                     $subject = langLine('notifAccount.cms_model.span.10', false);
 
                     $page = ($type == '')? 'login' : get_config_item('admin_page_path').'/login' ;
 
                     $t = base_url($page)."/repass?t=".$code;
-                    
+
                     $msg_path = "forget_password";
 
                     $consts = array(
@@ -482,7 +482,7 @@ class Cms_model extends MY_model
             {
                 $err = langLine('notifAccount.cms_model.span.16', false);
             }
-            else if (mb_strlen($newPass) > 100) 
+            else if (mb_strlen($newPass) > 100)
             {
                 $err = langLine('notifAccount.cms_model.span.17', false);
             }
@@ -559,7 +559,7 @@ class Cms_model extends MY_model
         else if ($country == 0)
         {
             $err = langLine('notifAccount.cms_model.span.25', false);
-        }        
+        }
         else if (!preg_match("/^((0?[13578]|10|12)(-|\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[01]?))(-|\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1}))|(0?[2469]|11)(-|\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[0]?))(-|\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1})))$/m",$birth_day))
         {
             $err = langLine('notifAccount.cms_model.span.26', false);
@@ -584,7 +584,7 @@ class Cms_model extends MY_model
                 $w = array();
                 $w['user_id'] = $userId;
                 $w['user_option'] = $k;
-                
+
                 $del = $this->cms_model->delete('usersmeta', $w);
             }
 
@@ -603,10 +603,10 @@ class Cms_model extends MY_model
                 }
                 else
                 {
-                    array_push($s,0);   
+                    array_push($s,0);
                 }
             }
-            
+
             if (in_array(0,$s))
             {
                 $err = langLine('notifAccount.cms_model.span.27', false);
@@ -614,7 +614,7 @@ class Cms_model extends MY_model
             else
             {
                 $ok = langLine('notifAccount.cms_model.span.28', false);
-            }            
+            }
         } // end else
 
         if (isset($err) && $err != '')
@@ -625,7 +625,7 @@ class Cms_model extends MY_model
         {
             return array('ok',$ok);
         }
-    
+
     } // and userProfileUpdate function
 
 }
