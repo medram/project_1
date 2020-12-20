@@ -1,4 +1,4 @@
-<div class='container'>
+<div class='container account'>
 	<div class='row'>
 		<?php
 		echo $sidebar;
@@ -10,12 +10,12 @@
 				<form id='updateUserSettings' action='<?php echo base_url($page_path); ?>/ajax' method='post'>
 					<div class='form-group'>
 						<label><?php echo langLine('account.settings.span.1'); ?> :</label>
-						<input type='text' name='user_pub' class='form-control' placeholder='pub-xxxxxxxxxxxx' 
+						<input type='text' name='user_pub' class='form-control' placeholder='pub-xxxxxxxxxxxx'
 							value='<?php if (isset($userdata["user_pub"])){echo $userdata["user_pub"];} ?>' >
 					</div>
 					<div class='form-group'>
 						<label><?php echo langLine('account.settings.span.2'); ?> :</label>
-						<input type='text' name='user_channel' class='form-control'  
+						<input type='text' name='user_channel' class='form-control'
 							value='<?php if (isset($userdata["user_channel"])){echo $userdata["user_channel"];} ?>' >
 					</div>
 					<!-- <div class='form-group'>
@@ -25,7 +25,7 @@
 					</div> -->
 					<div class='form-group'>
 						<label><?php echo langLine('account.settings.span.4'); ?> :</label>
-						<input dir='ltr' type='text' name='user_url' class='form-control' placeholder='http://www.example.com' 
+						<input dir='ltr' type='text' name='user_url' class='form-control' placeholder='http://www.example.com'
 							value='<?php if (isset($userdata["user_url"])){echo $userdata["user_url"];} ?>' >
 					</div>
 					<div class='form-group'>

@@ -1,4 +1,4 @@
-<div class='container'>
+<div class='container account'>
 	<div class='row'>
 		<div class='col-lg-12'>
 			<h1><i class='fa fa-lock'></i> <?php echo $title; ?></h1>
@@ -12,7 +12,6 @@
 				?>
 			</div>
 		</div>
-		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	</div>
 </div>

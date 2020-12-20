@@ -1,7 +1,7 @@
 <script src='<?php echo base_url("js/ajax.form.js"); ?>'></script>
 <!-- recaptcha script -->
 <script src='https://www.google.com/recaptcha/api.js?hl=ar'></script>
-<div class='container'>
+<div class='container account'>
 	<div class='row'>
 		<?php
 		echo $sidebar;
@@ -81,17 +81,17 @@
 								</div>
 								<div class='form-group'>
 									<label><?php langLine('account.profile.span.11') ?> :</label>
-									<input type='text' name='birth-day' 
+									<input type='text' name='birth-day'
 									value='<?php if (isset($userdata["birth_date"])){echo $userdata["birth_date"];} ?>' placeholder='DD/MM/YYYY' class='form-control' >
 								</div>
 								<div class='form-group'>
 									<label><?php langLine('account.profile.span.12') ?> :</label>
-									<input type='text' name='sec-que' 
+									<input type='text' name='sec-que'
 									value='<?php if (isset($userdata["sec_ques"])){echo htmlentities($userdata["sec_ques"],ENT_QUOTES);} ?>' placeholder='<?php langLine('account.profile.span.13') ?>' class='form-control' >
 								</div>
 								<div class='form-group'>
 									<label><?php langLine('account.profile.span.14') ?> :</label>
-									<input type='text' name='ans-que' 
+									<input type='text' name='ans-que'
 									value='<?php if (isset($userdata["ans_ques"])){echo htmlentities($userdata["ans_ques"],ENT_QUOTES);} ?>' placeholder='<?php langLine('account.profile.span.15') ?>' class='form-control' >
 								</div>
 								<div class='form-group'>

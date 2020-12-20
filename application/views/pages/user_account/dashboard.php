@@ -91,7 +91,7 @@ if ($s_st->num_rows() > 0)
 	});
 </script>
 
-<div class='container'>
+<div class='container account'>
 
 <?php
 if (!isset($userdata['user_pub']) || empty($userdata['user_pub']))
@@ -153,7 +153,7 @@ if (!isset($userdata['user_pub']) || empty($userdata['user_pub']))
 					            </div>
 					        </div>
 					    </div>
-					</div>		
+					</div>
 				</div>
 				<div class='col-md-4'>
 					<div class="panel panel-warning">
@@ -168,7 +168,7 @@ if (!isset($userdata['user_pub']) || empty($userdata['user_pub']))
 					            </div>
 					        </div>
 					    </div>
-					</div>		
+					</div>
 				</div>
 			</div>
 			<div class='row'>

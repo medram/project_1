@@ -1,4 +1,4 @@
-<div class='container'>
+<div class='container account'>
 	<div class='row'>
 		<?php
 		echo $sidebar;
@@ -13,7 +13,7 @@
 					<div id='text-left'>
 						<form action='<?php echo base_url($page_path); ?>/mylinks/p/1' method='get'>
 							<div class="input-group">
-								<input type="text" class="form-control" name='s' placeholder="<?php langLine('account.mylinks.span.1') ?>" 
+								<input type="text" class="form-control" name='s' placeholder="<?php langLine('account.mylinks.span.1') ?>"
 									value='<?php if (isset($string)){echo htmlentities($string,ENT_QUOTES);}?>' >
 								<span class="input-group-btn">
 									<button class="btn btn-warning"><i class='fa fa-search'></i> <?php langLine('account.mylinks.search') ?></button>
@@ -40,7 +40,7 @@
 				}
 				else
 				{
-					foreach ($links->result_array() as $row) {	
+					foreach ($links->result_array() as $row) {
 				?>
 							<div class='row boxLink'>
 								<div class='col-xs-12'>

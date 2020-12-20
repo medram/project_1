@@ -120,7 +120,7 @@
 		        else
 		        {
 		        ?>
-	            <li><a href="<?php echo base_url(); ?>login"><i class="fa fa-fw fa-sign-in"></i> <?php langLine('theme.header.login'); ?></a></li>
+	            <li><a href="<?php echo base_url(); ?>login" class="active-2"><i class="fa fa-fw fa-sign-in"></i> <?php langLine('theme.header.login'); ?></a></li>
 	            <li class='divider'></li>
 	            <li><a href="<?php echo base_url(); ?>register" class="active"><i class="fa fa-fw fa-user-plus"></i> <?php langLine('theme.header.register'); ?></a></li>
 		        <?php
