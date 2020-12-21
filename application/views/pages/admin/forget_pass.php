@@ -31,9 +31,10 @@
 			}
 			?>
 			<div>
-				<input type="submit" name="submit" value="Recovery" class="btn btn-primary btn-block">
+				<input type="submit" name="submit" value="Restore" class="btn btn-primary btn-block">
 			</div>
 		</form>
 	</div>
 </div>
 <br><br><br><br><br><br><br>
+</div><!-- / container -->

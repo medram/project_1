@@ -18,13 +18,14 @@
     <script src="<?php echo base_url(); ?>js/jquery-1.12.3.min.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url(); ?>css/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="<?php echo base_url(); ?>css/font-awesome/font-awesome.min.css" rel="stylesheet"> 
+    <link href="<?php echo base_url(); ?>css/font-awesome/font-awesome.min.css" rel="stylesheet">
 
     <!-- Load the style of the site -->
-    <link href="<?php echo base_url(); ?>css/style.css" rel="stylesheet"> 
+    <link href="<?php echo base_url(); ?>css/style.css" rel="stylesheet">
 	<!-- recaptcha script -->
 	<script src='https://www.google.com/recaptcha/api.js?hl=en'></script>
 
 </head>
 <body>
 <div class="container">
+    <section>
