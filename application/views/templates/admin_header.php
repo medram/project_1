@@ -17,6 +17,9 @@
 	<link rel="stylesheet" href="<?php echo base_url('vendor/almasaeed2010/adminlte'); ?>/bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="<?php echo base_url('vendor/almasaeed2010/adminlte'); ?>/bower_components/font-awesome/css/font-awesome.min.css">
+
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,600;0,800;1,200;1,400;1,600;1,800&display=swap" rel="stylesheet">
+
 	<!-- Ionicons -->
 	<link rel="stylesheet" href="<?php echo base_url('vendor/almasaeed2010/adminlte'); ?>/bower_components/Ionicons/css/ionicons.min.css">
 	<!-- jvectormap -->
