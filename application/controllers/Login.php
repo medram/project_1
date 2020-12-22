@@ -47,7 +47,7 @@ class Login extends MY_controller
             $this->data['t'] = $code;
             $a = explode("--",decode($code,TRUE));
             //print_r($a);
-            
+
             if (isset($a[1]) && (time() < $a[1] + get_config_item('restoration_time_account') * 3600))
             {
                 $this->data['msg'] = $this->cms_model->repass($a[0]);
