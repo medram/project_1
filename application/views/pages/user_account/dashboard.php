@@ -116,8 +116,9 @@ if (!isset($userdata['user_pub']) || empty($userdata['user_pub']))
 		?>
 		<div class='col-md-9'>
 			<div class='row'>
-				<div class='col-lg-12 page-header'>
+				<div class='col-lg-12'>
 					<h1><i class="fa fa-fw fa-pie-chart"></i> <?php langLine('account.dashboard.span.1') ?></h1>
+					<hr>
 				</div>
 			</div>
 			<?php
