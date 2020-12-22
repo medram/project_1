@@ -84,14 +84,20 @@ body > section
 
 .navbar .navbar-brand
 {
-    font-size: 20px;
+	font-size: 27px;
+    padding-top: 17px;
+    padding-bottom: 18px;
+	color: #6c5ef0;
+    font-weight: bold;
     height: 100%;
     text-align: center;
     line-height: normal;
-    padding-top: 15px;
-    padding-bottom: 18px;
     padding-left: 35px;
     padding-right: 35px;
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+	color: #6c5ef0;
 }
 
 .navbar .navbar-nav > li > a
@@ -452,6 +458,11 @@ footer .copy {
 }
 footer .copy select {
 	color: #575757;
+}
+
+footer .footer-logo {
+	font-size: 27px;
+    font-weight: bold;
 }
 /*------------- steps box ---------------*/
 

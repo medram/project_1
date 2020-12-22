@@ -26,7 +26,7 @@
 		<div class='container' style="padding-top: 5em; padding-bottom: 5em;">
 			<div class='row'>
 		        <div class="col-md-4 footer-links">
-		        	<div class="<?php if (config_item("show_logo") == 1){echo 'site-logo-img';} ?>">
+		        	<div class="footer-logo <?php if (config_item("show_logo") == 1){echo 'site-logo-img';} ?>">
 		        		<?php echo get_logo(); ?>
 		        	</div>
 		        	<p><?php echo get_config_item('description') ?></p>

@@ -28,10 +28,10 @@ $lang['theme.login.email'] = 'E-mail';
 $lang['theme.login.password'] = 'Password';
 $lang['theme.login.rememberMe'] = 'Remember me';
 $lang['theme.login.btn.login'] = 'Login';
-$lang['theme.login.span.register'] = 'Register from here';
-$lang['theme.login.span.recovery'] = 'recovery';
-$lang['theme.login.span.dontHaveAccount'] = 'You don\'t have an account ?';
-$lang['theme.login.span.getBackPass'] = 'Did you forgot the password ?';
+$lang['theme.login.span.register'] = 'Register Now';
+$lang['theme.login.span.recovery'] = 'restore';
+$lang['theme.login.span.dontHaveAccount'] = 'Don\'t have an account?';
+$lang['theme.login.span.getBackPass'] = 'Forgot the password?';
 
 /*------------- register page -------------*/
 $lang['theme.register.title'] = 'Create new Account';
@@ -42,7 +42,7 @@ $lang['theme.register.repass'] = 'Confirm password';
 $lang['theme.register.span.1'] = 'I read the usage terms and the privacy policy, and I agree with it.';
 $lang['theme.register.btn.register'] = 'Create account';
 $lang['theme.register.span.login'] = 'Login';
-$lang['theme.register.span.2'] = 'I already have an account - ';
+$lang['theme.register.span.2'] = 'I already have an account?';
 
 /*-------- forget the password -------*/
 $lang['theme.forget.title'] = 'Recovery my account';
