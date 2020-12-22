@@ -24,10 +24,11 @@
 
     <!-- fonts -->
     <link href="http://fonts.googleapis.com/earlyaccess/droidarabickufi.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,600;0,800;1,200;1,400;1,600;1,800&display=swap" rel="stylesheet">
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url(); ?>css/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="<?php echo base_url(); ?>css/font-awesome/font-awesome.min.css" rel="stylesheet"> 
+    <link href="<?php echo base_url(); ?>css/font-awesome/font-awesome.min.css" rel="stylesheet">
 
     <!-- Load the style of the site -->
     <link href="<?php echo base_url(); ?>css/style.css?v=1.0" rel="stylesheet">
@@ -67,10 +68,10 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                
+
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
         </nav>
     </header>
     <section>
-    
+
