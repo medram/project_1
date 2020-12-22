@@ -3,7 +3,7 @@ body
 	background-color: #F5F5F5;
 }
 
-body > section 
+body > section
 {
 	margin-top: 0;
 }
@@ -25,3 +25,6 @@ body > section
 	-o-box-shadow: 		1px 1px 7px 0px rgba(0,0,0,0.3);
 }
 
+.lead {
+	font-weight: bold;
+}
