@@ -514,4 +514,4 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-$config['version'] = '1.3.10';
+$config['version'] = '1.4.0';
