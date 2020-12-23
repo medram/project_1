@@ -18,11 +18,8 @@ services:
     volumes:
       - db_volume:/var/lib/mysql
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: adlinker
-      MYSQL_PASSWORD: 123456
-      MYSQL_DATABASE: adlinker
+    env_file:
+      - .env
     networks:
       - adlinker
 
