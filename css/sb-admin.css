@@ -139,3 +139,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px;
 }
+
+.main-header .logo {
+    font-weight: bold;
+    font-family: inherit;
+    font-size: 21px;
+}
