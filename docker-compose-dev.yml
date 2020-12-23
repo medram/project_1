@@ -1,0 +1,47 @@
+version: "3.7"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # command: composer install; apache2-foreground
+    ports:
+      - 5000:80
+    volumes:
+      - .:/var/www/html:rw
+    restart: always
+    depends_on:
+      - db
+    networks:
+      - adlinker
+
+  db:
+    image: mariadb
+    volumes:
+      - db_volume:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: adlinker
+      MYSQL_PASSWORD: 123456
+      MYSQL_DATABASE: adlinker
+    networks:
+      - adlinker
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 8081:80
+    environment:
+      PMA_HOST: db
+    networks:
+      - adlinker
+    restart: always
+    depends_on:
+      - db
+
+volumes:
+  db_volume:
+networks:
+  adlinker:

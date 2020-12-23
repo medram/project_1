@@ -1,0 +1,45 @@
+version: "3.7"
+
+services:
+  php_web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5000:80
+    restart: always
+    depends_on:
+      - db
+    networks:
+      - adlinker
+
+  db:
+    image: mariadb
+    volumes:
+      - db_volume:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: adlinker
+      MYSQL_PASSWORD: 123456
+      MYSQL_DATABASE: adlinker
+    networks:
+      - adlinker
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 8081:80
+    environment:
+      PMA_HOST: db
+    networks:
+      - adlinker
+    restart: always
+    depends_on:
+      - db
+
+volumes:
+  web_volume:
+  db_volume:
+networks:
+  adlinker:
