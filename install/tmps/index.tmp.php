@@ -70,6 +70,9 @@ require_once './vendor/autoload.php';
  */
 	//define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 	define('ENVIRONMENT', 'development');
+	define('APP_DEMO', TURE);
+	define('BUY_NOW_URL', 'https://codecanyon.net');
+	define('CALL_TO_ACTION', 'BUY NOW');
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING

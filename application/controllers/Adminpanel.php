@@ -498,8 +498,9 @@ class Adminpanel extends MY_controller
 					else
 					{
 						$ok = "Updated successfully";
+					}
+				}
 			}
-
 		} // end if
 
 		/*======================== Update password ============================*/
@@ -1129,6 +1130,18 @@ class Adminpanel extends MY_controller
 					$a['SMTP_Pass'] 		= trim(strip_tags($this->input->post('SMTP_Pass',TRUE)));
 					$a['mail_encription'] 	= trim(strip_tags($this->input->post('mail_encription',TRUE)));
 					$a['allow_SSL_Insecure_mode'] 	= intval($this->input->post('allow_SSL_Insecure_mode',TRUE));
+				}
+				else if ($this->input->post('tab') == 6)
+				{
+					$a['social_media_facebook'] = trim(strip_tags($this->input->post('social_media_facebook',TRUE)));
+					$a['social_media_twitter'] 	= trim(strip_tags($this->input->post('social_media_twitter',TRUE)));
+					$a['social_media_youtube'] 	= trim(strip_tags($this->input->post('social_media_youtube',TRUE)));
+					$a['social_media_github'] 	= trim(strip_tags($this->input->post('social_media_github',TRUE)));
+					$a['social_media_linkedin']	= trim(strip_tags($this->input->post('social_media_linkedin',TRUE)));
+					$a['social_media_reddit'] 	= trim(strip_tags($this->input->post('social_media_reddit',TRUE)));
+					$a['social_media_pinterest']= trim(strip_tags($this->input->post('social_media_pinterest',TRUE)));
+					$a['social_media_tumblr'] 	= trim(strip_tags($this->input->post('social_media_tumblr',TRUE)));
+					$a['social_media_instagram']= trim(strip_tags($this->input->post('social_media_instagram',TRUE)));
 				}
 				else if ($this->input->post('tab') == 10)
 				{
