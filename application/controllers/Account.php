@@ -642,7 +642,7 @@ class Account extends MY_controller
 		{
 			if (APP_DEMO)
 			{
-				$ok = "Oops!, This Action is not allowed ok the Demo!";
+				$ok = "Oops!, This Action is not allowed on the Demo!";
 			}
 			else
 			{

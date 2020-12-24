@@ -26,7 +26,7 @@
     <?php
     if ($this->uri->segment(1) == get_config_item('user_page_path'))
     {
-    	echo "<script src='".base_url()."js/account.js?v=1.0' type='text/javascript'></script>";
+    	echo "<script defer src='".base_url()."js/account.js?v=1.0' type='text/javascript'></script>";
     }
 	?>
 
@@ -56,6 +56,7 @@
     ?>
 </head>
 <body>
+	<span data-base-url="<?php echo base_url() ?>" style="display: none;"></span>
 	<header>
 		<nav class="navbar navbar-default navbar-fixed-top">
 		  <div class="container-fluid container">

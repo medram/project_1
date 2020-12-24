@@ -1,8 +1,10 @@
 var ajaxStr = {}; // this is Global variable
 
+var BASE_URL = document.querySelector('span[data-base-url]').getAttribute('data-base-url').trim()
+
 /*======================== Get ajax strings ====================================*/
 $.ajax({
-	url: window.location.origin+'/ajax/jsAjaxStrings',
+	url: BASE_URL+'ajax/jsAjaxStrings',
 	type: 'GET',
 	success: function (r, s, xhr){
 		if (s == 'success')
@@ -11,11 +13,11 @@ $.ajax({
 			//console.log(ajaxStr);
 
 			$(function (){
-				
-				
+
+
 				/*======================== Add a new link ====================================*/
 				$(".Addlink").autosubmit('.msg','<i class="fa fa-spin fa-spinner"></i> ' + ajaxStr['ajax.str.1']);
-				
+
 				/*======================== show and hide the box profile to change it ========*/
 
 				$('.box-profile-img').mouseenter(function (){
@@ -32,7 +34,7 @@ $.ajax({
 				/*======================== upload profile image ====================================*/
 
 				$('input[type=file]').change(function (){
-					
+
 					$('#form-img').ajaxForm({
 						beforeSend: function ()
 						{
@@ -63,7 +65,7 @@ $.ajax({
 							}
 						},
 					}).submit();
-				
+
 				});
 
 				/*=========================== Update profile ==============================*/
@@ -90,7 +92,7 @@ $.ajax({
 					if (confirm(ajaxStr['ajax.str.4']))
 					{
 						$.ajax({
-							url: window.location.origin+'/account/ajax',
+							url: BASE_URL+'account/ajax',
 							type: 'POST',
 							data: 'id='+id+'&deleteLink=yes',
 							success: function(r,s,xhr)
@@ -120,11 +122,11 @@ $.ajax({
 					var input = children[1];
 					input.select();
 					document.execCommand('copy');
-					
+
 					this.classList.replace('btn-primary', 'btn-success');
 					this.textContent = 'Copied';
 					clearSelection();
-					
+
 					setTimeout((function (){
 						this.textContent = 'Copy';
 						this.classList.replace('btn-success', 'btn-primary');
@@ -148,14 +150,14 @@ $.ajax({
 
 				$('#deleteAccountByUser').click(function(){
 					var btn = $(this);
-					
+
 					if (confirm(ajaxStr['ajax.str.5']))
 					{
 						var pass = window.prompt(ajaxStr['ajax.str.6']);
 						if (pass)
 						{
 							$.ajax({
-								url: window.location.origin+'/account/ajax',
+								url: BASE_URL+'account/ajax',
 								type: 'POST',
 								data: 'pass='+pass+'&blockAccount=yes',
 								beforeSend: function ()
@@ -175,7 +177,7 @@ $.ajax({
 								{
 									alert("Error : "+xhr.status+" "+xhr.statusText);
 								}
-							});	
+							});
 						}
 					}
 				});
