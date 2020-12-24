@@ -994,31 +994,23 @@ class Adminpanel extends MY_controller
 		}
 		else if ($action == 'edit')
 		{
-			if (APP_DEMO)
+			$pagename = "Edit page";
+			$page = "edit_pages";
+
+			$id = intval($var);
+
+			$w['id'] = $id;
+			$s = $this->cms_model->select('pages',$w);
+
+			if ($s->num_rows() == 1)
 			{
-				$ok = "Oops, This Action is not allowed on the Demo !";
+				$this->data['pagedata'] = $s->row_array();
 			}
 			else
 			{
-				$pagename = "Edit page";
-				$page = "edit_pages";
-
-				$id = intval($var);
-
-				$w['id'] = $id;
-				$s = $this->cms_model->select('pages',$w);
-
-				if ($s->num_rows() == 1)
-				{
-					$this->data['pagedata'] = $s->row_array();
-				}
-				else
-				{
-					$err = "Page not Found!";
-				}
-				$s->free_result();
+				$err = "Page not Found!";
 			}
-
+			$s->free_result();
 		}
 
 		if (isset($err) && $err != '')
