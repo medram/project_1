@@ -14,6 +14,11 @@ if (version_compare(PHP_VERSION,'5.6') < 0)
 	$err[] = 'Your <b>PHP version</b> must be 5.6 or higher.';
 }
 
+if (version_compare(PHP_VERSION,'7.5') >= 0)
+{
+	$err[] = 'Your <b>PHP version</b> must be 5.6, 7.3 or 7.4, that\'s what this application supports for the time being.';
+}
+
 /*=============== Check if the mod_rewrite is enabled ====================*/
 if (function_exists('apache_get_modules'))
 {
@@ -33,6 +38,48 @@ if (function_exists('apache_get_modules'))
 if (!function_exists('file_get_contents'))
 {
 	$err[] = 'You must enable <b>file_get_contents</b> function on your server.';
+}
+
+/*=============== Check for curl extension ====================*/
+
+if (!in_array('curl', get_loaded_extensions()))
+{
+	$err[] = 'You must enable <b>curl</b> extension on PHP.';
+}
+
+/*=============== Check for gd extension ====================*/
+
+if (!in_array('gd', get_loaded_extensions()))
+{
+	$err[] = 'You must enable <b>gd</b> extension on PHP.';
+}
+
+/*=============== Check for mysqli extension ====================*/
+
+if (!in_array('mysqli', get_loaded_extensions()))
+{
+	$err[] = 'You must enable <b>mysqli</b> extension on PHP.';
+}
+
+/*=============== Check for PDO extension ====================*/
+
+if (!in_array('PDO', get_loaded_extensions()))
+{
+	$err[] = 'You must enable <b>PDO</b> extension on PHP.';
+}
+
+/*=============== Check for pdo_mysql extension ====================*/
+
+if (!in_array('pdo_mysql', get_loaded_extensions()))
+{
+	$err[] = 'You must enable <b>pdo_mysql</b> extension on PHP.';
+}
+
+/*=============== Check for json extension ====================*/
+
+if (!in_array('json', get_loaded_extensions()))
+{
+	$err[] = 'You must enable <b>json</b> extension on PHP.';
 }
 
 /*=============== Check if the file_put_contents() exists ====================*/

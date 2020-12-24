@@ -20,7 +20,7 @@
   };
 </script>
 
-<div class='container'>
+<div class='container account'>
 	<div class='row'>
 		<?php
 		echo $sidebar;
@@ -60,7 +60,7 @@
 								<input type='text' dir='ltr' name='url' class='form-control' placeholder='http://www.example.com/blablabla...' >
 							</div>
 							<?php
-							
+
 							if (count($domains) >= 2)
 							{
 								// show the select option to select a domain
@@ -113,7 +113,7 @@
 								<textarea dir='ltr' name='url' rows='7' class='form-control' placeholder='http://www.example.com/blablabla...' ></textarea>
 							</div>
 							<?php
-							
+
 							if (count($domains) >= 2)
 							{
 								// show the select option to select a domain

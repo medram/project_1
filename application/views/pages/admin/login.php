@@ -1,7 +1,7 @@
 <br><br><br><br><br><br>
 <div class="row" style="text-align: center;">
 	<div class="clo-lg-12">
-		<h1 class='site-logo-img'><?php echo get_logo(100); ?></h1>
+		<h1 class='site-logo-img'><?php echo get_logo(70); ?></h1>
 	</div>
 </div>
 <br><br><br>
@@ -44,9 +44,10 @@
 			</div>
 			<div>
 				<br>
-				<span>I forgot my password - <a href="<?php echo base_url().$page_path.'/'; ?>login/forget_pass">Recovery</a></span>
+				<span>I forgot my password - <a href="<?php echo base_url().$page_path.'/'; ?>login/forget_pass">restore?</a></span>
 			</div>
 		</form>
 	</div>
 </div>
 <br><br><br><br><br><br><br>
+</div><!-- / container -->

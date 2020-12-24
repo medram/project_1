@@ -8,7 +8,7 @@ class Adminpanel extends MY_controller
 	public function __construct ()
 	{
 		parent::__construct();
-		$this->data['page_path'] = strtolower(__CLASS__); // you can change the name page from the url from here 
+		$this->data['page_path'] = strtolower(__CLASS__); // you can change the name page from the url from here
 		$this->isAdmin();
 		// just for debugging mode
 		//$this->output->enable_profiler(TRUE);
@@ -42,7 +42,7 @@ class Adminpanel extends MY_controller
 				*/
 				foreach ($r as $k => $row)
 				{
-					$this->data['userdata'][$row['user_option']] = $row['user_value'];	
+					$this->data['userdata'][$row['user_option']] = $row['user_value'];
 				}
 				/*
 				echo "<pre>";
@@ -89,7 +89,7 @@ class Adminpanel extends MY_controller
 		$this->data['all_views_admin'] = $all_views_admin;
 
 		/*======================= get views per day ============================*/
-		
+
 		$day = date("Y-m-d",time());
 		$this->data['views_this_day'] = 0;
 		$this->data['views_this_day_admin'] = 0;
@@ -102,12 +102,12 @@ class Adminpanel extends MY_controller
 			for ($i = 0; $i < 30; $i++)
 			{
 				$date = date("Y-m-d",strtotime($day)-($i*24*3600));
-				
+
 				if ($j == 2)
 				{
 					$w1['user_id'] = "----";
 				}
-				
+
 				if ($j == 1)
 				{
 					$w1['user_id !='] = "----";
@@ -136,14 +136,14 @@ class Adminpanel extends MY_controller
 
 					//============== count all views of admin and of user =================
 
-					
+
 					$all_vs = 0;
 
 					foreach ($s1->result_array() as $row)
 					{
 						$all_vs = $all_vs + $row['views'];
 					}
-					
+
 					if ($j == 2)
 					{
 						$this->data['all_views_admin_30_day'] = $this->data['all_views_admin_30_day'] + $all_vs;
@@ -171,10 +171,10 @@ class Adminpanel extends MY_controller
 				else
 				{
 					$a[$i][] = 0;
-				}	
+				}
 			}
 		} // end for loop
-		
+
 		sort($a);
 		/*
 		$a2 = array();
@@ -234,19 +234,19 @@ class Adminpanel extends MY_controller
 		{
 			$this->data['lastUsers'] = $s_lastUsers->result_array();
 		}
-		
+
 		/*============================= online visitors ================================*/
-		
+
 		$s_online = $this->cms_model->select('online');
 		$this->data['online'] = $s_online->num_rows();
 
 		/*========================= get packages domains info ===========================*/
-		
+
 		$domains = explode("\r\n", get_config_item('packages_domains'));
 		$domains_info = array();
 
 		if (isset($domains[0]) && $domains[0] != '')
-		{		
+		{
 			for ($i = 0; $i < count($domains); $i++)
 			{
 				$q = $this->cms_model->select('links', array('domain' => $i));
@@ -273,7 +273,7 @@ class Adminpanel extends MY_controller
 		$s1->free_result();
 		$s_lastLinks->free_result();
 		$s_lastUsers->free_result();
-		$s_online->free_result();		
+		$s_online->free_result();
 
 		$this->data['title'] = 'Hello '.$this->data['userdata']['username'];
 
@@ -319,7 +319,7 @@ class Adminpanel extends MY_controller
 		$this->data['title'] = 'Updates & News';
 		$this->load->view('templates/admin_header',$this->data);
 		$this->load->view('pages/admin/updates', $this->data);
-		$this->load->view('templates/admin_footer',$this->data);		
+		$this->load->view('templates/admin_footer',$this->data);
 	}
 
 	public function license ()
@@ -337,10 +337,10 @@ class Adminpanel extends MY_controller
 		if (isset($_POST['license-go']))
 		{
 			$this->load->library('MR4Web', '', 'MR');
-			
+
 			$puchaseCode = strip_tags($this->input->post('license-code', true));
 			$action = intval($this->input->post('license-action'));
-			
+
 			if ($puchaseCode == '')
 			{
 				$err = 'Please Enter a License Code (Purchase Code)!';
@@ -373,7 +373,7 @@ class Adminpanel extends MY_controller
 					$err = $this->MR->getResMessage();
 			}
 			else
-			{	
+			{
 				if ($this->MR->deactivate($puchaseCode))
 				{
 					$set['option_value'] = '';
@@ -418,15 +418,13 @@ class Adminpanel extends MY_controller
 		if ($this->input->post('edit-profile'))
 		{
 			$msg = "msg1";
-			
+
 			if (APP_DEMO)
 			{
 				$ok = "Oops, This Action is not allowed on the Demo !";
 			}
 			else
 			{
-
-
 				$username 		= trim(strip_tags($this->input->post('username',TRUE)));
 				$email 			= trim(strip_tags($this->input->post('email',TRUE)));
 				$birth_date 	= trim(strip_tags($this->input->post('date-birth',TRUE)));
@@ -459,15 +457,15 @@ class Adminpanel extends MY_controller
 					*/
 					$up = $this->cms_model->update('users',$set,$where);
 
-					
-					
+
+
 					$a['birth_date'] = $birth_date;
 					$a['sec_ques'] = $sec_ques;
 					$a['ans_ques'] = $ans_ques;
 
 					// delete all information from database by user_id
 					foreach ($a as $k => $v) {
-						
+
 						$w['user_id'] = $admin_id;
 						$w['user_option'] = $k;
 
@@ -489,10 +487,10 @@ class Adminpanel extends MY_controller
 						}
 						else
 						{
-							array_push($s,0);	
+							array_push($s,0);
 						}
 					}
-					
+
 					if (in_array(0,$s))
 					{
 						$err = "Error, something was wrong !";
@@ -500,9 +498,6 @@ class Adminpanel extends MY_controller
 					else
 					{
 						$ok = "Updated successfully";
-					}
-					
-				}
 			}
 
 		} // end if
@@ -511,13 +506,13 @@ class Adminpanel extends MY_controller
 		if ($this->input->post('edit-pass'))
 		{
 			$msg = "msg2";
-			
+
 			if (APP_DEMO)
 			{
 				$ok = "Oops, This Action is not allowed on the Demo !";
 			}
 			else
-			{	
+			{
 				$old_pass 	= trim(strip_tags($this->input->post('old-pass',TRUE)));
 				$new_pass 	= trim(strip_tags($this->input->post('new-pass',TRUE)));
 				$conf_pass 	= trim(strip_tags($this->input->post('conf-new-pass',TRUE)));
@@ -538,7 +533,7 @@ class Adminpanel extends MY_controller
 				{
 					$set['password'] = password_hash($new_pass,PASSWORD_DEFAULT);
 					$where = array('user_token'=>$this->data['userdata']['user_token']);
-					
+
 					$up = $this->cms_model->update('users',$set,$where);
 
 					if ($up)
@@ -592,7 +587,7 @@ class Adminpanel extends MY_controller
 		{
 			$this->data['title'] = 'Set a new password';
 			$page = 'repass';
-	        
+
 	        $t = ($this->input->get('t',TRUE) != '')? $this->input->get('t',TRUE) : $this->input->post('t',TRUE) ;
 	        $code = trim(strip_tags($t));
 
@@ -605,7 +600,7 @@ class Adminpanel extends MY_controller
 	            $this->data['t'] = $code;
 	            $a = explode("--",decode($code,TRUE));
 	            //print_r($a);
-	            
+
 	            if (isset($a[1]) && (time() < $a[1] + get_config_item('restoration_time_account') * 3600))
 	            {
 	                $this->data['msg'] = $this->cms_model->repass($a[0],'admin');
@@ -652,7 +647,7 @@ class Adminpanel extends MY_controller
 		}
 		else
 		{
-			//$s1 = $this->cms_model->select('users',$where,array('id','desc'),$num,$start);	
+			//$s1 = $this->cms_model->select('users',$where,array('id','desc'),$num,$start);
 			$s1 = $this->cms_model->search($search,'users',array('username','email','user_token'),'',array('id','desc'),$num,$start);
 
 			//$num_rows = $s1->num_rows();
@@ -686,7 +681,7 @@ class Adminpanel extends MY_controller
 	public function u ($var='',$id='')
 	{
 		$id = intval($id);
-		
+
 		if ($var == '')
 		{
 			show_404();
@@ -698,7 +693,7 @@ class Adminpanel extends MY_controller
 			$w['id'] = $id;
 			//$w['user_status !='] = 1;
 			$sel = $this->cms_model->select('users',$w);
-			
+
 			if ($sel->num_rows() == 1)
 			{
 				$row = $sel->row_array();
@@ -710,13 +705,13 @@ class Adminpanel extends MY_controller
 				else
 				{
 					$this->data['userInfo'] = $row;
-					
+
 					$sel = $this->cms_model->select('usersmeta',array('user_id'=>$row['id']));
 					$r = $sel->result_array();
 
 					foreach ($r as $k => $row)
 					{
-						$this->data['userInfo'][$row['user_option']] = $row['user_value'];	
+						$this->data['userInfo'][$row['user_option']] = $row['user_value'];
 					}
 				}
 			}
@@ -776,16 +771,16 @@ class Adminpanel extends MY_controller
 					}
 					else if (APP_DEMO)
 					{
-						$ok = "Oops, This Action is not allowed on the Demo !";	
+						$ok = "Oops, This Action is not allowed on the Demo !";
 					}
 					else
 					{
 						$langData['name'] = $name;
 						$langData['symbol'] = $symbol;
 						$langData['isRTL'] = $direction;
-						
+
 						$save = $this->cms_model->insert('languages', $langData);
-						
+
 						$name = strtolower($name);
 						$languageFolder = str_ireplace('\\', '/', APPPATH."language/");
 						mkdir($languageFolder.$name);
@@ -835,7 +830,7 @@ class Adminpanel extends MY_controller
 
 					$s2 = $this->cms_model->select('languages', ['symbol' => $symbol]);
 					$s3 = $this->cms_model->select('languages', ['active' => 1]);
-					
+
 
 					if ($r['symbol'] != $symbol && $s2->num_rows() > 0)
 					{
@@ -851,7 +846,7 @@ class Adminpanel extends MY_controller
 						$langData['isRTL'] = $direction;
 						$langData['active'] = $status;
 						$save = $this->cms_model->update('languages', $langData, ['id' => $r['id']]);
-						
+
 						if ($save)
 						{
 							//$ok = 'Saved successfully.';
@@ -867,7 +862,7 @@ class Adminpanel extends MY_controller
 			}
 
 			$s = $this->cms_model->select('languages', ['id' => intval($this->uri->segment(4))]);
-			
+
 			if ($s->num_rows() == 0)
 			{
 				header('location: '.base_url($this->data['page_path'].'/languages'));
@@ -888,7 +883,7 @@ class Adminpanel extends MY_controller
 		}
 
 		$this->data['title'] = $pagename;
-		
+
 		$this->load->view("templates/admin_header",$this->data);
 		$this->load->view("pages/admin/$page",$this->data);
 		$this->load->view("templates/admin_footer",$this->data);
@@ -911,7 +906,7 @@ class Adminpanel extends MY_controller
 				if ($row['lang_id'] == 0)
 				{
 					$pageLangData[] = 'All languages';
-					continue;	
+					continue;
 				}
 
 				$tmp_s = $this->cms_model->select('languages', ['id' => $row['lang_id']]);
@@ -977,7 +972,7 @@ class Adminpanel extends MY_controller
 							$d['content'] 		= $content;
 							$d['created']		= time();
 							$d['modified']		= time();
-							
+
 							$insert = $this->cms_model->insert('pages',$d);
 
 							if ($insert)
@@ -988,7 +983,7 @@ class Adminpanel extends MY_controller
 								exit();
 							}
 						}
-						
+
 					}
 
 					$s->free_result();
@@ -1035,7 +1030,7 @@ class Adminpanel extends MY_controller
 		}
 
 		$this->data['title'] = $pagename;
-	
+
 		$this->load->view("templates/admin_header",$this->data);
 		$this->load->view("pages/admin/$page",$this->data);
 		$this->load->view("templates/admin_footer",$this->data);
@@ -1066,11 +1061,11 @@ class Adminpanel extends MY_controller
 
 		$sel->free_result();
 	}
-	
+
 
 	public function ajax ()
 	{
-		
+
 		/*========================= Edit config (settings) of the website ===========================*/
 
 		if ($this->input->post('tab'))
@@ -1080,7 +1075,7 @@ class Adminpanel extends MY_controller
 				$ok = "Oops, This Action is not allowed on the Demo !";
 			}
 			else
-			{		
+			{
 				$a =  array();
 
 				if ($this->input->post('tab') == 1)
@@ -1171,9 +1166,9 @@ class Adminpanel extends MY_controller
 					else
 					{
 						array_push($e,0);
-					}	
+					}
 				}
-				
+
 
 				if (!in_array(0,$e))
 				{
@@ -1258,7 +1253,7 @@ class Adminpanel extends MY_controller
 		}
 
 		/*======================== Edit user data at cpanel ==========================*/
-		
+
 		if ($this->input->post('edit-profile'))
 		{
 			$userId = abs(intval($this->input->post('user_id',TRUE)));
@@ -1277,7 +1272,7 @@ class Adminpanel extends MY_controller
 			}
 
 			$s->free_result();
-			
+
 	        $username   = trim(strip_tags($this->input->post('username',TRUE)));
 	        $email 		= trim(strip_tags($this->input->post('email',TRUE)));
 	        $status 	= intval($this->input->post('status',TRUE));
@@ -1377,10 +1372,10 @@ class Adminpanel extends MY_controller
 		                }
 		                else
 		                {
-		                    array_push($s,0);   
+		                    array_push($s,0);
 		                }
 		            }
-		            
+
 		            if (in_array(0,$s))
 		            {
 		                $err = "Sorry, Something was wrong !";
@@ -1390,13 +1385,12 @@ class Adminpanel extends MY_controller
 		                $ok = "Saved successfully.";
 		            }
 	        	}
-
 	        }
 
 		} // end of edit profile
 
 		/*========================= Delete users ===========================*/
-		
+
 		if ($this->input->post('deleteUser') == 1)
 		{
 			if (APP_DEMO)
@@ -1409,7 +1403,7 @@ class Adminpanel extends MY_controller
 
 			$where['id'] = $id;
 			$s = $this->cms_model->select('users',$where);
-		
+
 			if ($s->num_rows() == 1)
 			{
 				$row = $s->row_array();
@@ -1422,7 +1416,7 @@ class Adminpanel extends MY_controller
 				{
 					$w['id'] = $id;
 					$d = $this->cms_model->delete('users',$w);
-					
+
 					$wr['user_id'] = $row['id'];
 					$d2 = $this->cms_model->delete('usersmeta',$wr);
 
@@ -1439,14 +1433,14 @@ class Adminpanel extends MY_controller
 			else
 			{
 				echo "Oops, The user not found (ID=".$id.") !";
-			}			
+			}
 
 			$s->free_result();
 
 		} // end of function
 
 		/*================== Delete profile image =================*/
-		
+
 		if ($this->input->post('delete_image'))
 		{
 			if (APP_DEMO)
@@ -1456,7 +1450,7 @@ class Adminpanel extends MY_controller
 			}
 
 			$token = $this->input->post('token',TRUE);
-			
+
 			if (delete_profile_img($token))
 			{
 				echo "Deleted successfully.";
@@ -1553,9 +1547,9 @@ class Adminpanel extends MY_controller
 			}
 			$s->free_result();
 		}
-		
+
 		/*================== Delete page =================*/
-		
+
 		if ($this->input->post('deletePage'))
 		{
 			if (APP_DEMO)
@@ -1607,7 +1601,7 @@ class Adminpanel extends MY_controller
 				$set['modified']= time();
 
 				$w['id'] = $link_id;
-				
+
 				$up = $this->cms_model->update('links', $set, $w);
 
 				if ($up)
@@ -1632,7 +1626,7 @@ class Adminpanel extends MY_controller
 			}
 
 			$id = abs(intval($this->input->post('id')));
-			
+
 			$w['id'] = $id;
 			$del = $this->cms_model->delete('links',$w);
 
@@ -1657,7 +1651,7 @@ class Adminpanel extends MY_controller
 			}
 
 			$id = abs(intval($this->input->post('id')));
-			
+
 			$w['id'] = $id;
 			$w['undeletable'] = 0;
 
@@ -1670,7 +1664,7 @@ class Adminpanel extends MY_controller
 			if ($s->num_rows() && $del)
 			{
 				$path = APPPATH.'language/'.strtolower($result['name']);
-				
+
 				if (is_dir($path))
 				{
 					if (deleteFolder($path, true))
@@ -1729,7 +1723,7 @@ class Adminpanel extends MY_controller
 
 
 			$all_pages = ceil($s->num_rows() / $links_per_page);
-			
+
 			if ($page < 1 or $page > $all_pages)
 			{
 				$page = 1;
@@ -1763,8 +1757,8 @@ class Adminpanel extends MY_controller
 			$this->load->view("pages/admin/links",$this->data);
 			$this->load->view("templates/admin_footer",$this->data);
 
-			$s->free_result();		
-			$s2->free_result();		
+			$s->free_result();
+			$s2->free_result();
 		}
 		else if ($action == "edit")
 		{

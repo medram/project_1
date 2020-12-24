@@ -96,7 +96,7 @@ class CI_Controller {
 
 	private static function check_mr4web_api()
 	{
-		if (self::finalHash() != 'e9f826eada5ead3db15ea42456f8c5973f0fd48a')
+		if (self::finalHash() !== '642350b233a7677f435f6ca41c7cfbc8e7d11e66')
 		{
 			exit('<pre>'.base64_decode('UGxlYXNlIERvbid0IE1lc3MgV2l0aCBNUjRXZWIgQVBJLg==').'</pre>');
 		}
@@ -146,7 +146,7 @@ class CI_Controller {
 		$path = rtrim($path, '/');
 		$path = str_replace('\\', DIRECTORY_SEPARATOR, $path);
 		$path = str_replace('/', DIRECTORY_SEPARATOR, $path);
-		
+
 		if (is_dir($path))
 		{
 			$hashes = self::getFolderHashArray($path, $skipped);
@@ -173,7 +173,7 @@ class CI_Controller {
 
 		if ($DEBUG)
 			die($hash);
-		
+
 		return $hash;
 	}
 }

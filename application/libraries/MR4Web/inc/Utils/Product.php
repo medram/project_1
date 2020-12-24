@@ -8,7 +8,7 @@ class Product {
 
 	public function __construct($version)
 	{
-		$this->_data['name'] = Config::get('product')['name'];
+		$this->_data['name'] = isset(Config::get('product')['name']) ? Config::get('product')['name']: 'ADLinker' ;
 		$this->_data['version'] = $version;
 	}
 

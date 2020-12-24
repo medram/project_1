@@ -23,7 +23,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/demo/';
+define('PROTOCOL', isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' && $_SERVER['SERVER_PORT'] == 443 ? 'https' : 'http');
+
+$config['base_url'] = PROTOCOL.'://'.$_SERVER['HTTP_HOST'].'/';
 
 /*
 |--------------------------------------------------------------------------
@@ -314,7 +316,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = "0376464c11f9eaf896b91e504211e222f3732854";
+$config['encryption_key'] = "d61ad605013d868ae4f1b02c35b15e6dee84d20c";
 
 /*
 |--------------------------------------------------------------------------
@@ -511,3 +513,5 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+$config['version'] = '1.4.0';

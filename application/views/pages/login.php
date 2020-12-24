@@ -1,5 +1,5 @@
 <!-- recaptcha script -->
-<script src='https://www.google.com/recaptcha/api.js?hl=ar'></script>
+<script src='https://www.google.com/recaptcha/api.js?hl=en'></script>
 <div class='container'>
 	<div class='row'>
 		<div class='col-md-12 page-header'>

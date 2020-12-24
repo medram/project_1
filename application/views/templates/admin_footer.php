@@ -1,6 +1,6 @@
         </div>
         <!-- /.content-wrapper -->
-        
+
         <footer class="main-footer">
             <div class="pull-right hidden-xs">
                 <b>Version</b> <?php echo config_item('version') ?>
@@ -12,7 +12,7 @@
     </div>
     <!-- ./wrapper -->
 
-     <!-- Bootstrap 3.3.7 -->
+    <!-- Bootstrap 3.3.7 -->
     <script src="<?php echo base_url('vendor/almasaeed2010/adminlte'); ?>/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
     <script src="<?php echo base_url('vendor/almasaeed2010/adminlte'); ?>/bower_components/fastclick/lib/fastclick.js"></script>

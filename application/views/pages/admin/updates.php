@@ -42,7 +42,7 @@
                                     <b><?php echo "<b>".$update['product_name']." v".$update['product_version'].'</b> is Available Now.<br>'; ?></b>
                                 </div>
                                 <div class="col-xs-2 text-right">
-                                    <a href="#" target="_blank" class="btn btn-xs btn-primary"><i class="fa fa-link"></i> Update Now</a>
+                                    <a href="<?php echo $update['update_download_url'] ?>" target="_blank" class="btn btn-xs btn-primary"><i class="fa fa-link"></i> Update Now</a>
                                 </div>
                             </div>
                         </div>

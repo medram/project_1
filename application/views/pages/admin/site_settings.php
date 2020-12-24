@@ -30,14 +30,14 @@
         				<li role="presentation" class="">
         					<a href="#email" role="tab" id="email-tab" data-toggle="tab" aria-controls="email" aria-expanded="false">Email</a>
         				</li>
+
         				<li role="presentation" class="">
+        					<a href="#social_media" role="tab" id="social_media-tab" data-toggle="tab" aria-controls="social_media" aria-expanded="false">Social Media</a>
+        				</li>
+
+                        <li role="presentation" class="">
         					<a href="#other" role="tab" id="other-tab" data-toggle="tab" aria-controls="other" aria-expanded="false">Others</a>
         				</li>
-        				<!--
-        				<li role="presentation" class="">
-        					<a href="#LayoutSettings" role="tab" id="LayoutSettings-tab" data-toggle="tab" aria-controls="LayoutSettings" aria-expanded="false">Layout Settings</a>
-        				</li>
-        				-->
         			</ul>
 
         			<div id="myTabContent" class="tab-content">
@@ -88,7 +88,7 @@
         						<table class='table table-striped' border='0'>
         							<tr>
         								<td width='40%'><label>Show logo :</label></td>
-        								<td><input type='checkbox' name='show_logo' value='1' 
+        								<td><input type='checkbox' name='show_logo' value='1'
         								<?php if (get_config_item('show_logo') == 1){echo "checked";} ?> > Show logo image</td>
         							</tr>
         							<tr>
@@ -168,7 +168,7 @@
         							</tr>
         							<tr>
         								<td><label>Website status :</label></td>
-        								<td>	
+        								<td>
         									<input type='radio' <?php if (get_config_item("siteclose") == 0){echo "checked";} ?> name='status_site' value='0' > <span>Open</span><br>
         									<input type='radio' name='status_site' <?php if (get_config_item("siteclose") == 1){echo "checked";} ?> value='1' > <span>Close</span>
         								</td>
@@ -180,7 +180,7 @@
         										<i>This is message will show up to the visitors when the <b>"Website status"</b> option will be <b>close</b>. </i>
         									</small>
         								</td>
-        								<td>	
+        								<td>
         									<textarea rows='5' cols='30' class='form-control' name='msg_closed_site' ><?php echo get_config_item("shutdown_msg"); ?></textarea>
         								</td>
         							</tr>
@@ -188,15 +188,15 @@
         								<td>
         									<label>Head code :</label><br>
         									<small><i>You can add a code like Analytics/Tracking codes!</i></small>
-        									
+
         								</td>
-        								<td>	
+        								<td>
         									<textarea rows='5' cols='30' class='form-control' name='analytics_code'><?php echo get_config_item("tracking_code"); ?></textarea>
         								</td>
         							</tr>
         							<tr>
         								<td><label>Head code (just for "Go" page) :</label></td>
-        								<td>	
+        								<td>
         									<textarea rows='5' cols='30' class='form-control' name='go_head_code'><?php echo get_config_item("go_head_code"); ?></textarea>
         								</td>
         							</tr>
@@ -248,19 +248,62 @@
         									<button name='sub-regi' class='btn btn-primary' >Save</button>
         								</td>
         							</tr>
-        							
+
         						</table>
         					</form>
         				</div>
         				<div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
         					<br>
-                            <div class="alert alert-info"><b>INFO</b>: <br>
-                            - All of these ads below will show up on the whole entire site except "GO" page.<br>
-                            - the "GO" page is just using your google adsense PUB code to generate ads.
+                            <div class="alert alert-info"><i class="fa fa-info fa-fw"></i> Once you setup your Google Adsense ads' codes, it may takes up to 24 hours to take effect to show up.
                             </div>
         					<form class="optionForm" action='<?php echo base_url($page_path); ?>/ajax' method='post'>
         						<table class='table table-striped'>
-        							<tr>
+<!--         							<tr>
+                                        <td>
+                                            <label>PUB Code of your Google Adsense account:</label><br>
+                                            <small style='color: red'><i><b>Important note:</b> Your google adsense account <b>shouldn't be hosted</b>.</i></small>
+                                        </td>
+                                        <td>
+                                            <input type='text' name='pub' placeholder='pub-xxxxxxxxxxxxxx'class='form-control' value='<?php echo get_config_item("admin_pub"); ?>'>
+                                        </td>
+                                    </tr> -->
+                                    <tr>
+                                        <td>
+                                            <label>Default countdown (in seconds):</label><br>
+                                            <small style='color: red'><i>For your Google Adsense account Safety, the countdown should be higher than 10 seconds.</i></small>
+                                        </td>
+                                        <td>
+                                            <input type='number' name='countdown' class='form-control' max='120' min='5'
+                                                value='<?php echo get_config_item("countdown"); ?>'>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Just show admin ads :</label><br>
+                                            <small style='color: red'><i>the users ads won't show up any more!</i></small>
+                                        </td>
+                                        <td>
+                                            <label>
+                                            <input type='checkbox' name='just_show_admin_ads' value='1'
+                                                <?php if (get_config_item('just_show_admin_ads') == 1){echo "checked";} ?> >
+                                                <span>Enable this mode</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Just show users ads :</label><br>
+                                            <small style='color: red'><i>the admin ads won't show up any more!</i></small>
+                                        </td>
+                                        <td>
+                                            <label>
+                                            <input type='checkbox' name='just_show_users_ads' value='1'
+                                                <?php if (get_config_item('just_show_users_ads') == 1){echo "checked";} ?> >
+                                                <span>Enable this mode</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
         								<td width="35%"><label>Show Ads on website :</label></td>
         								<td>
         									<label>
@@ -315,7 +358,7 @@
         					<form class="optionForm" action='<?php echo base_url($page_path); ?>/ajax' method='post'>
         						<br><br>
         						<table class='table table-striped'>
-        							<tr>
+        							<!-- <tr>
         								<td width='40%'>
         									<label>Cookie name :</label><br>
         									<small><i>The name must consist of the following symbols <br>(<b>a-z A-Z 0-9 - _ </b>) </i></small>
@@ -348,19 +391,19 @@
         										<span class="input-group-addon" id="basic-addon3"><b>Hours</b></span>
         									</div>
         								</td>
-        							</tr>
+        							</tr> -->
         							<tr>
         								<td><label>reCAPTCHA Code (Google):</label></td>
         								<td>
         									<label>
-        									<input type='checkbox' name='recaptcha_status' value='1' 
-        										<?php if (get_config_item('recaptcha_status') == 1){echo "checked";} ?> > 
+        									<input type='checkbox' name='recaptcha_status' value='1'
+        										<?php if (get_config_item('recaptcha_status') == 1){echo "checked";} ?> >
         										<span>Enable recaptcha</span>
         									</label>
         									<br><br>
-        									Secret Key :<input type='text' name='secret_key' class='form-control' 
+        									Secret Key :<input type='text' name='secret_key' class='form-control'
         												value="<?php echo get_config_item('secret_key'); ?>" ><br>
-        									Public Key :<input type='text' name='public_key' class='form-control' 
+        									Public Key :<input type='text' name='public_key' class='form-control'
         												value="<?php echo get_config_item('public_key'); ?>" >
         								</td>
         							</tr>
@@ -381,9 +424,9 @@
         								<td width='30%'><label>Email method :</label></td>
         								<td>
         									<select name="email_method" class="form-control">
-        										<option value="mail" 
+        										<option value="mail"
         										<?php if (get_config_item('email_method') == 'default'){echo "selected";} ?> >PHP Mail Function</option>
-        										<option value="smtp" 
+        										<option value="smtp"
         										<?php if (get_config_item('email_method') == 'smtp'){echo "selected";} ?> >SMTP</option>
         									</select>
         								</td>
@@ -391,7 +434,7 @@
         							<tr>
         								<td><label>From Email :</label></td>
         								<td>
-        									<input type='text' name='email_from' class='form-control' 
+        									<input type='text' name='email_from' class='form-control'
         									value='<?php echo get_config_item('email_from'); ?>' >
         								</td>
         							</tr>
@@ -427,9 +470,9 @@
         								<td><label>Mail encription :</label></td>
         								<td>
         									<select name="mail_encription" class="form-control">
-        										<option value="tls" 
+        										<option value="tls"
         										<?php if (get_config_item('mail_encription') == 'tls'){echo "selected";} ?> >tls</option>
-        										<option value="ssl" 
+        										<option value="ssl"
         										<?php if (get_config_item('mail_encription') == 'ssl'){echo "selected";} ?> >ssl</option>
         									</select>
         								</td>
@@ -498,55 +541,7 @@
         									<textarea name="bad_urls" class="form-control" rows="5" placeholder="http://www.exemple.com" ><?php echo get_config_item('bad_urls'); ?></textarea>
         								</td>
         							</tr>
-        							<tr>
-        								<td>
-        									<label>PUB Code of your Google Adsense account:</label><br>
-        									<small style='color: red'><i><b>Important note:</b> Your google adsense account <b>shouldn't be hosted</b>.</i></small>
-        								</td>
-        								<td>
-        									<input type='text' name='pub' placeholder='pub-xxxxxxxxxxxxxx'class='form-control' value='<?php echo get_config_item("admin_pub"); ?>'>
-        								</td>
-        							</tr>
-        							<tr>
-        								<td><label>Channel Code of your Google Adsense account:</label></td>
-        								<td>
-        									<input type='text' name='channel' placeholder='xxxxxxxx'class='form-control' 
-        										value='<?php echo get_config_item("admin_channel"); ?>'>
-        								</td>
-        							</tr>
-        							<tr>
-        								<td><label>Default countdown :</label></td>
-        								<td>
-        									<input type='number' name='countdown' class='form-control' max='120' min='5' 
-        										value='<?php echo get_config_item("countdown"); ?>'>
-        								</td>
-        							</tr>
-        							<tr>
-        								<td>
-        									<label>Just show admin ads :</label><br>
-        									<small style='color: red'><i>the users ads won't show up any more!</i></small>
-        								</td>
-        								<td>
-        									<label>
-        									<input type='checkbox' name='just_show_admin_ads' value='1' 
-        										<?php if (get_config_item('just_show_admin_ads') == 1){echo "checked";} ?> > 
-        										<span>Enable this mode</span>
-        									</label>
-        								</td>
-        							</tr>
-        							<tr>
-        								<td>
-        									<label>Just show users ads :</label><br>
-        									<small style='color: red'><i>the admin ads won't show up any more!</i></small>
-        								</td>
-        								<td>
-        									<label>
-        									<input type='checkbox' name='just_show_users_ads' value='1' 
-        										<?php if (get_config_item('just_show_users_ads') == 1){echo "checked";} ?> > 
-        										<span>Enable this mode</span>
-        									</label>
-        								</td>
-        							</tr>
+
         							<tr>
         								<td width='40%'>
         									<label>Domains package: </label><br>
@@ -568,11 +563,76 @@
         						</table>
         					</form>
         				</div>
-        				<!--
-        				<div role="tabpanel" class="tab-pane fade" id="LayoutSettings" aria-labelledby="LayoutSettings-tab">
-        					Layout Settings
+
+        				<div role="tabpanel" class="tab-pane fade" id="social_media" aria-labelledby="social_media-tab">
+        					<form class="optionForm" action='<?php echo base_url($page_path); ?>/ajax' method='post'>
+                                <br><br>
+                                <table class='table table-striped'>
+                                    <tr>
+                                        <td><label>Facebook:</label></td>
+                                        <td>
+                                            <input type='text' name='social_media_facebook' class='form-control' placeholder="URL" value="<?php echo get_config_item('social_media_facebook'); ?>" >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Twitter:</label></td>
+                                        <td>
+                                            <input type='text' name='social_media_twitter' class='form-control' placeholder="URL" value="<?php echo get_config_item('social_media_twitter'); ?>" >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Youtube:</label></td>
+                                        <td>
+                                            <input type='text' name='social_media_youtube' class='form-control' placeholder="URL" value="<?php echo get_config_item('social_media_youtube'); ?>" >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Github:</label></td>
+                                        <td>
+                                            <input type='text' name='social_media_github' class='form-control' placeholder="URL" value="<?php echo get_config_item('social_media_github'); ?>" >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>LinkedIn:</label></td>
+                                        <td>
+                                            <input type='text' name='social_media_linkedin' class='form-control' placeholder="URL" value="<?php echo get_config_item('social_media_linkedin'); ?>" >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Reddit:</label></td>
+                                        <td>
+                                            <input type='text' name='social_media_reddit' class='form-control' placeholder="URL" value="<?php echo get_config_item('social_media_reddit'); ?>" >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Pinterest:</label></td>
+                                        <td>
+                                            <input type='text' name='social_media_pinterest' class='form-control' placeholder="URL" value="<?php echo get_config_item('social_media_pinterest'); ?>" >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Tumblr:</label></td>
+                                        <td>
+                                            <input type='text' name='social_media_tumblr' class='form-control' placeholder="URL" value="<?php echo get_config_item('social_media_tumblr'); ?>" >
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><label>Instagram:</label></td>
+                                        <td>
+                                            <input type='text' name='social_media_instagram' class='form-control' placeholder="URL" value="<?php echo get_config_item('social_media_instagram'); ?>" >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan='2' align='right'>
+                                            <input type='hidden' name='tab' value='6' >
+                                            <button name='social_media' class='btn btn-primary' >Save</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
         				</div>
-        				-->
+
         			</div> <!-- close the tab-content id -->
         		</div> <!-- close the col-lg-12 -->
         	</div> <!-- close the row class -->

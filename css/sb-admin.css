@@ -58,7 +58,7 @@
     top: 0;
     left: 0;
     opacity: 1;
-    z-index: 4;  
+    z-index: 4;
 }
 /*========= Logo on cpanel =================================*/
 
@@ -70,9 +70,78 @@
 {
     width: auto;
     height: 35px;
-} 
+}
+
+/*========= Bootstrap cusomization =========================*/
+
+.form-control {
+    border-radius: 7px;
+    border: 2px solid #ccc;
+}
+
+body {
+    font-family: Nunito, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: Nunito, sans-serif;
+}
+
+.bg-green, .callout.callout-success, .alert-success, .label-success, .modal-success .modal-body {
+    background-color: #8CC152 !important;
+}
+
+.bg-aqua, .callout.callout-info, .alert-info, .label-info, .modal-info .modal-body {
+    background-color: #3b8fd8 !important;
+}
+
+.bg-red, .callout.callout-danger, .alert-danger, .alert-error, .label-danger, .modal-danger .modal-body {
+    background-color: #c70039 !important;
+}
 
 
+.info-box-number {
+    font-size: 28px;
+}
 
+/*.btn-primary {
+    background-color: #19B5FE;
+}
 
+.btn-primary:hover, .btn-primary:active, .btn-primary.hover {
+    background-color: #22A7F0;
+    border-color: #1b6d85;
+}*/
 
+.btn {
+    border: 2px solid transparent;
+    border-radius: 5px;
+}
+
+.dropdown .btn {
+    border-radius: 0;
+}
+
+.alert {
+    border-radius: 10px;
+    border: 2px solid transparent;
+}
+
+.alert-info {
+    border-color: #146ebd;
+}
+
+.info-box {
+    border-radius: 7px;
+}
+
+.info-box-icon {
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+
+.main-header .logo {
+    font-weight: bold;
+    font-family: inherit;
+    font-size: 21px;
+}

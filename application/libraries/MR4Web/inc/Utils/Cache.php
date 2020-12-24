@@ -11,7 +11,7 @@ class Cache {
 
 	public function __construct ()
 	{
-		$this->_filename = md5('MR4Web-'.$_SERVER['SERVER_ADDR']);
+		$this->_filename = md5('MR4Web-'.$_SERVER['REMOTE_ADDR']);
 		$this->_filePath = CACHE_DIR.$this->_filename;
 		$this->_CI = &get_instance();
 		$this->init();

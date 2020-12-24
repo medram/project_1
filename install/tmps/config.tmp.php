@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+ob_start();
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -23,7 +23,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'%FOLDER%';
+define('PROTOCOL', isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' && $_SERVER['SERVER_PORT'] == 443 ? 'https' : 'http');
+
+$config['base_url'] = PROTOCOL.'://'.$_SERVER['HTTP_HOST'].'%FOLDER%';
 
 /*
 |--------------------------------------------------------------------------
@@ -512,4 +514,4 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-$config['version'] = '1.3.0-demo';
+$config['version'] = '1.4.0-demo';

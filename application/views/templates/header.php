@@ -20,6 +20,7 @@
 
     <!-- Load jQuery library -->
     <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery-1.12.3.min.js"></script>
+    <!-- <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery-3.2.1.min.js"></script> -->
     <script type="text/javascript" src="<?php echo base_url(); ?>js/plugin.js"></script>
 
     <?php
@@ -27,17 +28,19 @@
     {
     	echo "<script src='".base_url()."js/account.js?v=1.0' type='text/javascript'></script>";
     }
-	?>    
+	?>
 
 	<!-- fonts -->
-	<link href="http://fonts.googleapis.com/earlyaccess/droidarabickufi.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/earlyaccess/droidarabickufi.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,600;0,800;1,200;1,400;1,600;1,800&display=swap" rel="stylesheet">
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url(); ?>css/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="<?php echo base_url(); ?>css/font-awesome/font-awesome.min.css" rel="stylesheet"> 
-    
+    <!-- <link href="<?php echo base_url(); ?>css/bootstrap4/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="<?php echo base_url(); ?>css/font-awesome/font-awesome.min.css" rel="stylesheet">
+
     <!-- Load the style of the site -->
-    <link href="<?php echo base_url(); ?>css/style.css?v=1.0" rel="stylesheet">    
+    <link href="<?php echo base_url(); ?>css/style.css?v=1.0" rel="stylesheet">
 
     <!-- for RTL theme -->
     <?php if (config_item('validLang')['isRTL']){ ?>
@@ -87,7 +90,7 @@
 		        		echo "<li><a href='".base_url()."'>".langLine('theme.header.home', false)."</a></li>";
 						foreach ($s->result_array() as $row)
 						{
-							echo "<li><a href='".base_url("p/".$row['slug'])."'>".$row['title']."</a></li>";
+							echo "<li><a href='".base_url("p/".$row['slug'])."'>".ucfirst($row['title'])."</a></li>";
 						}
 					}
 
@@ -104,7 +107,7 @@
 		        <li class="dropdown">
 		        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 		        			<!--<i class='fa fa-fw fa-lg fa-user'></i>-->
-		        			<img src='<?php echo get_profile_img($userdata['user_token']); ?>' class='pro-img img-circle ' width='35px' height='35px' > 
+		        			<img src='<?php echo get_profile_img($userdata['user_token']); ?>' class='pro-img img-circle ' width='35px' height='35px' >
 		          			<b><?php echo $userdata['username'];?></b> <span class="caret"></span>
 		          	</a>
 		          <ul class="dropdown-menu">
@@ -119,9 +122,9 @@
 		        else
 		        {
 		        ?>
-	            <li><a href="<?php echo base_url(); ?>login"><i class="fa fa-fw fa-sign-in"></i> <?php langLine('theme.header.login'); ?></a></li>
+	            <li><a href="<?php echo base_url(); ?>login" class="active-2"><i class="fa fa-fw fa-sign-in"></i> <?php langLine('theme.header.login'); ?></a></li>
 	            <li class='divider'></li>
-	            <li><a href="<?php echo base_url(); ?>register"><i class="fa fa-fw fa-user-plus"></i> <?php langLine('theme.header.register'); ?></a></li>
+	            <li><a href="<?php echo base_url(); ?>register" class="active"><i class="fa fa-fw fa-user-plus"></i> <?php langLine('theme.header.register'); ?></a></li>
 		        <?php
 		    	}
 		        ?>
