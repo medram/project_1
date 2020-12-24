@@ -85,7 +85,7 @@ class Cms_model extends MY_model
             $where .= ' AND show_footer=1';
         }
 
-        $where .= ' AND lang_id='.intval(config_item('validLang')['id']).' OR lang_id=0';
+        $where = '('.$where.' AND lang_id='.intval(config_item('validLang')['id']).') OR (lang_id=0 AND '.$where.')';
         return $this->select('pages',$where);
     }
 
