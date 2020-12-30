@@ -186,6 +186,29 @@ function get_domains($index = 0)
     }
 }
 
+function get_default_lang()
+{
+    $lang_id = intval(config_item('default_language'));
+    return get_lang_by_id($lang_id);
+}
+
+function get_langs()
+{
+    $CI =& get_instance();
+    return $CI->cms_model->select('languages', ['active' => 1])->result_array();
+}
+
+function get_lang_by_id($id)
+{
+    $id = intval($id);
+
+    foreach (get_langs() as $k => $lang)
+    {
+        if ($id == $lang['id'])
+            return $lang;
+    }
+}
+
 function encode($url, $url_safe = false) {
     return $url;
 /*    global $CI;

@@ -35,8 +35,9 @@ class MY_controller extends CI_controller
 
 	private function check_language()
 	{
-		$langs = $this->cms_model->select('languages', ['active' => 1])->result_array();
-		$lang_id = config_item('default_language');
+		$langs = get_langs();
+		$default_lang = get_default_lang();
+		$language = $default_lang; // get and use the default language (default value).
 		$sym = $this->input->cookie('lang', true);
 
 		// check the cookie
@@ -47,28 +48,23 @@ class MY_controller extends CI_controller
 			set_cookie('lang', $sym, 30*24*3600); // 30 days
 		}
 
+		// Getting and set language by cookie.
 		if ($sym != '')
 		{
-			foreach ($langs as $k => $row)
+			foreach ($langs as $k => $l)
 			{
-				if ($row['symbol'] == $sym)
+				if ($l['symbol'] == $sym)
 				{
-					$lang_id = $k+1;
+					$language = $l;
 					break;
 				}
 			}
 		}
 
-
-		$language = $langs[0]; // set a first active language, in case of default lang is not active.
-		# get the default language.
-		foreach ($langs as $k => $lang)
-		{
-			if (intval($lang['id']) == intval($lang_id)){
-				$language = $lang;
-				break;
-			}
-		}
+		// echo "default:";
+		// print_r(get_default_lang());
+		// echo "will be used:";
+		// print_r($language);
 
 		$this->config->set_item('validLang', $language);
 		$this->config->set_item('languages', $langs);
