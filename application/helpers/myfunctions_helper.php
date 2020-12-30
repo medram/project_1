@@ -17,13 +17,13 @@ function labelNotification()
     $s2 = $CI->cms_model->select('news');
     if ($s2->num_rows())
         $news = 1;
-    
+
     $s->free_result();
     $s2->free_result();
 
     if ($update)
         $string .= "<span class='label label-danger pull-right'>Update</span>";
-    
+
     if ($news && config_item('viewed_news') == 0)
         $string .= "<span class='label label-success pull-right'>News</span>";
 
@@ -36,7 +36,7 @@ function langLine($key, $echo = true, $replace = [])
     global $CI;
     static $loaded = [];
     $langFile = explode('.', $key)[0];
-    
+
     // this is auto load languages files
     if (!in_array($langFile, $loaded))
     {
@@ -107,7 +107,7 @@ function deleteFolder($srcFolder, $deleteFolders = false, $deleteRootFolder = tr
         return false;
 
     $srcFolder = rtrim(str_ireplace('\\', '/', $srcFolder), '/');
-    
+
     $files = scandir($srcFolder);
     $done = true;
 
@@ -168,18 +168,22 @@ function get_domains($index = 0)
     $domains = explode("\r\n", get_config_item('packages_domains'));
     $default_url = base_url();
 
-    /*
-    echo '<pre>';
-    print_r($domains);
-    echo '</pre>';
-    */
 
-    if (isset($domains[$index]) && $domains[$index] != '')
+    // echo '<pre>';
+    // print_r($domains);
+    // echo '</pre>';
+
+
+    $parsed_url = parse_url($default_url);
+
+    if (count($domains) && isset($domains[$index]) && trim($domains[$index]) != '')
     {
-        return preg_replace("/^(https|http)?:\/\/([a-zA-Z0-9-.]+)\/(.*)\//", "http://".$domains[$index]."/$3/", $default_url);
+        return $parsed_url['scheme']."://".$domains[$index].$parsed_url['path'];
     }
     else
+    {
         return $default_url;
+    }
 }
 
 function encode($url, $url_safe = false) {
@@ -200,7 +204,7 @@ function decode($url, $url_safe = false) {
 
 /*    global $CI;
     $CI->load->library('encryption');
-    
+
     if ($url_safe) {
         $url = strtr($url, array('.' => '+', '-' => '=', '~' => '/'));
     }
@@ -211,7 +215,7 @@ function is_forbiden_url($url)
 {
     $url = preg_replace("/(https|http)?(:\/\/)(www.)?/i", '', $url);
     $bad_urls = explode("\r\n", get_config_item('bad_urls'));
-    
+
 //   echo $url.'<br>';
 /*    echo '<pre>';
     print_r($bad_urls).'<br>';
@@ -243,7 +247,7 @@ function get_config_item($option_name)
     $where = array('option_name' => $option_name);
 
     $s = $CI->cms_model->select('settings',$where);
-    
+
     if ($s->num_rows() == 1)
     {
         $row = $s->result_array();
@@ -358,13 +362,13 @@ function sendEmail($to, $subject, $msg, $from = array(), $priority=3, $mailtype=
             $mail->SetFrom(get_config_item('email_from'), config_item('sitename'));
         else
             $mail->SetFrom($from[0], $from[1]);
-        
-        
-        if ($mailtype == 'html')        
+
+
+        if ($mailtype == 'html')
         {
             $mail->IsHTML(TRUE);
             $mail->Body = $msg;
-        }   
+        }
         else
         {
             $mail->IsHTML(FALSE);
@@ -386,12 +390,12 @@ function sendEmail($to, $subject, $msg, $from = array(), $priority=3, $mailtype=
     } catch (PHPMailer\PHPMailer\Exception $e) {
 
         /*
-        echo "<pre>";      
+        echo "<pre>";
         echo $e->errorMessage();
         //print($mail->ErrorInfo);
         echo "</pre>";
         */
-        return false;      
+        return false;
     }
 }
 
@@ -467,7 +471,7 @@ function pagination($all_items,$num_per_page,$url,$lg='en')
 
     $config['num_tag_open'] = "<li>";
     $config['num_tag_close'] = "</li>";
-    
+
     $config['cur_tag_open'] = "<li class='active'><a href='#'>";
     $config['cur_tag_close'] = "</a></li>";
 
@@ -950,22 +954,22 @@ function get_country_menu ($name='',$class='',$select=0,$l='')
         "Zimbabwe"
     );
 
-    $lang = (isset($country[$lang]))? $lang : 'en' ; 
+    $lang = (isset($country[$lang]))? $lang : 'en' ;
 
     $select = ($select == '')? 0 : $select ;
     $dir = ($lang == 'en')? 'ltr' : 'rtl' ;
     $s = "<div dir='".$dir."'><select ";
-    
+
     if ($name != '')
     {
         $s .= "name='".$name."' ";
     }
-    
+
     if ($class != '')
     {
         $s .= "class='".$class."' >";
     }
-    
+
     foreach ($country[$lang] as $k => $v)
     {
         if ($select == $k)
@@ -1128,20 +1132,20 @@ function get_timezone_menu ($name='',$class='',$select='')
     '(GMT+12:00) Wellington' => 'Pacific/Auckland',
     '(GMT+13:00) Nuku\'alofa' => 'Pacific/Tongatapu'
     );
-        
+
     $select = ($select == '')? 'Africa/Casablanca' : $select ;
     $s = "<select ";
-    
+
     if ($name != '')
     {
         $s .= "name='".$name."' ";
     }
-    
+
     if ($class != '')
     {
         $s .= "class='".$class."' >";
     }
-    
+
     foreach ($timezones as $k => $v)
     {
         if ($select == $v)
@@ -1191,7 +1195,7 @@ function get_google_ad ($pub='',$channel='',$type='')
 
     if (config_item('ads_status') == 0)
         return;
-    
+
     if (get_config_item('just_show_users_ads') == 0)
     {
         if (get_config_item('just_show_admin_ads') == 1)
@@ -1215,7 +1219,7 @@ function get_google_ad ($pub='',$channel='',$type='')
                 return get_config_item('ad_'.$type);
         }
     }
- 
+
 /*    echo $pub.'<br>';
     echo 'Channel: '.$channel.'<br>';*/
 
@@ -1235,7 +1239,7 @@ function get_google_ad ($pub='',$channel='',$type='')
         {
             $code .= "google_ad_channel = ".$channel.";";
         }
-        
+
         $code .= '
             </script>
             <!-- ad name here -->

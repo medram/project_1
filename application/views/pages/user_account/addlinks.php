@@ -61,7 +61,7 @@
 							</div>
 							<?php
 
-							if (count($domains) >= 2)
+							if (count($domains) > 0 && trim($domains[0]) != '')
 							{
 								// show the select option to select a domain
 							?>
@@ -114,7 +114,7 @@
 							</div>
 							<?php
 
-							if (count($domains) >= 2)
+							if (count($domains) > 0 && trim($domains[0]) != '')
 							{
 								// show the select option to select a domain
 							?>
