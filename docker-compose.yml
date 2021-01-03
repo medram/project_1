@@ -1,12 +1,12 @@
 version: "3.7"
 
 services:
-  php_web:
+  web:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 5000:80
+      - 5002:80
     restart: always
     depends_on:
       - db
@@ -23,17 +23,17 @@ services:
     networks:
       - adlinker
 
-  phpmyadmin:
-    image: phpmyadmin
-    ports:
-      - 8081:80
-    environment:
-      PMA_HOST: db
-    networks:
-      - adlinker
-    restart: always
-    depends_on:
-      - db
+  # phpmyadmin:
+  #   image: phpmyadmin
+  #   ports:
+  #     - 8081:80
+  #   environment:
+  #     PMA_HOST: db
+  #   networks:
+  #     - adlinker
+  #   restart: always
+  #   depends_on:
+  #     - db
 
 volumes:
   web_volume:
