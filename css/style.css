@@ -234,6 +234,10 @@ body > section
 	.contact-us-box div.text {
 		text-align: center;
 	}
+
+	.contact-us-box img {
+		width: 100%;
+	}
 }
 
 /* Medium Devices, Desktops (md) */
@@ -269,6 +273,7 @@ body > section
 	}
 	.jumbotron .container .right-box {
 		flex: 1;
+		display: none !important;
 	}
 	.jumbotron .container .right-box img {
 		width: 450px;
