@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+ob_start();
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -316,7 +316,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = "d61ad605013d868ae4f1b02c35b15e6dee84d20c";
+$config['encryption_key'] = "9eeb13139a0992253ef241375dbb41d244d4e695";
 
 /*
 |--------------------------------------------------------------------------
@@ -514,4 +514,4 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-$config['version'] = '1.4.0';
+$config['version'] = '1.4.2';
