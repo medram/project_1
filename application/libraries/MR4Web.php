@@ -37,6 +37,11 @@ class MR4Web {
 		return '127.0.0.1';
 	}
 
+	private function _getDomain()
+	{
+		return 'http://'.$_SERVER['HTTP_HOST'];
+	}
+
 	private function init()
 	{
 		// make a listener class on the codeigniter constractor
@@ -59,7 +64,7 @@ class MR4Web {
 		$params = array(
 			'action'	=> 'activate',
 			'code' 		=> $purchaseCode != NULL ? $purchaseCode : $this->_license->getPurchaseCode(),
-			'domain'	=> 'http://'.$_SERVER['HTTP_HOST'],
+			'domain'	=> $this->_getDomain(),
 			'ip'		=> $this->_getHostIP(),
 			'c_name'	=> $this->_customer->get('username'),
 			'c_email'	=> $this->_customer->get('email'),
@@ -102,20 +107,20 @@ class MR4Web {
 			'action'	=> 'deactivate',
 			'code' 		=> $purchaseCode != NULL ? $purchaseCode : $this->_license->getPurchaseCode(),
 			'ip'		=> $this->_getHostIP(),
-			'domain'	=> 'http://'.$_SERVER['HTTP_HOST']
+			'domain'	=> $this->_getDomain()
 			);
 
-/*		echo '<pre>';
-		print_r($params);
-		echo '</pre>';*/
+		// echo '<pre>';
+		// print_r($params);
+		// echo '</pre>';
 
 
 		// connect to the server
 		$this->_response = MyCURL(Config::get('URLs')['license'], $params);
 
-/*		echo '<pre>';
-		print_r($this->_response);
-		echo '</pre>';*/
+		// echo '<pre>';
+		// print_r($this->_response);
+		// echo '</pre>';
 		// return results
 		if (isset($this->_response['response']['deactivate']) && $this->_response['response']['deactivate'] == 1)
 		{
@@ -147,8 +152,8 @@ class MR4Web {
 		{
 			logger('start checking a Cache...');
 			// check the cache file if it's valid with this server & decoded properly
-			if ($this->_cache->isExpired() 
-				|| $this->_cache->get('ip') != $this->_getHostIP() 
+			if ($this->_cache->isExpired()
+				|| $this->_cache->get('ip') != $this->_getHostIP()
 				|| $this->_cache->get('code') != config_item('purchase_code')
 				|| $this->_cache->get('p_name') != Config::get('product')['name']
 				|| $this->_cache->get('p_version') != config_item('version')
@@ -156,7 +161,7 @@ class MR4Web {
 			{
 				logger('Cache is not valid');
 				$this->_cache->erase();
-				// check & save new Cache 
+				// check & save new Cache
 				if (!$this->activate())
 				{
 					redirectToLicensePage();
@@ -169,7 +174,7 @@ class MR4Web {
 		}
 	}
 
-	// check manually (automatically every day/week) for new Updates & News. 
+	// check manually (automatically every day/week) for new Updates & News.
 	public function checkUpdates($type = 'all')
 	{
 		if (config_item('last_update') < time())
@@ -183,7 +188,7 @@ class MR4Web {
 			$data['p_version'] = config_item('version');
 			$data['IP'] = $this->_getHostIP();
 			$receivedData = MyCURL(Config::get('URLs')['update'], $data);
-			
+
 			/*
 			{
 			    "status": 1,
@@ -264,7 +269,7 @@ class MR4Web {
 							break;
 						}
 					}
-					
+
 					if (!$err)
 					{
 						// auto show notification "News" label
