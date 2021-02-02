@@ -651,7 +651,7 @@ class Account extends MY_controller
 			{
 				$err = langLine('notifAccount.settings.span.4', false);
 			}
-			else if ($url != '' && !filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED))
+			else if ($url != '' && !filter_var($url, FILTER_VALIDATE_URL))
 			{
 				$err = langLine('notifAccount.settings.span.6', false);
 			}
