@@ -39,7 +39,7 @@ $(document).ready(function (){
 		{
 			clearInterval(set);
 			// إنتظر من فضلك ...
-			$('#stp1 .btn').html(` <a style="color: #FFF;" href="${window.location.origin}/link/${window.location.pathname.split('/')[2]}">Click to Continue!</a>`);
+			$('#stp1 .btn').html(` <a style="color: #FFF;" href="${window.location.origin}/link/${window.location.pathname.split('/')[window.location.pathname.split('/').length - 1]}">Click to Continue!</a>`);
 /*			setTimeout(function (){
 				//window.location.href = `${window.location.href}?t=<?php echo time(); ?>`;
 				window.location.href = `${window.location.origin}/link/${window.location.pathname.split('/')[2]}`;
@@ -92,7 +92,7 @@ else
 					// show admin ads
 					echo get_google_ad();
 				}
-				
+
 				?>
 			</div>
 		</div>
@@ -109,7 +109,7 @@ else
 		<section>
 			<div class='row'>
 				<div class='col-md-12'>
-					<h1 class='lead'><i class='fa fa-fw fa-link'></i> <?php echo $linkdata['title'] ?></h1>	
+					<h1 class='lead'><i class='fa fa-fw fa-link'></i> <?php echo $linkdata['title'] ?></h1>
 					<hr>
 				</div>
 			</div>
@@ -161,7 +161,7 @@ else
 				<div class='col-md-5'>
 					<div>
 						<?php
-						
+
 						if ($linkdata['status'] == 1)
 						{
 							if ($linkdata['showReCaptcha'])
@@ -192,7 +192,7 @@ else
 							{
 							?>
 						<div id='stp1'>
-							<button class='btn btn-danger btn-block' style='text-align: center;height: 70px;font-size: 20px;'><?php langLine('theme.go.span.15') ?></button>						
+							<button class='btn btn-danger btn-block' style='text-align: center;height: 70px;font-size: 20px;'><?php langLine('theme.go.span.15') ?></button>
 						</div>
 						<?php
 							}
@@ -321,7 +321,7 @@ if (config_item('ads_status') == 1)
 		$('.boxAds').each(function (){
 			i = i + $(this).height();
 		});
-		
+
 		if (i == 0)
 		{
 			$('.centent_box').html('');
