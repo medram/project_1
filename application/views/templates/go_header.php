@@ -49,6 +49,7 @@
     ?>
 </head>
 <body>
+    <span data-base-url="<?php echo base_url() ?>" style="display: none;"></span>
     <header>
         <nav class="navbar navbar-default navbar-static-top">
           <div class="container-fluid container">
