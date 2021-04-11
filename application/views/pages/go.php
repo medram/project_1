@@ -40,7 +40,7 @@ $(document).ready(function (){
 		{
 			clearInterval(set);
 			// إنتظر من فضلك ...
-			$('#stp1 .btn').html(` <a style="color: #FFF;" href="${base_url}/link/${window.location.pathname.split('/')[window.location.pathname.split('/').length - 1]}">Click to Continue!</a>`);
+			$('#stp1 .btn').html(` <a style="color: #FFF;" href="${base_url}link/${window.location.pathname.split('/')[window.location.pathname.split('/').length - 1]}">Click to Continue!</a>`);
 /*			setTimeout(function (){
 				//window.location.href = `${window.location.href}?t=<?php echo time(); ?>`;
 				window.location.href = `${window.location.origin}/link/${window.location.pathname.split('/')[2]}`;
