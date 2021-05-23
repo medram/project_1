@@ -17,3 +17,5 @@ vendor/*
 application/config/config.php
 application/config/database.php
 install/
+
+.env
