@@ -1,5 +1,7 @@
 <?php
 
+$ALERT_MESSAGES = [];
+
 class MY_controller extends CI_controller
 {
 	public function __construct()
@@ -21,6 +23,15 @@ class MY_controller extends CI_controller
 		$this->cms_model->test_login_using_cookie();
 	}
 
+	public function __destruct()
+	{
+		global $ALERT_MESSAGES;
+	    //$CI->load->helper('cookie');
+	    if (is_array($ALERT_MESSAGES))
+	    {
+		    set_cookie('ALERT_MESSAGES', json_encode($ALERT_MESSAGES), 86500000);
+	    }
+	}
 
 	private function check_the_server_is_ready ()
 	{
