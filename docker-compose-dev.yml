@@ -2,33 +2,13 @@ version: "3.7"
 
 services:
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 5002:80
     volumes:
       - .:/var/www/html:rw
-    restart: always
-    depends_on:
-      - db
-    networks:
-      - adlinker
-
-  db:
-    image: mariadb
-    volumes:
-      - db_volume:/var/lib/mysql
-    restart: always
-    env_file:
-      - .env
-    networks:
-      - adlinker
 
   phpmyadmin:
     image: phpmyadmin
     ports:
-      - 8082:80
+      - 8081:80
     environment:
       PMA_HOST: db
     networks:
@@ -36,8 +16,3 @@ services:
     restart: always
     depends_on:
       - db
-
-volumes:
-  db_volume:
-networks:
-  adlinker:
