@@ -316,7 +316,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = "9eeb13139a0992253ef241375dbb41d244d4e695";
+$config['encryption_key'] = "468a83efb1a7d70507e87f674114726157a0a50f";
 
 /*
 |--------------------------------------------------------------------------
@@ -514,4 +514,4 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-$config['version'] = '1.4.3';
+$config['version'] = '1.4.1';

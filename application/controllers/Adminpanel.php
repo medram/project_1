@@ -8,6 +8,8 @@ class Adminpanel extends MY_controller
 	public function __construct ()
 	{
 		parent::__construct();
+		//$this->_conn = get_db();
+		//$this->_db = $this->_conn->createQueryBuilder();
 		$this->data['page_path'] = strtolower(__CLASS__); // you can change the name page from the url from here
 		$this->isAdmin();
 		// just for debugging mode
@@ -1706,6 +1708,21 @@ class Adminpanel extends MY_controller
 
 	}
 
+	public function publisher_rates($action='')
+	{
+		$this->data['title'] = 'Publisher Rates';
+
+		//$countries = $this->db->get('countries')->result();
+		$countries = $this->db->select('*')->from('countries')->join('publisher_rates', 'countries.id = publisher_rates.country_id')->get()->result();
+		//$publishers = $this->db->get('publisher_rates')->result();
+		//print_r($countries);
+
+		$this->data['countries'] = $countries;
+
+		$this->load->view("templates/admin_header",$this->data);
+		$this->load->view("pages/admin/publisher_rates",$this->data);
+		$this->load->view("templates/admin_footer",$this->data);
+	}
 
 }
 

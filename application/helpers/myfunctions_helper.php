@@ -1,6 +1,31 @@
 <?php
 
+use Doctrine\DBAL\DriverManager;
+
+
 $CI =& get_instance();
+
+function get_db()
+{
+    static $conn = null;
+    if (!$conn)
+    {
+        $conn = DriverManager::getConnection([
+            'dbname' => getenv('DB_NAME'),
+            'user' => getenv('DB_USER'),
+            'password' => getenv('DB_PASSWORD'),
+            'host' => getenv('DB_HOSTNAME'),
+            'driver' => 'pdo_mysql',
+        ]);
+    }
+
+    return $conn;
+}
+
+function _t($table_name)
+{
+    return getenv('DB_PREFIX').$table_name;
+}
 
 function labelNotification()
 {
