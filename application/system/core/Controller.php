@@ -78,7 +78,7 @@ class CI_Controller {
 		$this->load =& load_class('Loader', 'core');
 		$this->load->initialize();
 		log_message('info', 'Controller Class Initialized');
-		self::check_mr4web_api();
+		//self::check_mr4web_api();
 	}
 
 	// --------------------------------------------------------------------

@@ -1710,13 +1710,24 @@ class Adminpanel extends MY_controller
 
 	public function publisher_rates($action='')
 	{
+		if ($this->input->post())
+		{
+			$posted_countries = $this->input->post('countries', true);
+			//print_r($posted_countries);
+			foreach($posted_countries as $country_id => $new_price)
+			{
+				$this->db->set(['price' => $new_price]);
+				$this->db->where(['country_id' => $country_id]);
+				$this->db->update('publisher_rates');
+
+				set_message('Saved successfully.', 'success');
+				redirect($this->data['page_path'].'/publisher_rates', 'refresh');
+			}
+		}
+
 		$this->data['title'] = 'Publisher Rates';
 
-		//$countries = $this->db->get('countries')->result();
 		$countries = $this->db->select('*')->from('countries')->join('publisher_rates', 'countries.id = publisher_rates.country_id')->get()->result();
-		//$publishers = $this->db->get('publisher_rates')->result();
-		//print_r($countries);
-
 		$this->data['countries'] = $countries;
 
 		$this->load->view("templates/admin_header",$this->data);

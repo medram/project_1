@@ -8,8 +8,18 @@
     <div class="box box-warning">
         <div class="box-body">
         	<div class='row'>
-        		<div class='col-md-12'>
-                    <form action='' method='post'>
+                <div class="col-md-12"><?php echo get_messages(true) ?></div>
+
+                <form action='' method='post'>
+                    <div class="col-md-12 text-right">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-save"></i> Save</button>
+                    </div>
+                    <?php
+                    $country_chunks = array_chunk($countries, ceil(count($countries)/2));
+
+                    foreach($country_chunks as $key => $country_chunk) {
+                    ?>
+                    <div class='col-md-6'>
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -19,21 +29,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach($countries as $country){ ?>
+                                <?php foreach($country_chunk as $country){ ?>
                                     <tr>
                                         <td><?php echo "<i class='flag-icon flag-icon-".$country->code."'></i></td>" ?>
                                         <td><?php echo $country->name ?></td>
                                         <td>
                                             <?php
-                                                echo "<input type='text' name='countries[]' value='".$country->price."' placeholder='Publisher Price' class='form-control'>"
+                                                echo "<input type='text' name='countries[".$country->country_id."]' value='".$country->price."' placeholder='Publisher Price' class='form-control'>"
                                             ?>
                                         </td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
                         </table>
-                    </form>
-                </div>
+                    </div>
+                    <?php } ?>
+                    <div class="col-md-12 text-right">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-save"></i> Save</button>
+                    </div>
+                </form>
         	</div>
         </div>
     </div>

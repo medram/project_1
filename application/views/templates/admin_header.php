@@ -40,6 +40,9 @@
 	<link rel="stylesheet"
 		  href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
+	<!-- Flag icons -->
+	<link rel="stylesheet" href="<?php echo base_url('vendor/components/flag-icon-css'); ?>/css/flag-icon.min.css" >
+
 	<!-- jQuery 3 -->
 	<script src="<?php echo base_url('vendor/almasaeed2010/adminlte'); ?>/bower_components/jquery/dist/jquery.min.js"></script>
 

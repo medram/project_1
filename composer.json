@@ -15,7 +15,8 @@
 		"phpmailer/phpmailer": "^6.1",
 		"almasaeed2010/adminlte": "~2.4",
 		"doctrine/migrations": "^3.1",
-		"vlucas/phpdotenv": "^5.3"
+		"vlucas/phpdotenv": "^5.3",
+		"components/flag-icon-css": "^3.5"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

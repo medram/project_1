@@ -27,6 +27,33 @@ function _t($table_name)
     return getenv('DB_PREFIX').$table_name;
 }
 
+function set_message($message=null, $type='warning')
+{
+    global $ALERT_MESSAGES;
+    if (is_string($message))
+    {
+        $message = ['content' => $message, 'type' => $type];
+        $ALERT_MESSAGES[] = $message;
+    }
+}
+
+function get_messages($text=false)
+{
+    global $CI;
+    $CI->load->helper('cookie');
+    $messages = json_decode($CI->input->cookie('ALERT_MESSAGES'), true);
+    $result = $text ? '' : [];
+    //print_r($messages);
+    foreach ($messages as $key => $message) {
+        if ($text)
+            $result .= "<div class='alert alert-".$message['type']."'>".$message['content']."</div>";
+        else
+            $result[] = $message;
+    }
+    delete_cookie('ALERT_MESSAGE');
+    return $result;
+}
+
 function labelNotification()
 {
     global $CI;
