@@ -1713,6 +1713,14 @@ class Adminpanel extends MY_controller
 		if ($this->input->post())
 		{
 			$posted_countries = $this->input->post('countries', true);
+			$world_wide = (float)$this->input->post('world_wide', true);
+
+			$this->db->set([
+				'option_value' => $world_wide,
+			])->where([
+				'option_name' => 'world_wide',
+			])->update('settings');
+
 			//print_r($posted_countries);
 			foreach($posted_countries as $country_id => $new_price)
 			{
@@ -1729,6 +1737,7 @@ class Adminpanel extends MY_controller
 
 		$countries = $this->db->select('*')->from('countries')->join('publisher_rates', 'countries.id = publisher_rates.country_id')->get()->result();
 		$this->data['countries'] = $countries;
+		$this->data['world_wide'] = (float)get_config_item('world_wide');
 
 		$this->load->view("templates/admin_header",$this->data);
 		$this->load->view("pages/admin/publisher_rates",$this->data);

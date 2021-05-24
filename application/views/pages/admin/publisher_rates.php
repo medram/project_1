@@ -14,6 +14,18 @@
                     <div class="col-md-12 text-right">
                         <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-save"></i> Save</button>
                     </div>
+                    <div class="col-md-12 text-center">
+                        <table class="table">
+                            <tr>
+                                <td class='text-right' style='vertical-align: middle'><b>Worldwide Deal(All Countries):</b></td>
+                                <td>
+                                    <?php
+                                        echo "<input type='text' name='world_wide' value='".$world_wide."' placeholder='Publisher Price' class='form-control' style='width: 30%;'>"
+                                    ?>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                     <?php
                     $country_chunks = array_chunk($countries, ceil(count($countries)/2));
 

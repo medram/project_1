@@ -400,6 +400,7 @@ function email_tpls_load_and_replace($tpl_path, $consts, $load_header_footer = F
 function sendEmail($to, $subject, $msg, $from = array(), $priority=3, $mailtype='html')
 {
     $mail = new PHPMailer\PHPMailer\PHPMailer();
+    $mail->CharSet = 'UTF-8';
 
     try {
 

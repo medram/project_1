@@ -216,7 +216,8 @@ INSERT INTO `{DBP}settings` (`option_id`, `option_name`, `option_value`, `autolo
 (64, 'social_media_reddit', '', 'no'),
 (65, 'social_media_pinterest', '', 'no'),
 (66, 'social_media_tumblr', '', 'no'),
-(67, "social_media_instagram", "", "no");
+(67, "social_media_instagram", "", "no"),
+(98, "world_wide", "0.4", "no");
 
 
 -- --------------------------------------------------------
@@ -366,7 +367,7 @@ ALTER TABLE `{DBP}pages`
 -- AUTO_INCREMENT for table `{DBP}settings`
 --
 ALTER TABLE `{DBP}settings`
-  MODIFY `option_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `option_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 --
 -- AUTO_INCREMENT for table `{DBP}statistics`
 --
