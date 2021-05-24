@@ -42,6 +42,9 @@
     <!-- Load the style of the site -->
     <link href="<?php echo base_url(); ?>css/style.css?v=1.0" rel="stylesheet">
 
+	<!-- Flag icons -->
+	<link rel="stylesheet" href="<?php echo base_url('vendor/components/flag-icon-css'); ?>/css/flag-icon.min.css" >
+
     <!-- for RTL theme -->
     <?php if (config_item('validLang')['isRTL']){ ?>
     <link href="<?php echo base_url(); ?>css/bootstrap/css/bootstrap-rtl.css" rel="stylesheet">

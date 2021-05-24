@@ -1010,6 +1010,8 @@ class Adminpanel extends MY_controller
 			$this->data['pagedata'] = $row;
 
 			$this->data['title'] = $row['title'];
+			$content = $this->data['pagedata']['content'];
+			$this->data['page_content'] = do_filter('page_content', $content);
 
 			$this->load->view("templates/header",$this->data);
 			$this->load->view("pages/admin/page_demo",$this->data);

@@ -6,7 +6,7 @@
 	</div>
 	<div class='row'>
 		<div class='col-md-12'>
-			<section><?php echo $pagedata['content']; ?></section>
+			<section><?php echo $page_content ?></section>
 		</div>
 	</div>
 </div>

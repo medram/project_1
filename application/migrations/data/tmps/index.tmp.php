@@ -55,6 +55,7 @@ require_once './vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->safeLoad();
 
+
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
@@ -331,4 +332,7 @@ switch (ENVIRONMENT)
  *
  * And away we go...
  */
+/*----------- Importing Hooks ----------*/
+require_once APPPATH."libraries/Hooks/hooks.php";
+
 require_once BASEPATH.'core/CodeIgniter.php';

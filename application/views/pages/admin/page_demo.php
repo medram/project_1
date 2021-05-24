@@ -14,7 +14,7 @@
 	<hr>
 	<div class='row'>
 		<div class='col-lg-12'>
-			<?php echo $pagedata['content']; ?>
+			<section><?php echo $page_content ?></section>
 		</div>
 	</div>
 </div>

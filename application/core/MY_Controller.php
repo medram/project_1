@@ -2,6 +2,9 @@
 
 $ALERT_MESSAGES = [];
 
+// register all Hooks in the glocal scoop to be accessable everywhere.
+require_once APPPATH."helpers/register_hooks.php";
+
 class MY_controller extends CI_controller
 {
 	public function __construct()
@@ -87,7 +90,6 @@ class MY_controller extends CI_controller
 		$this->MR->checkLicense();
 		$this->MR->checkUpdates();
 	}
-
 } // end class
 
 

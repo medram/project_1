@@ -18,7 +18,7 @@ class P extends MY_controller
 			$where = "slug='".$slug."' AND published=1";
 			$where .= " AND (lang_id=".config_item('validLang')['id']." OR lang_id=0)";
 			$sel = $this->cms_model->select('pages', $where);
-			
+
 /*			echo '<pre>';
 			print_r($sel->result_array()) ;
 			echo '</pre>';*/
@@ -29,6 +29,8 @@ class P extends MY_controller
 				$this->data['title'] = $this->data['pagedata']['title'];
 				$this->data['meta']['description'] = htmlentities($this->data['pagedata']['description'],ENT_QUOTES);
 				$this->data['meta']['keywords'] = htmlentities($this->data['pagedata']['keywords'],ENT_QUOTES);
+				$content = $this->data['pagedata']['content'];
+				$this->data['page_content'] = do_filter('page_content', $content);
 
 				$page = 'templates/p'; // default page
 
@@ -52,7 +54,7 @@ class P extends MY_controller
 		{
 			show_404();
 		}
-		
+
 	}
 }
 
