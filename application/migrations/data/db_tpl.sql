@@ -128,11 +128,12 @@ CREATE TABLE `{DBP}pages` (
 -- Dumping data for table `{DBP}pages`
 --
 
-INSERT INTO `{DBP}pages` (`id`, `title`, `slug`, `lang_id`, `keywords`, `description`, `published`, `show_header`, `show_footer`, `content`, `uneditable`, `created`, `modified`) VALUES
-(1, 'contact', 'contact', 0, 'contact,contact us,support', '', '1', '1', '1', '', 1, '1474631403', '1532733916'),
-(2, 'terms', 'terms', 1, '', '', '1', '1', '1', '', 0, '1531866913', '1531869055'),
-(3, 'شروط الإستخدام', 'terms', 2, 'terms,my site', 'nothing here', '1', '0', '1', '', 0, '1469443321', '1531871193'),
-(4, 'سياسة الخصوصية', 'privacy', 2, '', '', '1', '0', '1', '', 0, '1469443321', '1531868254');
+INSERT INTO `{DBP}pages` (`title`, `slug`, `lang_id`, `keywords`, `description`, `published`, `show_header`, `show_footer`, `content`, `uneditable`, `created`, `modified`) VALUES
+('contact', 'contact', 0, 'contact,contact us,support', '', '1', '1', '1', '', 1, '1474631403', '1532733916'),
+('Publisher Rates', 'publisher', 0, 'Publisher Rates, earnings, users earnings', '', '1', '1', '1', '{{PUBLISHER_RATES}}', 0, '1474631420', '1532733920'),
+('terms', 'terms', 1, '', '', '1', '1', '1', '', 0, '1531866913', '1531869055'),
+('شروط الإستخدام', 'terms', 2, 'terms,my site', 'nothing here', '1', '0', '1', '', 0, '1469443321', '1531871193'),
+('سياسة الخصوصية', 'privacy', 2, '', '', '1', '0', '1', '', 0, '1469443321', '1531868254');
 
 -- --------------------------------------------------------
 
@@ -151,74 +152,74 @@ CREATE TABLE `{DBP}settings` (
 -- Dumping data for table `{DBP}settings`
 --
 
-INSERT INTO `{DBP}settings` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES
-(1, 'sitename', '', 'yes'),
-(2, 'siteurl', '', 'yes'),
-(4, 'powredby', 'Mohammed Ramouchy from MR4Web.com', 'no'),
-(6, 'siteclose', '0', 'yes'),
-(7, 'secret_key', '', 'no'),
-(8, 'public_key', '', 'no'),
-(9, 'cookie_expire', '1296000', 'yes'),
-(10, 'site_domain', '', 'yes'),
-(11, 'use_cookie_on_https', '0', 'yes'),
-(12, 'hide_cookie_from_js', '1', 'yes'),
-(13, 'cookie_name', 'U', 'yes'),
-(14, 'default_language', '1', 'yes'),
-(15, 'default_timezone', 'Africa/Casablanca', 'yes'),
-(16, 'shutdown_msg', '<h1>The site isn\'t available for now, please try again later.</h1>', 'no'),
-(17, 'tracking_code', '', 'no'),
-(18, 'registration_status', '1', 'no'),
-(19, 'user_delete_account', '0', 'no'),
-(20, 'user_page_path', 'account', 'no'),
-(21, 'admin_page_path', 'adminpanel', 'yes'),
-(22, 'recaptcha_status', '0', 'no'),
-(23, 'time_format', 'd-m-Y H:i', 'yes'),
-(24, 'shutdown_msg_register', 'Sorry, you can\'t register now, please try later.', 'no'),
-(25, 'keywords', '', 'yes'),
-(26, 'description', '', 'yes'),
-(27, 'show_logo', '0', 'yes'),
-(28, 'restoration_time_account', '1', 'no'),
-(29, 'email_method', 'mail', 'no'),
-(30, 'email_from', '', 'no'),
-(31, 'SMTP_Host', '', 'no'),
-(32, 'SMTP_Port', '', 'no'),
-(33, 'SMTP_User', '', 'no'),
-(34, 'SMTP_Pass', '', 'no'),
-(35, 'mail_encription', 'tls', 'no'),
-(36, 'allow_SSL_Insecure_mode', '0', 'no'),
-(37, 'ad_728x90', '728 x 90', 'no'),
-(38, 'ad_300x250', '300 x 250', 'no'),
-(39, 'ad_300x600', '300 x 600', 'no'),
-(40, 'ad_autosize', 'autosize ads', 'no'),
-(41, 'ads_status', '0', 'yes'),
-(42, 'ads_status_on_accounts', '0', 'yes'),
-(43, 'notes_delete_account', 'you can delete (block) your account from here.<br>', 'no'),
-(44, 'countdown', '15', 'no'),
-(45, 'admin_pub', '', 'no'),
-(46, 'admin_channel', '0', 'no'),
-(47, 'just_show_admin_ads', '0', 'no'),
-(48, 'just_show_users_ads', '0', 'no'),
-(49, 'bad_urls', 'gsurl.in\r\nlinkshrink.net\r\nadf.ly', 'no'),
-(50, 'go_head_code', '', 'no'),
-(51, 'showFakeNumbers', '1', 'no'),
-(52, 'fakeViews', '35000', 'no'),
-(53, 'fakeUsers', '500', 'no'),
-(54, 'fakeLinks', '1400', 'no'),
-(55, 'packages_domains', '', 'no'),
-(56, 'purchase_code', '', 'yes'),
-(57, 'viewed_news', '1', 'yes'),
-(58, 'last_update', '0', 'yes'),
-(59, 'social_media_facebook', '', 'no'),
-(60, 'social_media_twitter', '', 'no'),
-(61, 'social_media_youtube', '', 'no'),
-(62, 'social_media_github', '', 'no'),
-(63, 'social_media_linkedin', '', 'no'),
-(64, 'social_media_reddit', '', 'no'),
-(65, 'social_media_pinterest', '', 'no'),
-(66, 'social_media_tumblr', '', 'no'),
-(67, "social_media_instagram", "", "no"),
-(68, "world_wide", "0.4", "no"),
-(69, "currency", "USD,$", "yes");
+INSERT INTO `{DBP}settings` `option_name`, `option_value`, `autoload`) VALUES
+('sitename', '', 'yes'),
+('siteurl', '', 'yes'),
+('powredby', 'Mohammed Ramouchy from MR4Web.com', 'no'),
+('siteclose', '0', 'yes'),
+('secret_key', '', 'no'),
+('public_key', '', 'no'),
+('cookie_expire', '1296000', 'yes'),
+('site_domain', '', 'yes'),
+('use_cookie_on_https', '0', 'yes'),
+('hide_cookie_from_js', '1', 'yes'),
+('cookie_name', 'U', 'yes'),
+('default_language', '1', 'yes'),
+('default_timezone', 'Africa/Casablanca', 'yes'),
+('shutdown_msg', '<h1>The site isn\'t available for now, please try again later.</h1>', 'no'),
+('tracking_code', '', 'no'),
+('registration_status', '1', 'no'),
+('user_delete_account', '0', 'no'),
+('user_page_path', 'account', 'no'),
+('admin_page_path', 'adminpanel', 'yes'),
+('recaptcha_status', '0', 'no'),
+('time_format', 'd-m-Y H:i', 'yes'),
+('shutdown_msg_register', 'Sorry, you can\'t register now, please try later.', 'no'),
+('keywords', '', 'yes'),
+('description', '', 'yes'),
+('show_logo', '0', 'yes'),
+('restoration_time_account', '1', 'no'),
+('email_method', 'mail', 'no'),
+('email_from', '', 'no'),
+('SMTP_Host', '', 'no'),
+('SMTP_Port', '', 'no'),
+('SMTP_User', '', 'no'),
+('SMTP_Pass', '', 'no'),
+('mail_encription', 'tls', 'no'),
+('allow_SSL_Insecure_mode', '0', 'no'),
+('ad_728x90', '728 x 90', 'no'),
+('ad_300x250', '300 x 250', 'no'),
+('ad_300x600', '300 x 600', 'no'),
+('ad_autosize', 'autosize ads', 'no'),
+('ads_status', '0', 'yes'),
+('ads_status_on_accounts', '0', 'yes'),
+('notes_delete_account', 'you can delete (block) your account from here.<br>', 'no'),
+('countdown', '15', 'no'),
+('admin_pub', '', 'no'),
+('admin_channel', '0', 'no'),
+('just_show_admin_ads', '0', 'no'),
+('just_show_users_ads', '0', 'no'),
+('bad_urls', 'gsurl.in\r\nlinkshrink.net\r\nadf.ly', 'no'),
+('go_head_code', '', 'no'),
+('showFakeNumbers', '1', 'no'),
+('fakeViews', '35000', 'no'),
+('fakeUsers', '500', 'no'),
+('fakeLinks', '1400', 'no'),
+('packages_domains', '', 'no'),
+('purchase_code', '', 'yes'),
+('viewed_news', '1', 'yes'),
+('last_update', '0', 'yes'),
+('social_media_facebook', '', 'no'),
+('social_media_twitter', '', 'no'),
+('social_media_youtube', '', 'no'),
+('social_media_github', '', 'no'),
+('social_media_linkedin', '', 'no'),
+('social_media_reddit', '', 'no'),
+('social_media_pinterest', '', 'no'),
+('social_media_tumblr', '', 'no'),
+('social_media_instagram', '', 'no'),
+('world_wide', '0.4', 'no'),
+('currency', 'USD,$', 'yes');
 
 
 -- --------------------------------------------------------
@@ -363,12 +364,12 @@ ALTER TABLE `{DBP}news`
 -- AUTO_INCREMENT for table `{DBP}pages`
 --
 ALTER TABLE `{DBP}pages`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `{DBP}settings`
 --
--- ALTER TABLE `{DBP}settings`
---   MODIFY `option_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+ALTER TABLE `{DBP}settings`
+  MODIFY `option_id` int(255) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `{DBP}statistics`
 --
