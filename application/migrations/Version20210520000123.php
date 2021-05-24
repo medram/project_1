@@ -29,7 +29,7 @@ final class Version20210520000123 extends AbstractMigration
         $this->db_username    = trim(_addslashes(strip_tags(getenv('DB_USER'))));
         $this->db_password    = trim(_addslashes(strip_tags(getenv('DB_PASSWORD'))));
 
-        return '';
+        return 'Creating Countries & Publisher_rates tables.';
     }
 
     public function up(Schema $schema): void
@@ -67,8 +67,11 @@ final class Version20210520000123 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $schema->dropTable($this->db_prefix.'publisher_rates');
-        $schema->dropTable($this->db_prefix.'countries');
+        if ($schema->tablesExist($this->db_prefix.'publisher_rates'))
+            $schema->dropTable($this->db_prefix.'publisher_rates');
+
+        if ($schema->tablesExist($this->db_prefix.'countries'))
+            $schema->dropTable($this->db_prefix.'countries');
     }
 
     public function postUp(Schema $schema): void

@@ -13,11 +13,11 @@ $(function (){
 
 		input.select();
 		document.execCommand('copy');
-		
+
 		this.classList.replace('btn-primary', 'btn-success');
 		this.textContent = 'Copied';
 		clearSelection();
-		
+
 		setTimeout((function (){
 			this.textContent = 'Copy';
 			this.classList.replace('btn-success', 'btn-primary');
@@ -61,7 +61,7 @@ $(function (){
 	       				alert(xhr.responseText);
 	       			}
 	       		},
-	       }); 
+	       });
 	    }
 	    else
 	    {
@@ -104,7 +104,7 @@ $(function (){
 	$('#updateProfileUser').autosubmit('.msg','Saving ...');
 
 	/*===================== Delete pages ======================*/
-	
+
 	$(".deletePage").click(function (){
 	    var id = $(this).attr('id');
 	    var tr = $(this).parents('tr');
@@ -128,7 +128,7 @@ $(function (){
 	            {
 	                alert(xhr.statusText);
 	            },
-	       }); 
+	       });
 	    }
 	    else
 	    {
@@ -136,6 +136,37 @@ $(function (){
 	    }
 	});
 
+	/*===================== Delete pages ======================*/
+	$(".deletePaymentMethod").click(function (){
+	    var id = $(this).attr('id');
+	    var tr = $(this).parents('tr');
+
+	    if(confirm("Deleting a payment method is not recommended, you cound deactivate it instead. \n\nNo, I know what I'm doing, \njust delete this payment method (id: "+id+")?"))
+	    {
+	       $.ajax({
+	            url: getAjaxURL(),
+	            type: 'POST',
+	            data: "deletePaymentMethod=1&id="+id,
+	            success: function(r,s,xhr)
+	            {
+	                if (s == "success")
+	                {
+	                    $(tr).slideUp('slow',function (){
+	                        alert(r);
+	                    });
+	                }
+	            },
+	            error: function (xhr)
+	            {
+	                alert(xhr.statusText);
+	            },
+	       });
+	    }
+	    else
+	    {
+	        return false;
+	    }
+	});
 	/*======================= Edit the page data =========================*/
 	$('#editPage').autosubmit('.msg','Saving ...');
 
@@ -162,14 +193,14 @@ $(function (){
 			},
 			uploadProgress: function (a,b,c,d)
 			{
-				span.html("<i class='fa fa-upload'></i> "+d+'%');	
+				span.html("<i class='fa fa-upload'></i> "+d+'%');
 			},
 			success: function (r,s,xhr)
 			{
 				//alert(r);
 				$('.uploadMsg').html(r).slideDown(function (){
 					span.fadeOut().html(dataspan);
-					
+
 					var src = img.attr('src');
 					img.attr('src',src+'?m='+Math.random());
 				});
@@ -208,7 +239,7 @@ $(function (){
 	       				alert(xhr.responseText);
 	       			}
 	       		},
-	       }); 
+	       });
 	    }
 	    else
 	    {
@@ -217,7 +248,7 @@ $(function (){
 	});
 
 	/*===================== Delete language ======================*/
-	
+
 	$(".deleteLang").click(function (){
 	    var id = $(this).attr('id');
 	    var tr = $(this).parents('tr');
@@ -241,7 +272,7 @@ $(function (){
 	            {
 	                alert(xhr.statusText);
 	            },
-	       }); 
+	       });
 	    }
 	    else
 	    {

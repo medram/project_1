@@ -27,6 +27,12 @@ function _t($table_name)
     return getenv('DB_PREFIX').$table_name;
 }
 
+function get_currency()
+{
+    $currency = explode(',', get_config_item('currency'));
+    return ['name' => $currency[0], 'symbol' => $currency[1]];
+}
+
 function set_message($message=null, $type='warning')
 {
     global $ALERT_MESSAGES;

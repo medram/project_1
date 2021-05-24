@@ -122,7 +122,7 @@ CREATE TABLE `{DBP}pages` (
   `uneditable` int(255) NOT NULL,
   `created` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `modified` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `{DBP}pages`
@@ -145,7 +145,7 @@ CREATE TABLE `{DBP}settings` (
   `option_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `option_value` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `autoload` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `{DBP}settings`
@@ -217,7 +217,8 @@ INSERT INTO `{DBP}settings` (`option_id`, `option_name`, `option_value`, `autolo
 (65, 'social_media_pinterest', '', 'no'),
 (66, 'social_media_tumblr', '', 'no'),
 (67, "social_media_instagram", "", "no"),
-(98, "world_wide", "0.4", "no");
+(68, "world_wide", "0.4", "no"),
+(69, "currency", "USD,$", "yes");
 
 
 -- --------------------------------------------------------
@@ -274,7 +275,7 @@ CREATE TABLE `{DBP}usersmeta` (
   `user_id` int(11) NOT NULL,
   `user_option` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `user_value` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Indexes for table `{DBP}contact`
@@ -366,8 +367,8 @@ ALTER TABLE `{DBP}pages`
 --
 -- AUTO_INCREMENT for table `{DBP}settings`
 --
-ALTER TABLE `{DBP}settings`
-  MODIFY `option_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+-- ALTER TABLE `{DBP}settings`
+--   MODIFY `option_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 --
 -- AUTO_INCREMENT for table `{DBP}statistics`
 --
