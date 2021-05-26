@@ -9,7 +9,7 @@ $lang['notifAccount.settings.title'] = 'Links settings';
 
 /*------------- change the password --------------*/
 $lang['notifAccount.password.span.1'] = 'the Captcha code is incorrect, please try again!';
-$lang['notifAccount.password.span.2'] = 'Please fill the all fields.';
+$lang['notifAccount.password.span.2'] = 'Please fill all fields below.';
 $lang['notifAccount.password.span.3'] = 'Oops, the current password was\'t correct.';
 $lang['notifAccount.password.span.4'] = 'Oops, the Two passwords dosn\'t match.';
 $lang['notifAccount.password.span.5'] = 'The new password has been successfully saved.';
@@ -140,6 +140,11 @@ $lang['notifAccount.cms_model.span.25'] = 'Please choose your country.';
 $lang['notifAccount.cms_model.span.26'] = 'Sorry, the birthday is incorrect format.';
 $lang['notifAccount.cms_model.span.27'] = $lang['notifAccount.password.span.6'];
 $lang['notifAccount.cms_model.span.28'] = 'Saved successfully.';
+
+/*------------- Profile withdraw method --------------*/
+$lang['notifAccount.withdraw.span.29'] = $lang['notifAccount.cms_model.span.28'];
+$lang['notifAccount.withdraw.span.30'] = 'Please select a valid withdraw method.';
+$lang['notifAccount.withdraw.span.31'] = $lang['notifAccount.password.span.2'];
 
 ?>
 

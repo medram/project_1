@@ -19,19 +19,16 @@
 						<a href="#repass" aria-controls="repass" role="tab" data-toggle="tab">
 						<i class='fa fa-lg fa-unlock-alt'></i> <?php langLine('account.profile.span.2') ?></a>
 					</li>
-					<?php
-					if (get_config_item('user_delete_account') == 1)
-					{
-
-					?>
+					<?php if (get_config_item('user_delete_account') == 1) { ?>
 					<li role="presentation">
 						<a href="#block" aria-controls="block" role="tab" data-toggle="tab">
 						<i class='fa fa-lg fa-trash-o'></i> <?php langLine('account.profile.span.3') ?></a>
 					</li>
-					<?php
-
-					}
-					?>
+					<?php } ?>
+					<li role="presentation">
+						<a href="#withdraw" aria-controls="withraw" role="tab" data-toggle="tab">
+						<i class='fa fa-lg fa-credit-card'></i> <?php langLine('account.profile.span.22') ?></a>
+					</li>
 				</ul>
 
 				<!-- Tab panes -->
@@ -136,9 +133,7 @@
 						</div>
 					</div>
 					<?php
-					if (get_config_item('user_delete_account') == 1)
-					{
-					?>
+					if (get_config_item('user_delete_account') == 1) { ?>
 					<div role="tabpanel" class="tab-pane" id="block">
 						<br></br>
 						<div class='col-lg-12'>
@@ -155,9 +150,70 @@
 							</div>
 						</div>
 					</div>
-					<?php
-					}
-					?>
+					<?php } ?>
+
+					<div role="tabpanel" class="tab-pane" id="withdraw">
+						<div class="col-md-8">
+							<h3>Select My Withdrawal Method:</h3>
+							<form method='POST' action='<?php echo base_url($page_path); ?>/ajax' id='updateWithdrawalMethod'>
+								<div class='form-group'>
+									<label>Method:</label>
+									<select name='withdrawal_method' class='form-control'>
+										<option value='0'>--- Choose a Method ---</option>
+										<?php foreach($withdrawal_methods as $method): ?>
+											<option value='<?=$method->id ?>' <?=($method->id == $userdata['withdrawal_method_id'])? 'selected': '' ?>><?=$method->name ?></option>
+										<?php endforeach ?>
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Withdrawal Account:</label>
+									<textarea name="withdrawal_account" rows='5' class="form-control" placeholder="e.g. For PayPal, add your email here."><?=$userdata['withdrawal_account'] ?></textarea>
+								</div>
+								<div class="form-group">
+									<input type='hidden' name='tab' value='3' >
+									<button type="submit" class="btn btn-primary">Save</button>
+								</div>
+							</form>
+						</div>
+						<div class='col-md-4'>
+							<!--
+							<h4>Info:</h4>
+							<ul>
+								<?php foreach($withdrawal_methods as $method): ?>
+									<?php if ($method->description): ?>
+										<li><?=$method->description ?></li>
+									<?php endif ?>
+								<?php endforeach ?>
+							</ul>
+							-->
+						</div>
+						<div class='col-lg-12'>
+							<h3>Available Withdrawal Methods:</h3>
+							<?php
+							$currency = get_currency();
+							?>
+							<?php if ($withdrawal_methods): ?>
+								<table class='table table-striped'>
+									<thead>
+										<tr>
+											<th>Withdrawal Method</th>
+											<th>Minimum Amount to Withdraw</th>
+											<th>Description</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php foreach($withdrawal_methods as $method): ?>
+										<tr>
+											<td><?=$method->name ?></td>
+											<td><?="{$currency['symbol']}{$method->min_amount}" ?></td>
+											<td><?=$method->description ?></td>
+										</tr>
+										<?php endforeach ?>
+									</tbody>
+								</table>
+							<?php endif ?>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

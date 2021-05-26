@@ -68,6 +68,9 @@ $.ajax({
 
 				});
 
+				/*=========================== Update withdrawal method ==============================*/
+				$('#updateWithdrawalMethod').autosubmit('.msg', ajaxStr['ajax.str.3']);
+
 				/*=========================== Update profile ==============================*/
 				$('#updateProfile').autosubmit('.msg', ajaxStr['ajax.str.3']);
 

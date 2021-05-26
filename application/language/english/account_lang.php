@@ -30,12 +30,12 @@ $lang['account.addlinks.span.1'] = 'Short new link';
 $lang['account.addlinks.span.2'] = 'Short one link';
 $lang['account.addlinks.span.3'] = 'Short multi links';
 $lang['account.addlinks.span.4'] = 'Title link';
-$lang['account.addlinks.span.5'] = 'ex: The best 3d games in this year!';
+$lang['account.addlinks.span.5'] = 'e.g. The best 3d games in this year!';
 $lang['account.addlinks.span.6'] = 'Link that you want to short';
 $lang['account.addlinks.span.7'] = 'Favorite domain';
 $lang['account.addlinks.span.8'] = 'Short now';
 $lang['account.addlinks.span.9'] = 'Title';
-$lang['account.addlinks.span.10'] = 'ex: The newest 3d games in this month!';
+$lang['account.addlinks.span.10'] = 'e.g. The newest 3d games in this month!';
 $lang['account.addlinks.span.11'] = 'All Links that you want to short';
 $lang['account.addlinks.span.12'] = 'Favorite domain';
 $lang['account.addlinks.span.13'] = 'Short all links now';
@@ -79,20 +79,25 @@ $lang['account.profile.span.9'] = 'Female';
 $lang['account.profile.span.10'] = 'Country';
 $lang['account.profile.span.11'] = 'birthday';
 $lang['account.profile.span.12'] = 'Security question';
-$lang['account.profile.span.13'] = 'ex: Which country would you like to visit ?';
+$lang['account.profile.span.13'] = 'e.g. Which country would you like to visit ?';
 $lang['account.profile.span.14'] = 'Answer';
-$lang['account.profile.span.15'] = 'ex: japan';
+$lang['account.profile.span.15'] = 'e.g. japan';
 $lang['account.profile.span.16'] = 'Save';
 $lang['account.profile.span.17'] = 'Current password';
 $lang['account.profile.span.18'] = 'New password';
 $lang['account.profile.span.19'] = 'Confirm new password';
 $lang['account.profile.span.20'] = 'Save the new password';
 $lang['account.profile.span.21'] = 'Delete my account';
+$lang['account.profile.span.22'] = 'Withrawal Methods';
 
 /*----------------- repass page -----------------*/
 $lang['account.repass.span.1'] = 'Set new password';
 $lang['account.repass.span.2'] = 'New password';
 $lang['account.repass.span.3'] = 'Confirm new password';
 $lang['account.repass.span.4'] = 'Save';
+
+/*----------------- withdraw -----------------*/
+
+
 
 ?>

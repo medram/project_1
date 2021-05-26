@@ -1509,9 +1509,45 @@ class Adminpanel extends MY_controller
 			}
 		}
 
+		/*============= Delete save WithdrowRequest status ============*/
+
+		if ($this->input->post('saveWithdrowRequestStatus'))
+		{
+			$id = intval($this->input->post('id', TRUE));
+			$status = intval($this->input->post('status_id', TRUE));
+
+			$updated = $this->db->set(['status' => $status])->where(['id' => $id])->update('withdraw_reqs');
+
+			if ($updated)
+			{
+				echo "Status updated successfully.";
+			}
+			else
+			{
+				echo "Oops, Something was wrong !";
+			}
+		}
+
+		/*================== Delete withdrawal request =================*/
+
+		if ($this->input->post('deleteWithdrowRequest'))
+		{
+			$id = intval($this->input->post('id', TRUE));
+			$del = $this->db->delete('withdraw_reqs', ['id' => $id]);
+
+			if ($del)
+			{
+				echo "Deleted successfully.";
+			}
+			else
+			{
+				echo "Oops, Something was wrong !";
+			}
+		}
+
 		/*================== Delete withdrawal method =================*/
 
-		if ($this->input->post('deletePaymentMethod'))
+		if ($this->input->post('deleteWithdrawalMethod'))
 		{
 			$id = intval($this->input->post('id', TRUE));
 			$del = $this->db->delete('withdrawal_methods', ['id' => $id]);
@@ -1785,11 +1821,13 @@ class Adminpanel extends MY_controller
 				$name = $this->input->post('name', true);
 				$min_amount = $this->input->post('min_amount', true);
 				$status = intval($this->input->post('status', true));
+				$desc = $this->input->post('desc', true);
 
 				$this->db->set([
 					'name' => $name,
 					'min_amount' => $min_amount,
 					'status' => $status,
+					'description' => $desc,
 				])->insert('withdrawal_methods');
 
 				set_message('Added successfully.', 'success');
@@ -1809,11 +1847,13 @@ class Adminpanel extends MY_controller
 				$name = $this->input->post('name', true);
 				$min_amount = $this->input->post('min_amount', true);
 				$status = intval($this->input->post('status', true));
+				$desc = $this->input->post('desc', true);
 
 				$this->db->set([
 					'name' => $name,
 					'min_amount' => $min_amount,
 					'status' => $status,
+					'description' => $desc,
 				])->where([
 					'id' => $payment_method_id
 				])->update('withdrawal_methods');
@@ -1838,20 +1878,28 @@ class Adminpanel extends MY_controller
 		$this->load->view("templates/admin_footer",$this->data);
 	}
 
-	public function withdraw_reqs($action='', $withdraw_reqs=0)
+	public function withdrawal_reqs($action='', $withdraw_reqs=0)
 	{
 		$this->data['withdraw_reqs'] = [];
-		$view_page = 'withdraw_reqs';
+		$view_page = 'withdrawal_reqs';
 		$withdraw_reqs = intval($withdraw_reqs);
 
 		if ($action == '')
 		{
-			$this->data['title'] = 'Withdraw Requests';
+			$this->data['title'] = 'Withdrawal Requests';
+			$this->data['result'] = $this->db->select('*, withdraw_reqs.status AS status, withdrawal_methods.status AS withdrawal_method_status, withdraw_reqs.id AS id, withdraw_reqs.withdrawal_account as withdrawal_account')
+									->from('withdraw_reqs')
+									->join('users', 'users.id = withdraw_reqs.user_id')
+									->join('withdrawal_methods', 'withdraw_reqs.withdrawal_method_id = withdrawal_methods.id')
+									->get()
+									->result_object();
+
 		}
 		else if ($action == 'edit')
 		{
 			$this->data['title'] = 'Edit Withdraw Request';
 		}
+
 
 		$this->load->view("templates/admin_header",$this->data);
 		$this->load->view("pages/admin/{$view_page}",$this->data);

@@ -29,6 +29,10 @@
         						<option value='1' <?php echo $method->status ? 'selected' : '' ?> >Active</option>
         					</select>
         				</div>
+                        <div class='form-group'>
+                            <label>Description for users:</label>
+                            <textarea name='desc' class='form-control' placeholder='e.g. For PayPal, add your email.' ><?php echo $method->description ?></textarea>
+                        </div>
         				<div class='form-group'>
         					<input type='submit' name='add' class='btn btn-primary' value='Add Withdrawal Method'>
         				</div>

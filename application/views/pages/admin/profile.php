@@ -26,8 +26,8 @@
         						<input type='email' name='email' class='form-control' value='<?php echo $userdata['email']; ?>' >
         					</div>
         					<div class='form-group'>
-        						<label>Birth Date :</label>
-        						<input type='text' name='date-birth' class='form-control' placeholder='DD/MM/YYYY' 
+        						<label>Birthday :</label>
+        						<input type='text' name='date-birth' class='form-control' placeholder='DD/MM/YYYY'
         							value='<?php if (isset($userdata['birth_date'])){echo $userdata['birth_date'];} ?>' >
         					</div>
         					<div class='form-group'>

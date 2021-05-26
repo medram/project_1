@@ -136,17 +136,17 @@ $(function (){
 	    }
 	});
 
-	/*===================== Delete pages ======================*/
-	$(".deletePaymentMethod").click(function (){
+	/*===================== Delete Withdrawal Method ======================*/
+	$(".deleteWithdrawalMethod").click(function (){
 	    var id = $(this).attr('id');
 	    var tr = $(this).parents('tr');
 
-	    if(confirm("Deleting a payment method is not recommended, you cound deactivate it instead. \n\nNo, I know what I'm doing, \njust delete this payment method (id: "+id+")?"))
+	    if(confirm("Deleting a withdrawal method is not recommended, you cound deactivate it instead. \n\nNo, I know what I'm doing, \njust delete this withdrawal method (id: "+id+")?"))
 	    {
 	       $.ajax({
 	            url: getAjaxURL(),
 	            type: 'POST',
-	            data: "deletePaymentMethod=1&id="+id,
+	            data: "deleteWithdrawalMethod=1&id="+id,
 	            success: function(r,s,xhr)
 	            {
 	                if (s == "success")
@@ -166,6 +166,69 @@ $(function (){
 	    {
 	        return false;
 	    }
+	});
+
+	/*===================== Delete Withdrawal Request ======================*/
+	$(".deleteWithdrowRequest").click(function (){
+	    var id = $(this).attr('id');
+	    var tr = $(this).parents('tr');
+
+	    if(confirm("Deleting a withdrawal request is not recommended, you cound cancel it instead. \n\nNo, I know what I'm doing, \njust delete this withdrawal request (id: "+id+")?"))
+	    {
+	       $.ajax({
+	            url: getAjaxURL(),
+	            type: 'POST',
+	            data: `deleteWithdrowRequest=1&id=${id}`,
+	            success: function(r,s,xhr)
+	            {
+	                if (s == "success")
+	                {
+	                    $(tr).slideUp('slow',function (){
+	                        alert(r);
+	                    });
+	                }
+	            },
+	            error: function (xhr)
+	            {
+	                alert(xhr.statusText);
+	            },
+	       });
+	    }
+	    else
+	    {
+	        return false;
+	    }
+	});
+
+	/*===================== Change Withdrawal Request Status ======================*/
+	$(".statusSelector").on('change', (e) => {
+		let status_id = $(e.target).val()
+	    let tr = $(e.target).parents('tr');
+		tr.find('.saveWithdrowRequestStatus').attr('data-status-id', status_id)
+	})
+
+	$(".saveWithdrowRequestStatus").click(function (){
+	    let id = $(this).attr('id');
+	    let status_id = $(this).attr('data-status-id');
+	    let tr = $(this).parents('tr');
+
+		$.ajax({
+		    url: getAjaxURL(),
+		    type: 'POST',
+		    data: `saveWithdrowRequestStatus=1&id=${id}&status_id=${status_id}`,
+		    success: function(r,s,xhr)
+		    {
+		        if (s == "success")
+		        {
+		        	alert(r)
+		        }
+		    },
+		    error: function (xhr)
+		    {
+		        alert(xhr.statusText);
+		    },
+		});
+
 	});
 	/*======================= Edit the page data =========================*/
 	$('#editPage').autosubmit('.msg','Saving ...');

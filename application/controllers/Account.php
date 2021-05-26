@@ -53,7 +53,7 @@ class Account extends MY_controller
 				*/
 				foreach ($r as $k => $row)
 				{
-					$this->data['userdata'][$row['user_option']] = $row['user_value'];	
+					$this->data['userdata'][$row['user_option']] = $row['user_value'];
 				}
 				/*
 				echo "<pre dir='ltr'>";
@@ -74,7 +74,7 @@ class Account extends MY_controller
 	public function index ()
 	{
 		$this->data['title'] = langLine('notifAccount.index.span.1', false)." ".$this->data['userdata']['username']." !";
-		
+
 		/*============================= get statistics data ============================*/
 		$w_st['user_id'] = $this->data['userdata']['id'];
 		$s_st = $this->cms_model->select('statistics',$w_st,array('id','DESC'));
@@ -86,7 +86,7 @@ class Account extends MY_controller
 		$s_l = $this->cms_model->select('links',$w_l);
 
 		$all_linls_views = 0;
-		
+
 		if ($s_l->num_rows() > 0)
 		{
 			foreach ($s_l->result_array() as $row)
@@ -116,7 +116,9 @@ class Account extends MY_controller
 	public function profile()
 	{
 		$this->data['title'] = langLine('notifAccount.profile.span.1', false);
-		
+		$this->data['withdrawal_methods'] = $this->db->select('*')
+											->where(['status' => 1])
+											->get('withdrawal_methods')->result_object();
 
 		$this->load->view("templates/header",$this->data);
 		$this->data['sidebar'] = $this->load->view("templates/user_sidebar",$this->data,TRUE);
@@ -129,7 +131,7 @@ class Account extends MY_controller
 		if ($this->data['userdata']['account_status'] == 2) // 2 = banned
 		{
 			$this->data['title'] = langLine('notifAccount.banned.title', false);
-			
+
 
 			$this->load->view("templates/header",$this->data);
 			$this->data['sidebar'] = $this->load->view("templates/user_sidebar",$this->data,TRUE);
@@ -145,7 +147,7 @@ class Account extends MY_controller
 	public function addlinks ()
 	{
 			$this->data['title'] = langLine('notifAccount.addlinks.title', false);
-			
+
 
 			$this->load->view("templates/header",$this->data);
 			$this->data['sidebar'] = $this->load->view("templates/user_sidebar",$this->data,TRUE);
@@ -171,11 +173,11 @@ class Account extends MY_controller
 		{
 			redirect(base_url($this->data['page_path'].'/mylinks/p/1'.$string));
 		}
-		
+
 		$p = (intval($p) <= 0)? redirect(base_url($this->data['page_path'].'/mylinks/p/1')) : intval($p) ;
 		$lenght = 15; // number of link per page
 		$start = ceil(($p - 1) * $lenght);
-		
+
 
 		$w['user_id'] = $this->data['userdata']['id'];
 
@@ -196,7 +198,7 @@ class Account extends MY_controller
 		$this->data['num_per_page'] = $lenght;
 		$all_pages = ceil($total_items / $lenght);
 		$this->data['all_pages'] = $all_pages;
-		$this->data['p'] = $p;		
+		$this->data['p'] = $p;
 
 		$this->data['no_result_of_search'] = 1;
 
@@ -213,13 +215,13 @@ class Account extends MY_controller
 				if (isset($str))
 				{
 					//$str,$table,$col,$where='',$orderBy='',$length='',$start=''
-					$s = $this->cms_model->search($str,'links',$cols,$w,array('id','DESC'),$lenght,$start);			
+					$s = $this->cms_model->search($str,'links',$cols,$w,array('id','DESC'),$lenght,$start);
 				}
 				else
 				{
 					$s = $this->cms_model->select('links',$w,array('id','DESC'),$lenght,$start);
 				}
-				
+
 				$this->data['links'] = $s;
 			}
 		}
@@ -250,7 +252,44 @@ class Account extends MY_controller
 
 	public function ajax ($var="")
 	{
-		/*======================== Change data of user =============================*/
+		/*==================== Change withdrawal method =========================*/
+		if ($this->input->post('tab',TRUE) == 3)
+		{
+			$withdrawal_method_id = intval($this->input->post('withdrawal_method', true));
+			$withdrawal_account = $this->input->post('withdrawal_account', true);
+
+			$method = $this->db->select('*')->where([
+				'id' => $withdrawal_method_id,
+				'status' => 1, // 1=active
+			])->get('withdrawal_methods');
+
+			// check if the selected method is active first.
+			if ($method->num_rows())
+			{
+				if ($withdrawal_method_id && $withdrawal_account)
+				{
+					$this->db->set([
+						'withdrawal_account' => $withdrawal_account,
+						'withdrawal_method_id' => $withdrawal_method_id
+					])
+					->where(['id' => $this->data['userdata']['id']])
+					->update('users');
+
+					$ok = langLine('notifAccount.withdraw.span.29', false);
+				}
+				else
+				{
+					$err = langLine('notifAccount.withdraw.span.31', false);
+				}
+			}
+			else
+			{
+				$err = langLine('notifAccount.withdraw.span.30', false);
+			}
+
+		} // end if of update data of user
+
+		/*======================== Change user data =============================*/
 		if ($this->input->post('tab',TRUE) == 1)
 		{
 			$mess = $this->cms_model->userProfileUpdate();
@@ -264,7 +303,7 @@ class Account extends MY_controller
 			}
 
 		} // end if of update data of user
-	
+
 		/*======================== Change password of user =============================*/
 		if ($this->input->post('tab',TRUE) == 2)
 		{
@@ -292,7 +331,7 @@ class Account extends MY_controller
 			{
 				$set['password'] = password_hash($new_pass,PASSWORD_DEFAULT);
 				$where = array('user_token'=>$this->data['userdata']['user_token']);
-				
+
 				$up = $this->cms_model->update('users',$set,$where);
 
 				if ($up)
@@ -322,7 +361,7 @@ class Account extends MY_controller
 					});
 				</script>
 			";
-			
+
 			if (isset($err))
 			{
 				$err .= $script;
@@ -392,7 +431,7 @@ class Account extends MY_controller
 
 			$newLinks = '';
 			$ex  = explode("\n",$url);
-			
+
 			// if there are a one link
 			if (count($ex) == 1 && $type == 0)
 			{
@@ -440,7 +479,7 @@ class Account extends MY_controller
 					$d['created'] 		= time();
 
 					$insert = $this->cms_model->insert('links',$d);
-					
+
 					if ($insert)
 					{
 						$ok = langLine('notifAccount.newLink.span.8', false);
@@ -456,7 +495,7 @@ class Account extends MY_controller
 				$url = $ex;
 				$a = array();
 				foreach ($url as $k => $link) {
-					if ($link == "" or $link == " " or $link == "\n" or $link == "\r" 
+					if ($link == "" or $link == " " or $link == "\n" or $link == "\r"
 						or $link == "\r\n" or $link == "\n\r")
 					{
 						continue;
@@ -541,7 +580,7 @@ class Account extends MY_controller
 							$d['created'] 		= time();
 
 							$insert = $this->cms_model->insert('links',$d);
-							
+
 							if ($insert)
 							{
 								$a_errs[] = 1;
@@ -550,8 +589,8 @@ class Account extends MY_controller
 							{
 								$a_errs[] = 0;
 							}
-						} // end for loop	
-					
+						} // end for loop
+
 						if (!in_array(0,$a_errs))
 						{
 							$ok = langLine('notifAccount.newLink.span.18', false);
@@ -614,7 +653,7 @@ class Account extends MY_controller
 			$w['user_id'] = $this->data['userdata']['id'];
 
 			$del = $this->cms_model->delete('links',$w);
-		
+
 			if ($del)
 			{
 				echo langLine('notifAccount.deleteLink.span.1', false);
@@ -667,13 +706,13 @@ class Account extends MY_controller
 					$w2['user_id'] = $user_id;
 					$w2['user_option'] = $k;
 					$del = $this->cms_model->delete('usersmeta',$w2);
-					
+
 					$da['user_id'] = $user_id;
 					$da['user_option'] = $k;
 					$da['user_value'] = $v;
 					$insert = $this->cms_model->insert('usersmeta',$da);
 				}
-				
+
 				if ($del && $insert)
 				{
 					$ok = langLine('notifAccount.settings.span.7', false);

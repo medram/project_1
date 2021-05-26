@@ -45,7 +45,7 @@
                                         <td>{$status}</td>
                                         <td>
                                             <a href='withdrawal_methods/edit/{$method->id}' class='btn btn-xs btn-primary'><i class='fa fa-fw fa-pencil'></i> Edit</a>
-                                            <a class='btn btn-xs btn-danger deletePaymentMethod' id='{$method->id}'><i class='fa fa-fw fa-trash'></i>Delete</a>
+                                            <a class='btn btn-xs btn-danger deleteWithdrawalMethod' id='{$method->id}'><i class='fa fa-fw fa-trash'></i>Delete</a>
                                         </td>
                                     </tr>";
                                 }
