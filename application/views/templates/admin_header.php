@@ -162,7 +162,10 @@
 					<a href="<?php echo base_url().$page_path; ?>/publisher_rates"><i class="fa fa-list-ul"></i> <span>Publisher Rates</span></a>
 				</li>
 				<li>
-					<a href="<?php echo base_url().$page_path; ?>/payment_methods"><i class="fa fa-credit-card"></i> <span>Payment Methods</span></a>
+					<a href="<?php echo base_url().$page_path; ?>/withdrawal_methods"><i class="fa fa-credit-card"></i> <span>Withdrawal Methods</span></a>
+				</li>
+				<li>
+					<a href="<?php echo base_url().$page_path; ?>/withdraw_reqs"><i class="fa fa-usd"></i> <span>Withdraw Requests</span></a>
 				</li>
 				<li>
 					<a href="<?php echo base_url().$page_path; ?>/updates"><i class="fa fa-calendar"></i> <span>Updates & News <?php echo labelNotification() ?></span></a>

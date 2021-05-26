@@ -1509,12 +1509,12 @@ class Adminpanel extends MY_controller
 			}
 		}
 
-		/*================== Delete payment method =================*/
+		/*================== Delete withdrawal method =================*/
 
 		if ($this->input->post('deletePaymentMethod'))
 		{
 			$id = intval($this->input->post('id', TRUE));
-			$del = $this->db->delete('payment_methods', ['id' => $id]);
+			$del = $this->db->delete('withdrawal_methods', ['id' => $id]);
 
 			if ($del)
 			{
@@ -1764,21 +1764,21 @@ class Adminpanel extends MY_controller
 	}
 
 
-	public function payment_methods($action='', $payment_method_id=0)
+	public function withdrawal_methods($action='', $payment_method_id=0)
 	{
 		$this->data['payment_methods'] = [];
-		$view_page = 'payment_methods';
+		$view_page = 'withdrawal_methods';
 		$payment_method_id = intval($payment_method_id);
 
 		if ($action == '')
 		{
-			$this->data['title'] = 'Payment Methods';
-			$this->data['payment_methods'] = $this->db->select('*')->from('payment_methods')->get()->result_object();
+			$this->data['title'] = 'Withdrawal Methods';
+			$this->data['withdrawal_methods'] = $this->db->select('*')->from('withdrawal_methods')->get()->result_object();
 		}
 		else if ($action == 'add')
 		{
-			$this->data['title'] = 'Add Payment Method';
-			$view_page = 'add_payment_method';
+			$this->data['title'] = 'Add Withdrawal Method';
+			$view_page = 'add_withdrawal_method';
 
 			if ($this->input->post('add'))
 			{
@@ -1790,19 +1790,19 @@ class Adminpanel extends MY_controller
 					'name' => $name,
 					'min_amount' => $min_amount,
 					'status' => $status,
-				])->insert('payment_methods');
+				])->insert('withdrawal_methods');
 
 				set_message('Added successfully.', 'success');
-				redirect("{$this->data['page_path']}/payment_methods", 'refresh');
+				redirect("{$this->data['page_path']}/withdrawal_methods", 'refresh');
 			}
 		}
 		else if ($action == 'edit')
 		{
-			$view_page = 'edit_payment_method';
-			$this->data['title'] = 'Edit Payment Method';
-			$payment_methods = $this->db->select('*')->where(['id' => $payment_method_id])->get('payment_methods');
+			$view_page = 'edit_withdrawal_method';
+			$this->data['title'] = 'Edit Withdrawal Method';
+			$withdrawal_methods = $this->db->select('*')->where(['id' => $payment_method_id])->get('withdrawal_methods');
 
-			//print_r($payment_methods->result_object());
+			//print_r($withdrawal_methods->result_object());
 
 			if ($this->input->post())
 			{
@@ -1816,21 +1816,41 @@ class Adminpanel extends MY_controller
 					'status' => $status,
 				])->where([
 					'id' => $payment_method_id
-				])->update('payment_methods');
+				])->update('withdrawal_methods');
 
 				set_message('Updated successfully.', 'success');
-				redirect("{$this->data['page_path']}/payment_methods", 'refresh');
+				redirect("{$this->data['page_path']}/withdrawal_methods", 'refresh');
 			}
 
-			if ($payment_methods->num_rows())
+			if ($withdrawal_methods->num_rows())
 			{
-				$this->data['method'] = $payment_methods->result_object()[0];
+				$this->data['method'] = $withdrawal_methods->result_object()[0];
 			}
 			else
 			{
 				set_message('Payment method not found.', 'warning');
-				redirect("{$this->data['page_path']}/payment_methods", 'refresh');
+				redirect("{$this->data['page_path']}/withdrawal_methods", 'refresh');
 			}
+		}
+
+		$this->load->view("templates/admin_header",$this->data);
+		$this->load->view("pages/admin/{$view_page}",$this->data);
+		$this->load->view("templates/admin_footer",$this->data);
+	}
+
+	public function withdraw_reqs($action='', $withdraw_reqs=0)
+	{
+		$this->data['withdraw_reqs'] = [];
+		$view_page = 'withdraw_reqs';
+		$withdraw_reqs = intval($withdraw_reqs);
+
+		if ($action == '')
+		{
+			$this->data['title'] = 'Withdraw Requests';
+		}
+		else if ($action == 'edit')
+		{
+			$this->data['title'] = 'Edit Withdraw Request';
 		}
 
 		$this->load->view("templates/admin_header",$this->data);

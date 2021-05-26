@@ -10,7 +10,7 @@
         	<div class="row">
                 <div class="col-md-12"><?php echo get_messages(true) ?></div>
                 <div class='col-lg-12 text-right'>
-                    <a href='./payment_methods/add' class='btn btn-primary'><i class='fa fa-plus-circle fa-fw'></i> Add Payment Method</a>
+                    <a href='./withdrawal_methods/add' class='btn btn-primary'><i class='fa fa-plus-circle fa-fw'></i> Add Withdrawal Method</a>
                     <br>
                     <br>
                 </div>
@@ -30,8 +30,8 @@
                         <tbody>
                             <?php
                             $currency = get_currency();
-                            if ($payment_methods)
-                                foreach($payment_methods as $method)
+                            if ($withdrawal_methods)
+                                foreach($withdrawal_methods as $method)
                                 {
                                     if ($method->status == 1)
                                         $status = "<span class='label label-success'>Active</span>";
@@ -44,14 +44,14 @@
                                         <td>{$currency['symbol']}{$method->min_amount}</td>
                                         <td>{$status}</td>
                                         <td>
-                                            <a href='payment_methods/edit/{$method->id}' class='btn btn-xs btn-primary'><i class='fa fa-fw fa-pencil'></i> Edit</a>
+                                            <a href='withdrawal_methods/edit/{$method->id}' class='btn btn-xs btn-primary'><i class='fa fa-fw fa-pencil'></i> Edit</a>
                                             <a class='btn btn-xs btn-danger deletePaymentMethod' id='{$method->id}'><i class='fa fa-fw fa-trash'></i>Delete</a>
                                         </td>
                                     </tr>";
                                 }
                             else
                             {
-                                echo "<tr><td colspan='3' class='text-center'>No payment methods.</td></tr>";
+                                echo "<tr><td colspan='3' class='text-center'>No withdrawal methods.</td></tr>";
                             }
                             ?>
                         </tbody>

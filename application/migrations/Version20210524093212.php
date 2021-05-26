@@ -30,7 +30,7 @@ final class Version20210524093212 extends AbstractMigration
         $this->db_username    = trim(_addslashes(strip_tags(getenv('DB_USER'))));
         $this->db_password    = trim(_addslashes(strip_tags(getenv('DB_PASSWORD'))));
 
-        return '';
+        return 'Withdrawal Methods & Withdraw Requests Tables Creation.';
     }
 
     public function up(Schema $schema): void
@@ -42,8 +42,8 @@ final class Version20210524093212 extends AbstractMigration
         $this->addSql("ALTER TABLE `".$this->db_prefix."users` ADD `balance` FLOAT(6) DEFAULT 0");
         //$user->addColumn('balance', 'float', ['default' => 0]);
 
-        // payment_methods table
-        $methods = $schema->createTable($this->db_prefix.'payment_methods');
+        // withdrawal_methods table
+        $methods = $schema->createTable($this->db_prefix.'withdrawal_methods');
         $methods->addColumn('id', 'integer', [
             'autoincrement' => true
         ]);
@@ -54,13 +54,13 @@ final class Version20210524093212 extends AbstractMigration
 
         $methods->setPrimaryKey(['id']);
 
-        // payment_methods table
+        // withdrawal_methods table
         $withdraw = $schema->createTable($this->db_prefix.'withdraw_reqs');
         $withdraw->addColumn('id', 'integer', [
             'autoincrement' => true
         ]);
         $withdraw->addColumn('user_id', 'integer');
-        $withdraw->addColumn('payment_method_id', 'integer', ['default' => 0]);
+        $withdraw->addColumn('withdrawal_method_id', 'integer', ['default' => 0]);
         $withdraw->addColumn('amount', 'float', ['default' => 0]);
         $withdraw->addColumn('created', 'datetime');
 
@@ -69,7 +69,7 @@ final class Version20210524093212 extends AbstractMigration
             'onUpdate' => 'CASCADE',
             'onDelete' => 'CASCADE',
         ]);
-        $withdraw->addForeignKeyConstraint($methods, ['payment_method_id'], ['id'], [
+        $withdraw->addForeignKeyConstraint($methods, ['withdrawal_method_id'], ['id'], [
             'onUpdate' => 'CASCADE',
             'onDelete' => 'SET DEFAULT',
         ]);
@@ -78,13 +78,13 @@ final class Version20210524093212 extends AbstractMigration
     public function down(Schema $schema): void
     {
         $this->addSql('DROP TABLE IF EXISTS '.$this->db_prefix.'withdraw_reqs');
-        $this->addSql('DROP TABLE IF EXISTS '.$this->db_prefix.'payment_methods');
+        $this->addSql('DROP TABLE IF EXISTS '.$this->db_prefix.'withdrawal_methods');
         $this->addSql('ALTER TABLE '.$this->db_prefix.'users DROP COLUMN balance');
     }
 
     public function postUp(Schema $schema): void
     {
-        $payment_methods_table = $this->db_prefix.'payment_methods';
+        $withdrawal_methods_table = $this->db_prefix.'withdrawal_methods';
         $methods = [
             ['name' => 'PayPal', 'min_amount' => 50, 'status' => 0],
             ['name' => 'Stripe', 'min_amount' => 50, 'status' => 0],
@@ -93,7 +93,7 @@ final class Version20210524093212 extends AbstractMigration
 
         foreach($methods as $method)
         {
-            $this->connection->insert($payment_methods_table, $method);
+            $this->connection->insert($withdrawal_methods_table, $method);
         }
     }
 }
